@@ -11,6 +11,7 @@
     --text:#eaf8ff;
     --muted:#7f9aa8;
     --glow:#8de8ff;
+    --danger:#ff8f8f;
   }
 
   *{box-sizing:border-box}
@@ -29,7 +30,6 @@
     display:flex;
     align-items:stretch;
     justify-content:stretch;
-    padding:0;
   }
 
   /* LOGIN */
@@ -125,16 +125,11 @@
     cursor:pointer;
   }
 
-  .auth-card button:hover{
-    background:rgba(17,48,64,.82);
-  }
-
   .auth-error{
     min-height:18px;
     margin-top:13px;
-    color:#ff9c9c;
+    color:var(--danger);
     font-size:10px;
-    letter-spacing:.05em;
   }
 
   /* JARVIS */
@@ -176,27 +171,23 @@
   }
 
   .logout{
-    margin-left:14px;
+    margin-left:10px;
     border:0;
     background:none;
     color:var(--muted);
-    font-size:9px;
+    font-size:8px;
     letter-spacing:.12em;
     cursor:pointer;
     opacity:.65;
   }
 
-  .logout:hover{
-    color:var(--text);
-    opacity:1;
-  }
-
   .centre{
     position:absolute;
     left:50%;
-    top:49%;
+    top:48%;
     transform:translate(-50%,-50%);
     text-align:center;
+    width:min(90%,500px);
   }
 
   .core{
@@ -288,6 +279,28 @@
     min-height:16px;
   }
 
+  .voice-button{
+    margin-top:18px;
+    padding:9px 18px;
+    border-radius:8px;
+    border:1px solid rgba(141,232,255,.30);
+    background:rgba(8,25,36,.65);
+    color:var(--glow);
+    font-size:9px;
+    letter-spacing:.18em;
+    cursor:pointer;
+  }
+
+  .voice-button.active{
+    border-color:rgba(141,232,255,.7);
+    box-shadow:0 0 14px rgba(141,232,255,.12);
+  }
+
+  .voice-button:disabled{
+    opacity:.45;
+    cursor:default;
+  }
+
   .bottom{
     position:absolute;
     left:14px;
@@ -318,6 +331,22 @@
 
   .stale{opacity:.55}
 
+  .listening .ring3{
+    animation:pulseFast .75s ease-in-out infinite;
+  }
+
+  .analysing .ring{
+    animation-duration:2.5s;
+  }
+
+  .analysing .ring2{
+    animation-duration:3.7s;
+  }
+
+  .speaking .ring3{
+    animation:pulseFast .4s ease-in-out infinite;
+  }
+
   @keyframes spin{
     to{transform:rotate(360deg)}
   }
@@ -329,6 +358,14 @@
   @keyframes pulse{
     50%{transform:scale(1.08);opacity:1}
   }
+
+  @keyframes pulseFast{
+    50%{
+      transform:scale(1.17);
+      opacity:1;
+      box-shadow:0 0 18px rgba(141,232,255,.15);
+    }
+  }
 </style>
 </head>
 
@@ -336,6 +373,7 @@
 
 <div class="auth-gate" id="authGate">
   <form class="auth-card" id="loginForm">
+
     <div class="auth-core"></div>
 
     <div class="auth-title">J.A.R.V.I.S.</div>
@@ -362,25 +400,29 @@
     </button>
 
     <div class="auth-error" id="authError"></div>
+
   </form>
 </div>
 
 <div class="panel" id="panel">
 
   <div class="top">
+
     <div>J.A.R.V.I.S.</div>
 
     <div class="online">
-      <span class="dot" id="dot"></span>
+      <span class="dot"></span>
       <span id="linkState">ONLINE</span>
 
       <button class="logout" id="logoutButton">
         LOG OUT
       </button>
     </div>
+
   </div>
 
   <div class="centre">
+
     <div class="core">
       <div class="ring"></div>
       <div class="ring2"></div>
@@ -397,9 +439,15 @@
     <div class="message" id="message">
       Standing by, sir.
     </div>
+
+    <button class="voice-button" id="voiceButton">
+      ACTIVATE VOICE
+    </button>
+
   </div>
 
   <div class="bottom">
+
     <div class="metric">
       <b id="temp">--.-°C</b>
       <span>HOME</span>
@@ -419,6 +467,7 @@
       <b id="grid">-- kW</b>
       <span>GRID</span>
     </div>
+
   </div>
 
 </div>
@@ -428,22 +477,46 @@
 import { createClient } from
   "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
 
+
 const SUPABASE_URL =
   "https://hibrzsnwkbngaaujdvxl.supabase.co";
 
 const SUPABASE_KEY =
   "sb_publishable_yJBOE5AnX7-N8EkV98LNnA_LJ0KEz-P";
 
+
 const supabase = createClient(
   SUPABASE_URL,
   SUPABASE_KEY
 );
 
-const el = id => document.getElementById(id);
+
+const el = id =>
+  document.getElementById(id);
+
 
 let refreshTimer = null;
 
+let peerConnection = null;
+let dataChannel = null;
+let localStream = null;
+let remoteAudio = null;
+
+let voicePhase = "disconnected";
+
+let baseStatus =
+  "SYSTEM INTEGRITY 100%";
+
+let baseMessage =
+  "Standing by, sir.";
+
+
+/* ---------------------------------
+   HOME DATA
+---------------------------------- */
+
 function fmtKw(value){
+
   if(
     value === null ||
     value === undefined ||
@@ -455,74 +528,78 @@ function fmtKw(value){
   return `${(Number(value) / 1000).toFixed(2)} kW`;
 }
 
-function showLogin(){
-  el("authGate").style.display = "flex";
-  el("panel").style.display = "none";
 
-  if(refreshTimer){
-    clearInterval(refreshTimer);
-    refreshTimer = null;
+function restoreBaseStatus(){
+
+  if(voicePhase !== "disconnected"){
+    return;
   }
+
+  el("status").textContent =
+    baseStatus;
+
+  el("message").textContent =
+    baseMessage;
 }
 
-function showDashboard(){
-  el("authGate").style.display = "none";
-  el("panel").style.display = "block";
-
-  loadData();
-
-  if(!refreshTimer){
-    refreshTimer = setInterval(loadData, 5000);
-  }
-}
 
 async function loadData(){
+
   try {
 
-    const { data, error } = await supabase
-      .from("jarvis_status")
-      .select(
-        "id,temperature,solar,bmw,grid,updated_at"
-      )
-      .eq("id",1)
-      .single();
+    const { data, error } =
+      await supabase
+        .from("jarvis_status")
+        .select(
+          "id,temperature,solar,bmw,grid,updated_at"
+        )
+        .eq("id",1)
+        .single();
+
 
     if(error){
       throw error;
     }
+
 
     el("temp").textContent =
       data.temperature == null
         ? "--.-°C"
         : `${Number(data.temperature).toFixed(1)}°C`;
 
+
     el("solar").textContent =
       fmtKw(data.solar);
+
 
     el("bmw").textContent =
       data.bmw == null
         ? "--%"
         : `${Math.round(Number(data.bmw))}%`;
 
+
     el("grid").textContent =
       fmtKw(data.grid);
+
 
     const updated =
       data.updated_at
         ? new Date(data.updated_at)
         : null;
 
+
     const ageSec =
       updated
         ? (Date.now() - updated.getTime()) / 1000
         : 999999;
 
+
     if(ageSec > 180){
 
-      el("status").textContent =
+      baseStatus =
         "DATA LINK STALE";
 
-      el("message").textContent =
+      baseMessage =
         "Home data has not been updated recently, sir.";
 
       document
@@ -531,10 +608,10 @@ async function loadData(){
 
     } else {
 
-      el("status").textContent =
+      baseStatus =
         "SYSTEM INTEGRITY 100%";
 
-      el("message").textContent =
+      baseMessage =
         "Standing by, sir.";
 
       document
@@ -542,101 +619,857 @@ async function loadData(){
         .classList.remove("stale");
     }
 
+
     el("linkState").textContent =
       "ONLINE";
+
+
+    restoreBaseStatus();
 
   } catch(error){
 
     console.error(error);
 
+    baseStatus =
+      "DATA LINK DEGRADED";
+
+    baseMessage =
+      "I appear to have misplaced Homey, sir.";
+
     el("linkState").textContent =
       "LINK DEGRADED";
 
-    el("status").textContent =
-      "DATA LINK DEGRADED";
-
-    el("message").textContent =
-      "I appear to have misplaced Homey, sir.";
+    restoreBaseStatus();
   }
 }
 
-el("loginForm").addEventListener(
-  "submit",
-  async event => {
 
-    event.preventDefault();
+/* ---------------------------------
+   AUTH
+---------------------------------- */
 
-    const email =
-      el("email").value.trim();
+function showLogin(){
 
-    const password =
-      el("password").value;
+  stopVoice(false);
 
-    const button =
-      el("loginButton");
+  el("authGate").style.display =
+    "flex";
 
-    el("authError").textContent = "";
+  el("panel").style.display =
+    "none";
 
-    button.disabled = true;
-    button.textContent = "AUTHENTICATING...";
 
-    const { error } =
-      await supabase.auth.signInWithPassword({
-        email,
-        password
-      });
+  if(refreshTimer){
 
-    button.disabled = false;
-    button.textContent = "AUTHENTICATE";
+    clearInterval(refreshTimer);
 
-    if(error){
+    refreshTimer = null;
+  }
+}
 
-      el("authError").textContent =
-        "ACCESS DENIED";
 
-      return;
+function showDashboard(){
+
+  el("authGate").style.display =
+    "none";
+
+  el("panel").style.display =
+    "block";
+
+
+  loadData();
+
+
+  if(!refreshTimer){
+
+    refreshTimer =
+      setInterval(
+        loadData,
+        5000
+      );
+  }
+}
+
+
+/* ---------------------------------
+   VOICE UI
+---------------------------------- */
+
+function setVoicePhase(phase){
+
+  voicePhase = phase;
+
+  const panel =
+    el("panel");
+
+
+  panel.classList.remove(
+    "listening",
+    "analysing",
+    "speaking"
+  );
+
+
+  if(phase === "connecting"){
+
+    el("status").textContent =
+      "ESTABLISHING VOICE LINK";
+
+    el("message").textContent =
+      "Securing realtime channel...";
+
+  }
+
+
+  if(phase === "listening"){
+
+    panel.classList.add(
+      "listening"
+    );
+
+    el("status").textContent =
+      "LISTENING";
+
+    el("message").textContent =
+      "Voice link active.";
+  }
+
+
+  if(phase === "analysing"){
+
+    panel.classList.add(
+      "analysing"
+    );
+
+    el("status").textContent =
+      "ANALYSING";
+
+    el("message").textContent =
+      "Processing...";
+  }
+
+
+  if(phase === "speaking"){
+
+    panel.classList.add(
+      "speaking"
+    );
+
+    el("status").textContent =
+      "SPEAKING";
+
+    el("message").textContent =
+      "JARVIS voice channel active.";
+  }
+
+
+  if(phase === "disconnected"){
+
+    restoreBaseStatus();
+  }
+}
+
+
+/* ---------------------------------
+   REALTIME EVENTS
+---------------------------------- */
+
+function handleRealtimeEvent(event){
+
+  const type =
+    event?.type || "";
+
+
+  if(
+    type ===
+      "input_audio_buffer.speech_started"
+  ){
+
+    setVoicePhase(
+      "listening"
+    );
+
+    return;
+  }
+
+
+  if(
+    type ===
+      "input_audio_buffer.speech_stopped"
+  ){
+
+    setVoicePhase(
+      "analysing"
+    );
+
+    return;
+  }
+
+
+  if(
+    type === "response.created" ||
+    type === "response.in_progress"
+  ){
+
+    setVoicePhase(
+      "analysing"
+    );
+
+    return;
+  }
+
+
+  if(
+    type.includes("audio") &&
+    type.includes("delta") &&
+    type.startsWith("response")
+  ){
+
+    setVoicePhase(
+      "speaking"
+    );
+
+    return;
+  }
+
+
+  if(
+    type === "response.done" ||
+    type === "response.completed"
+  ){
+
+    setVoicePhase(
+      "listening"
+    );
+
+    return;
+  }
+
+
+  if(type === "error"){
+
+    console.error(
+      "Realtime error:",
+      event
+    );
+
+    el("status").textContent =
+      "VOICE LINK ERROR";
+
+    el("message").textContent =
+      "Realtime channel reported an error.";
+  }
+}
+
+
+/* ---------------------------------
+   START VOICE
+---------------------------------- */
+
+async function startVoice(){
+
+  if(peerConnection){
+    return;
+  }
+
+
+  const button =
+    el("voiceButton");
+
+
+  button.disabled = true;
+
+  button.textContent =
+    "CONNECTING...";
+
+
+  setVoicePhase(
+    "connecting"
+  );
+
+
+  try {
+
+    /*
+      1. Ask our protected Supabase function
+         for a temporary OpenAI key.
+    */
+
+    const {
+      data: tokenData,
+      error: tokenError
+    } =
+      await supabase.functions.invoke(
+        "jarvis-realtime",
+        {
+          body: {}
+        }
+      );
+
+
+    if(tokenError){
+      throw tokenError;
     }
 
-    el("password").value = "";
 
-    showDashboard();
+    const ephemeralKey =
+      tokenData?.value;
+
+
+    if(!ephemeralKey){
+
+      console.error(
+        "Realtime token response:",
+        tokenData
+      );
+
+      throw new Error(
+        "No ephemeral realtime key returned"
+      );
+    }
+
+
+    /*
+      2. Create WebRTC connection.
+    */
+
+    const pc =
+      new RTCPeerConnection();
+
+
+    peerConnection =
+      pc;
+
+
+    /*
+      3. Play JARVIS audio.
+    */
+
+    const audio =
+      document.createElement(
+        "audio"
+      );
+
+
+    remoteAudio =
+      audio;
+
+    audio.autoplay = true;
+
+    audio.playsInline = true;
+
+
+    pc.ontrack = event => {
+
+      audio.srcObject =
+        event.streams[0];
+
+
+      audio.play().catch(
+        error =>
+          console.warn(
+            "Audio autoplay:",
+            error
+          )
+      );
+    };
+
+
+    /*
+      4. Get tablet microphone.
+    */
+
+    const stream =
+      await navigator.mediaDevices
+        .getUserMedia({
+          audio:{
+            echoCancellation:true,
+            noiseSuppression:true,
+            autoGainControl:true
+          }
+        });
+
+
+    localStream =
+      stream;
+
+
+    const audioTrack =
+      stream.getAudioTracks()[0];
+
+
+    if(!audioTrack){
+
+      throw new Error(
+        "No microphone audio track"
+      );
+    }
+
+
+    pc.addTrack(
+      audioTrack,
+      stream
+    );
+
+
+    /*
+      5. Data channel for status events.
+    */
+
+    const dc =
+      pc.createDataChannel(
+        "oai-events"
+      );
+
+
+    dataChannel =
+      dc;
+
+
+    dc.addEventListener(
+      "open",
+      () => {
+
+        button.disabled =
+          false;
+
+        button.textContent =
+          "DISCONNECT VOICE";
+
+        button.classList.add(
+          "active"
+        );
+
+        setVoicePhase(
+          "listening"
+        );
+      }
+    );
+
+
+    dc.addEventListener(
+      "message",
+      event => {
+
+        try {
+
+          const message =
+            JSON.parse(
+              event.data
+            );
+
+
+          console.log(
+            "Realtime:",
+            message
+          );
+
+
+          handleRealtimeEvent(
+            message
+          );
+
+        } catch(error){
+
+          console.warn(
+            "Unreadable realtime event",
+            error
+          );
+        }
+      }
+    );
+
+
+    dc.addEventListener(
+      "close",
+      () => {
+
+        if(
+          peerConnection === pc
+        ){
+          stopVoice();
+        }
+      }
+    );
+
+
+    /*
+      6. Generate SDP offer.
+    */
+
+    const offer =
+      await pc.createOffer();
+
+
+    await pc.setLocalDescription(
+      offer
+    );
+
+
+    /*
+      7. Use temporary key to connect
+         directly to OpenAI Realtime.
+    */
+
+    const sdpResponse =
+      await fetch(
+        "https://api.openai.com/v1/realtime/calls",
+        {
+          method:"POST",
+
+          body:offer.sdp,
+
+          headers:{
+            "Authorization":
+              `Bearer ${ephemeralKey}`,
+
+            "Content-Type":
+              "application/sdp"
+          }
+        }
+      );
+
+
+    if(!sdpResponse.ok){
+
+      const errorText =
+        await sdpResponse.text();
+
+
+      throw new Error(
+        `Realtime SDP ${sdpResponse.status}: ${errorText}`
+      );
+    }
+
+
+    const answer = {
+      type:"answer",
+      sdp:
+        await sdpResponse.text()
+    };
+
+
+    await pc.setRemoteDescription(
+      answer
+    );
+
+
+    pc.addEventListener(
+      "connectionstatechange",
+      () => {
+
+        console.log(
+          "WebRTC:",
+          pc.connectionState
+        );
+
+
+        if(
+          peerConnection !== pc
+        ){
+          return;
+        }
+
+
+        if(
+          pc.connectionState ===
+            "failed" ||
+          pc.connectionState ===
+            "closed"
+        ){
+          stopVoice();
+        }
+      }
+    );
+
+
+  } catch(error){
+
+    console.error(
+      "Voice startup failed:",
+      error
+    );
+
+
+    stopVoice(false);
+
+
+    el("status").textContent =
+      "VOICE LINK FAILED";
+
+
+    if(
+      error?.name ===
+      "NotAllowedError"
+    ){
+
+      el("message").textContent =
+        "Microphone permission was denied.";
+
+    } else {
+
+      el("message").textContent =
+        "Realtime connection could not be established.";
+    }
+
+
+    button.disabled =
+      false;
+
+
+    button.textContent =
+      "RETRY VOICE";
   }
-);
+}
 
-el("logoutButton").addEventListener(
-  "click",
-  async () => {
 
-    await supabase.auth.signOut({
-      scope:"local"
-    });
+/* ---------------------------------
+   STOP VOICE
+---------------------------------- */
 
-    showLogin();
+function stopVoice(
+  updateUi = true
+){
+
+  const pc =
+    peerConnection;
+
+  const dc =
+    dataChannel;
+
+
+  peerConnection =
+    null;
+
+  dataChannel =
+    null;
+
+
+  if(localStream){
+
+    for(
+      const track
+      of localStream.getTracks()
+    ){
+      track.stop();
+    }
+
+    localStream = null;
   }
-);
+
+
+  if(remoteAudio){
+
+    remoteAudio.pause();
+
+    remoteAudio.srcObject =
+      null;
+
+    remoteAudio = null;
+  }
+
+
+  try{
+    dc?.close();
+  }catch{}
+
+
+  try{
+    pc?.close();
+  }catch{}
+
+
+  voicePhase =
+    "disconnected";
+
+
+  el("panel").classList.remove(
+    "listening",
+    "analysing",
+    "speaking"
+  );
+
+
+  const button =
+    el("voiceButton");
+
+
+  button.disabled =
+    false;
+
+
+  button.textContent =
+    "ACTIVATE VOICE";
+
+
+  button.classList.remove(
+    "active"
+  );
+
+
+  if(updateUi){
+
+    restoreBaseStatus();
+  }
+}
+
+
+/* ---------------------------------
+   BUTTONS
+---------------------------------- */
+
+el("voiceButton")
+  .addEventListener(
+    "click",
+    async () => {
+
+      if(peerConnection){
+
+        stopVoice();
+
+      } else {
+
+        await startVoice();
+      }
+    }
+  );
+
+
+el("loginForm")
+  .addEventListener(
+    "submit",
+    async event => {
+
+      event.preventDefault();
+
+
+      const email =
+        el("email")
+          .value
+          .trim();
+
+
+      const password =
+        el("password")
+          .value;
+
+
+      const button =
+        el("loginButton");
+
+
+      el("authError")
+        .textContent = "";
+
+
+      button.disabled =
+        true;
+
+
+      button.textContent =
+        "AUTHENTICATING...";
+
+
+      const { error } =
+        await supabase.auth
+          .signInWithPassword({
+            email,
+            password
+          });
+
+
+      button.disabled =
+        false;
+
+
+      button.textContent =
+        "AUTHENTICATE";
+
+
+      if(error){
+
+        el("authError")
+          .textContent =
+            "ACCESS DENIED";
+
+        return;
+      }
+
+
+      el("password").value =
+        "";
+
+
+      showDashboard();
+    }
+  );
+
+
+el("logoutButton")
+  .addEventListener(
+    "click",
+    async () => {
+
+      stopVoice(false);
+
+
+      await supabase.auth
+        .signOut({
+          scope:"local"
+        });
+
+
+      showLogin();
+    }
+  );
+
+
+/* ---------------------------------
+   INITIAL SESSION
+---------------------------------- */
 
 const {
-  data:{ session }
-} = await supabase.auth.getSession();
+  data:{
+    session
+  }
+} =
+  await supabase.auth
+    .getSession();
+
 
 if(session){
+
   showDashboard();
+
 } else {
+
   showLogin();
 }
 
-supabase.auth.onAuthStateChange(
-  (event,session) => {
 
-    if(event === "SIGNED_OUT"){
-      showLogin();
-    }
+supabase.auth
+  .onAuthStateChange(
+    (event,session) => {
 
-    if(event === "SIGNED_IN" && session){
-      showDashboard();
+      if(
+        event ===
+        "SIGNED_OUT"
+      ){
+
+        showLogin();
+      }
+
+
+      if(
+        event ===
+        "SIGNED_IN" &&
+        session
+      ){
+
+        showDashboard();
+      }
     }
-  }
-);
+  );
 
 </script>
 
