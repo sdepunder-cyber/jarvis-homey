@@ -7,34 +7,43 @@
 
 <style>
 :root{
-  --bg:#071018;
-  --bg2:#03090e;
+  --bg:#03090e;
+  --bg2:#071018;
+
   --text:#eaf8ff;
-  --muted:#7f9aa8;
+  --muted:#78919d;
+
   --glow:#8de8ff;
-  --glowSoft:rgba(141,232,255,.18);
-  --glowMid:rgba(141,232,255,.32);
-  --glowStrong:rgba(141,232,255,.55);
+  --glow2:#5ec9ee;
+
   --danger:#ff8f8f;
 }
 
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
 
-html,body{
+html,
+body{
   margin:0;
   width:100%;
   height:100%;
   overflow:hidden;
-  font-family:Inter,Arial,sans-serif;
+
   background:var(--bg);
+
   color:var(--text);
+
+  font-family:
+    Inter,
+    Arial,
+    sans-serif;
 }
 
 body{
   display:flex;
-  align-items:stretch;
-  justify-content:stretch;
 }
+
 
 /* =========================================================
    LOGIN
@@ -43,190 +52,308 @@ body{
 .auth-gate{
   position:fixed;
   inset:0;
-  z-index:50;
+
+  z-index:100;
+
   display:flex;
+
   align-items:center;
   justify-content:center;
+
   padding:24px;
+
   background:
-    radial-gradient(circle at 50% 38%, rgba(65,182,222,.14), transparent 34%),
-    radial-gradient(circle at 50% 65%, rgba(141,232,255,.04), transparent 45%),
-    linear-gradient(180deg,#08121c,#03090e);
+    radial-gradient(
+      circle at 50% 40%,
+      rgba(65,182,222,.12),
+      transparent 34%
+    ),
+    linear-gradient(
+      180deg,
+      #08121c,
+      #03090e
+    );
 }
 
 .auth-card{
   width:min(360px,100%);
+
   padding:32px 28px;
-  border:1px solid rgba(141,232,255,.18);
-  border-radius:14px;
-  background:rgba(6,16,24,.88);
-  box-shadow:
-    0 0 60px rgba(95,210,255,.06),
-    inset 0 0 36px rgba(95,210,255,.025);
+
   text-align:center;
+
+  border-radius:14px;
+
+  border:
+    1px solid
+    rgba(141,232,255,.18);
+
+  background:
+    rgba(5,15,23,.92);
+
+  box-shadow:
+    0 0 60px
+      rgba(95,210,255,.05),
+    inset 0 0 35px
+      rgba(95,210,255,.025);
 }
 
 .auth-core{
-  position:relative;
   width:76px;
   height:76px;
-  margin:0 auto 24px;
+
+  margin:
+    0 auto 24px;
+
+  position:relative;
+
   border-radius:50%;
-  border:1px solid rgba(141,232,255,.65);
+
+  border:
+    1px solid
+    rgba(141,232,255,.60);
+
   box-shadow:
-    0 0 24px rgba(141,232,255,.22),
-    inset 0 0 14px rgba(141,232,255,.12);
+    0 0 22px
+      rgba(141,232,255,.20);
 }
 
 .auth-core:before,
 .auth-core:after{
   content:"";
+
   position:absolute;
+
   border-radius:50%;
-  border:1px dashed rgba(141,232,255,.28);
+
+  border:
+    1px dashed
+    rgba(141,232,255,.25);
 }
 
-.auth-core:before{ inset:9px; }
-.auth-core:after{ inset:23px; }
+.auth-core:before{
+  inset:10px;
+}
+
+.auth-core:after{
+  inset:25px;
+}
 
 .auth-title{
-  font-size:16px;
-  letter-spacing:.32em;
-  padding-left:.32em;
   margin-bottom:7px;
+
+  font-size:16px;
+
+  letter-spacing:.32em;
+
+  padding-left:.32em;
 }
 
 .auth-subtitle{
-  color:var(--muted);
-  font-size:10px;
-  letter-spacing:.18em;
   margin-bottom:25px;
+
+  color:var(--muted);
+
+  font-size:10px;
+
+  letter-spacing:.18em;
 }
 
 .auth-card input{
   width:100%;
+
   margin-bottom:11px;
+
   padding:12px 13px;
+
   border-radius:8px;
-  border:1px solid rgba(141,232,255,.18);
+
+  border:
+    1px solid
+    rgba(141,232,255,.18);
+
   outline:none;
-  background:rgba(3,10,16,.92);
+
+  background:
+    rgba(3,10,16,.92);
+
   color:var(--text);
+
   font-size:14px;
 }
 
 .auth-card input:focus{
-  border-color:rgba(141,232,255,.6);
-  box-shadow:0 0 12px rgba(141,232,255,.08);
+  border-color:
+    rgba(141,232,255,.60);
+
+  box-shadow:
+    0 0 12px
+    rgba(141,232,255,.08);
 }
 
 .auth-card button{
   width:100%;
+
   padding:12px;
+
   border-radius:8px;
-  border:1px solid rgba(141,232,255,.45);
-  background:rgba(10,32,45,.72);
+
+  border:
+    1px solid
+    rgba(141,232,255,.42);
+
+  background:
+    rgba(10,32,45,.72);
+
   color:var(--text);
+
   font-size:11px;
+
   letter-spacing:.16em;
+
   cursor:pointer;
 }
 
 .auth-error{
   min-height:18px;
+
   margin-top:13px;
+
   color:var(--danger);
+
   font-size:10px;
 }
 
+
 /* =========================================================
-   PANEL
+   MAIN PANEL
 ========================================================= */
 
 .panel{
   display:none;
+
   width:100%;
   height:100%;
+
   position:relative;
+
   overflow:hidden;
+
   background:
-    radial-gradient(circle at 50% 42%, rgba(65,182,222,.14), transparent 28%),
-    radial-gradient(circle at 50% 48%, rgba(141,232,255,.05), transparent 40%),
-    linear-gradient(180deg, rgba(8,18,28,1), rgba(3,9,14,1));
-  box-shadow:inset 0 0 40px rgba(95,210,255,.04);
+    radial-gradient(
+      circle at 50% 44%,
+      rgba(72,176,211,.08),
+      transparent 27%
+    ),
+    linear-gradient(
+      180deg,
+      #07111a,
+      #03080d
+    );
+
+  transition:
+    background .35s ease;
 }
 
-.panel:before,
-.panel:after{
-  content:"";
+
+/* soft background aura */
+
+.scene-glow{
   position:absolute;
-  inset:auto;
+
   left:50%;
   top:48%;
-  transform:translate(-50%,-50%);
+
+  width:440px;
+  height:440px;
+
+  transform:
+    translate(-50%,-50%);
+
   border-radius:50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(141,232,255,.08),
+      rgba(141,232,255,.025) 35%,
+      transparent 68%
+    );
+
+  filter:
+    blur(38px);
+
+  opacity:.28;
+
   pointer-events:none;
-  transition:opacity .18s linear, transform .18s linear, box-shadow .18s linear;
+
+  transition:
+    opacity .3s,
+    transform .3s;
 }
 
-.panel:before{
-  width:300px;
-  height:300px;
-  background:radial-gradient(circle, rgba(141,232,255,.08), transparent 62%);
-  opacity:.45;
-  filter:blur(18px);
-}
-
-.panel:after{
-  width:460px;
-  height:460px;
-  background:radial-gradient(circle, rgba(141,232,255,.035), transparent 68%);
-  opacity:.25;
-  filter:blur(42px);
-}
-
-.listening.panel:before{ opacity:.58; transform:translate(-50%,-50%) scale(1.05); }
-.analysing.panel:before{ opacity:.72; transform:translate(-50%,-50%) scale(1.10); }
-.speaking.panel:before{ opacity:.95; transform:translate(-50%,-50%) scale(1.18); }
-.speaking.panel:after{ opacity:.40; transform:translate(-50%,-50%) scale(1.12); }
 
 /* =========================================================
-   TOP
+   TOP BAR
 ========================================================= */
 
 .top{
+  position:relative;
+
+  z-index:10;
+
   display:flex;
+
   justify-content:space-between;
   align-items:center;
-  padding:15px 18px 4px;
-  font-size:12px;
-  letter-spacing:.18em;
+
+  padding:
+    15px 18px 4px;
+
   color:var(--muted);
+
+  font-size:12px;
+
+  letter-spacing:.18em;
 }
 
 .online{
   display:flex;
+
   align-items:center;
+
   gap:7px;
 }
 
 .dot{
   width:7px;
   height:7px;
+
   border-radius:50%;
+
   background:var(--glow);
-  box-shadow:0 0 10px var(--glow);
+
+  box-shadow:
+    0 0 10px
+    var(--glow);
 }
 
 .logout{
   margin-left:10px;
+
   border:0;
+
   background:none;
+
   color:var(--muted);
+
   font-size:8px;
+
   letter-spacing:.12em;
+
   cursor:pointer;
-  opacity:.65;
+
+  opacity:.60;
 }
 
 .logout:hover{
@@ -234,18 +361,25 @@ body{
   color:var(--text);
 }
 
+
 /* =========================================================
    CENTRE
 ========================================================= */
 
 .centre{
   position:absolute;
+
   left:50%;
   top:48%;
-  transform:translate(-50%,-50%);
-  width:min(90%,540px);
+
+  transform:
+    translate(-50%,-50%);
+
+  width:min(94%,560px);
+
   text-align:center;
 }
+
 
 /* =========================================================
    CORE
@@ -253,198 +387,551 @@ body{
 
 .core{
   position:relative;
-  width:176px;
-  height:176px;
+
+  width:205px;
+  height:205px;
+
   margin:auto;
+
   display:flex;
+
   align-items:center;
   justify-content:center;
-  filter:drop-shadow(0 0 12px rgba(141,232,255,.10));
-  transition:transform .12s linear, filter .12s linear;
+
+  transition:
+    transform .15s linear,
+    filter .25s;
 }
+
+
+/* -----------------------------------------
+   AMBIENT
+----------------------------------------- */
 
 .core-ambient{
   position:absolute;
-  inset:-42px;
+
+  inset:-65px;
+
   border-radius:50%;
-  background:radial-gradient(circle, rgba(141,232,255,.10), rgba(141,232,255,.03) 35%, transparent 68%);
-  opacity:.55;
-  filter:blur(20px);
-  pointer-events:none;
-  transition:opacity .12s linear, transform .12s linear;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(141,232,255,.09),
+      rgba(75,182,220,.025) 40%,
+      transparent 68%
+    );
+
+  filter:blur(26px);
+
+  opacity:.30;
+
+  transition:
+    opacity .2s,
+    transform .2s;
 }
 
-.core-halo{
+
+/* -----------------------------------------
+   MAIN STATIC / ROTATING RINGS
+----------------------------------------- */
+
+.main-ring,
+.inner-ring,
+.scan-ring{
   position:absolute;
-  inset:20px;
-  border-radius:50%;
-  border:1px solid rgba(141,232,255,.12);
-  box-shadow:
-    0 0 18px rgba(141,232,255,.12),
-    inset 0 0 20px rgba(141,232,255,.05);
-  pointer-events:none;
-  transition:transform .12s linear, opacity .12s linear;
-  opacity:.9;
-}
 
-.ring,.ring2,.ring3{
-  position:absolute;
   border-radius:50%;
+
   pointer-events:none;
 }
 
-.ring{
-  inset:16px;
-  border:1px solid rgba(141,232,255,.42);
-  animation:spin 12s linear infinite;
+.main-ring{
+  inset:31px;
+
+  border:
+    1px solid
+    rgba(141,232,255,.34);
+
+  animation:
+    rotateClockwise
+    20s linear infinite;
 }
 
-.ring:before,
-.ring:after{
+.main-ring:before,
+.main-ring:after{
   content:"";
+
   position:absolute;
-  background:var(--glow);
-  box-shadow:0 0 10px var(--glow);
+
   border-radius:50%;
+
+  background:
+    var(--glow);
+
+  box-shadow:
+    0 0 8px
+    rgba(141,232,255,.8);
 }
 
-.ring:before{
+.main-ring:before{
   width:5px;
   height:5px;
-  left:10px;
-  top:28px;
+
+  top:22px;
+  left:14px;
 }
 
-.ring:after{
-  width:4px;
-  height:4px;
-  right:16px;
-  bottom:24px;
+.main-ring:after{
+  width:3px;
+  height:3px;
+
+  right:19px;
+  bottom:28px;
 }
 
-.ring2{
-  inset:31px;
-  border:1px dashed rgba(141,232,255,.34);
+.inner-ring{
+  inset:48px;
+
+  border:
+    1px dashed
+    rgba(141,232,255,.25);
+
   opacity:.60;
-  animation:spinReverse 17s linear infinite;
+
+  animation:
+    rotateCounter
+    26s linear infinite;
 }
 
-.ring3{
-  inset:50px;
-  border:2px solid rgba(141,232,255,.40);
-  opacity:.72;
-  animation:idlePulse 2.8s ease-in-out infinite;
+.scan-ring{
+  inset:17px;
+
+  border:
+    1px solid
+    transparent;
+
+  border-top-color:
+    rgba(141,232,255,.20);
+
+  border-right-color:
+    rgba(141,232,255,.04);
+
+  opacity:.30;
+
+  animation:
+    rotateClockwise
+    34s linear infinite;
 }
 
-/* =========================================================
-   AUDIO WAVES
-========================================================= */
+
+/* -----------------------------------------
+   THINKING SEGMENTS
+----------------------------------------- */
+
+.thinking-ring{
+  position:absolute;
+
+  inset:4px;
+
+  border-radius:50%;
+
+  opacity:0;
+
+  background:
+    repeating-conic-gradient(
+      from 0deg,
+      rgba(141,232,255,.48) 0deg 2deg,
+      transparent 2deg 12deg
+    );
+
+  mask:
+    radial-gradient(
+      circle,
+      transparent 64%,
+      #000 65% 68%,
+      transparent 69%
+    );
+
+  -webkit-mask:
+    radial-gradient(
+      circle,
+      transparent 64%,
+      #000 65% 68%,
+      transparent 69%
+    );
+
+  transition:
+    opacity .25s;
+}
+
+
+/* -----------------------------------------
+   SPEECH WAVE RINGS
+----------------------------------------- */
 
 .voice-wave{
   position:absolute;
+
   border-radius:50%;
+
   pointer-events:none;
-  will-change:transform,opacity,box-shadow,border-color;
-  transition:transform .08s linear, opacity .08s linear, box-shadow .08s linear, border-color .08s linear;
+
+  will-change:
+    transform,
+    opacity,
+    box-shadow;
+
+  transition:
+    transform .07s linear,
+    opacity .07s linear,
+    border-color .07s linear,
+    box-shadow .07s linear;
 }
 
 .wave1{
-  inset:10px;
-  border:2px solid rgba(141,232,255,.28);
-  box-shadow:0 0 20px rgba(141,232,255,.12);
-  opacity:.28;
-}
+  inset:25px;
 
-.wave2{
-  inset:-6px;
-  border:2px solid rgba(141,232,255,.18);
-  box-shadow:0 0 26px rgba(141,232,255,.08);
-  opacity:.16;
-}
+  border:
+    2px solid
+    rgba(141,232,255,.18);
 
-.wave3{
-  inset:-22px;
-  border:2px solid rgba(141,232,255,.12);
-  box-shadow:0 0 32px rgba(141,232,255,.06);
   opacity:.11;
 }
 
-.wave4{
-  inset:-38px;
-  border:1px solid rgba(141,232,255,.08);
-  box-shadow:0 0 42px rgba(141,232,255,.05);
-  opacity:.08;
+.wave2{
+  inset:8px;
+
+  border:
+    2px solid
+    rgba(141,232,255,.12);
+
+  opacity:.06;
 }
 
-/* =========================================================
-   CORE DOT
-========================================================= */
+.wave3{
+  inset:-13px;
+
+  border:
+    2px solid
+    rgba(141,232,255,.08);
+
+  opacity:.03;
+}
+
+.wave4{
+  inset:-37px;
+
+  border:
+    1px solid
+    rgba(141,232,255,.06);
+
+  opacity:.02;
+}
+
+
+/* -----------------------------------------
+   AUDIO EQUALIZER CANVAS
+----------------------------------------- */
+
+.audio-spectrum{
+  position:absolute;
+
+  left:50%;
+  top:50%;
+
+  width:260px;
+  height:260px;
+
+  transform:
+    translate(-50%,-50%);
+
+  pointer-events:none;
+
+  opacity:0;
+
+  transition:
+    opacity .20s ease;
+}
+
+
+/* -----------------------------------------
+   CORE HALO
+----------------------------------------- */
+
+.core-halo{
+  position:absolute;
+
+  inset:63px;
+
+  border-radius:50%;
+
+  border:
+    1px solid
+    rgba(141,232,255,.25);
+
+  box-shadow:
+    0 0 13px
+      rgba(141,232,255,.12),
+    inset 0 0 14px
+      rgba(141,232,255,.08);
+
+  transition:
+    transform .10s,
+    opacity .15s,
+    box-shadow .10s;
+}
+
+
+/* -----------------------------------------
+   CENTRAL DOT
+----------------------------------------- */
 
 .core-dot{
   position:relative;
-  z-index:4;
-  width:30px;
-  height:30px;
+
+  z-index:20;
+
+  width:31px;
+  height:31px;
+
   border-radius:50%;
-  border:1px solid rgba(141,232,255,.97);
-  background:radial-gradient(circle, rgba(141,232,255,.15), rgba(141,232,255,.02));
+
+  border:
+    1px solid
+    rgba(141,232,255,.94);
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(141,232,255,.18),
+      rgba(141,232,255,.015) 70%
+    );
+
   box-shadow:
-    0 0 22px rgba(141,232,255,.65),
-    inset 0 0 16px rgba(141,232,255,.22);
-  transition:transform .08s linear, box-shadow .08s linear;
+    0 0 18px
+      rgba(141,232,255,.45),
+    inset 0 0 14px
+      rgba(141,232,255,.22);
+
+  transition:
+    transform .08s,
+    box-shadow .08s;
 }
+
 
 /* =========================================================
-   STATES
+   STANDBY
 ========================================================= */
 
-.listening .ring3{
-  animation:listeningPulse 1.15s ease-in-out infinite;
+.panel.standby .scene-glow{
+  opacity:.20;
 }
 
-.analysing .ring{
-  animation-duration:2.2s;
+.panel.standby .core-ambient{
+  opacity:.22;
 }
 
-.analysing .ring2{
-  animation-duration:3.2s;
+.panel.standby .main-ring{
+  opacity:.45;
 }
 
-.speaking .core-dot{
+.panel.standby .inner-ring{
+  opacity:.32;
+}
+
+.panel.standby .core-dot{
+  animation:
+    standbyBreath
+    4s ease-in-out infinite;
+}
+
+
+/* =========================================================
+   LISTENING
+========================================================= */
+
+.panel.listening .scene-glow{
+  opacity:.38;
+
+  transform:
+    translate(-50%,-50%)
+    scale(1.04);
+}
+
+.panel.listening .core-ambient{
+  opacity:.42;
+}
+
+.panel.listening .main-ring{
+  animation-duration:13s;
+
+  opacity:.70;
+}
+
+.panel.listening .inner-ring{
+  opacity:.52;
+}
+
+.panel.listening .core-halo{
+  animation:
+    listeningBreath
+    1.4s ease-in-out infinite;
+}
+
+.panel.listening .core-dot{
   box-shadow:
-    0 0 34px rgba(141,232,255,.95),
-    inset 0 0 22px rgba(141,232,255,.32);
+    0 0 24px
+      rgba(141,232,255,.68),
+    inset 0 0 16px
+      rgba(141,232,255,.25);
 }
 
-.speaking .core{
-  filter:drop-shadow(0 0 18px rgba(141,232,255,.22));
+
+/* =========================================================
+   ANALYSING
+========================================================= */
+
+.panel.analysing{
+  background:
+    radial-gradient(
+      circle at 50% 44%,
+      rgba(64,157,194,.10),
+      transparent 25%
+    ),
+    linear-gradient(
+      180deg,
+      #050d13,
+      #020609
+    );
 }
+
+.panel.analysing .scene-glow{
+  opacity:.22;
+}
+
+.panel.analysing .core-ambient{
+  opacity:.18;
+}
+
+.panel.analysing .main-ring{
+  animation-duration:2.3s;
+
+  opacity:.62;
+}
+
+.panel.analysing .inner-ring{
+  animation-duration:3.4s;
+
+  opacity:.70;
+}
+
+.panel.analysing .scan-ring{
+  opacity:.78;
+
+  animation-duration:1.4s;
+}
+
+.panel.analysing .thinking-ring{
+  opacity:.65;
+
+  animation:
+    rotateClockwise
+    2.2s linear infinite;
+}
+
+.panel.analysing .core-dot{
+  animation:
+    thinkingPulse
+    .8s ease-in-out infinite;
+
+  box-shadow:
+    0 0 18px
+      rgba(141,232,255,.45),
+    inset 0 0 20px
+      rgba(30,90,115,.42);
+}
+
+
+/* =========================================================
+   SPEAKING
+========================================================= */
+
+.panel.speaking .scene-glow{
+  opacity:.70;
+
+  transform:
+    translate(-50%,-50%)
+    scale(1.15);
+}
+
+.panel.speaking .core-ambient{
+  opacity:.70;
+}
+
+.panel.speaking .main-ring{
+  opacity:.90;
+
+  animation-duration:9s;
+}
+
+.panel.speaking .inner-ring{
+  opacity:.70;
+
+  animation-duration:12s;
+}
+
+.panel.speaking .audio-spectrum{
+  opacity:.92;
+}
+
+.panel.speaking .core-dot{
+  box-shadow:
+    0 0 36px
+      rgba(141,232,255,.95),
+    inset 0 0 22px
+      rgba(141,232,255,.32);
+}
+
 
 /* =========================================================
    TEXT
 ========================================================= */
 
 h1{
-  font-size:15px;
-  letter-spacing:.32em;
-  margin:10px 0 7px;
+  margin:
+    8px 0 7px;
+
   padding-left:.32em;
+
+  font-size:15px;
+
+  letter-spacing:.32em;
+
   font-weight:600;
 }
 
 .status{
-  font-size:11px;
-  letter-spacing:.2em;
-  color:var(--glow);
   min-height:16px;
+
+  color:var(--glow);
+
+  font-size:11px;
+
+  letter-spacing:.20em;
 }
 
 .message{
-  margin-top:8px;
-  font-size:11px;
-  color:var(--muted);
   min-height:16px;
+
+  margin-top:8px;
+
+  color:var(--muted);
+
+  font-size:11px;
 }
+
 
 /* =========================================================
    VOICE BUTTON
@@ -452,98 +939,193 @@ h1{
 
 .voice-button{
   margin-top:18px;
-  padding:9px 18px;
+
+  padding:
+    9px 18px;
+
   border-radius:8px;
-  border:1px solid rgba(141,232,255,.30);
-  background:rgba(8,25,36,.65);
+
+  border:
+    1px solid
+    rgba(141,232,255,.26);
+
+  background:
+    rgba(8,25,36,.60);
+
   color:var(--glow);
+
   font-size:9px;
+
   letter-spacing:.18em;
+
   cursor:pointer;
+
   transition:.2s;
 }
 
 .voice-button.active{
-  border-color:rgba(141,232,255,.7);
-  box-shadow:0 0 14px rgba(141,232,255,.14);
+  border-color:
+    rgba(141,232,255,.65);
+
+  box-shadow:
+    0 0 16px
+    rgba(141,232,255,.12);
 }
 
 .voice-button:disabled{
-  opacity:.45;
-  cursor:default;
+  opacity:.40;
 }
 
+
 /* =========================================================
-   METRICS
+   BOTTOM DATA
 ========================================================= */
 
 .bottom{
   position:absolute;
+
   left:14px;
   right:14px;
   bottom:12px;
+
   display:grid;
-  grid-template-columns:repeat(4,1fr);
+
+  grid-template-columns:
+    repeat(4,1fr);
+
   gap:7px;
-  transition:opacity .3s;
 }
 
 .metric{
-  border-top:1px solid rgba(141,232,255,.15);
   padding-top:7px;
+
   text-align:center;
+
+  border-top:
+    1px solid
+    rgba(141,232,255,.13);
 }
 
 .metric b{
   display:block;
+
   font-size:12px;
+
   font-weight:500;
 }
 
 .metric span{
-  font-size:8px;
-  letter-spacing:.13em;
   color:var(--muted);
+
+  font-size:8px;
+
+  letter-spacing:.13em;
 }
 
-.stale{ opacity:.55; }
+.stale{
+  opacity:.50;
+}
+
 
 /* =========================================================
-   ANIMS
+   KEYFRAMES
 ========================================================= */
 
-@keyframes spin{
-  to{ transform:rotate(360deg); }
-}
-
-@keyframes spinReverse{
-  to{ transform:rotate(-360deg); }
-}
-
-@keyframes idlePulse{
-  50%{
-    transform:scale(1.06);
-    opacity:.94;
+@keyframes rotateClockwise{
+  to{
+    transform:
+      rotate(360deg);
   }
 }
 
-@keyframes listeningPulse{
-  50%{
-    transform:scale(1.11);
-    opacity:1;
-    box-shadow:0 0 16px rgba(141,232,255,.12);
+@keyframes rotateCounter{
+  to{
+    transform:
+      rotate(-360deg);
   }
 }
+
+@keyframes standbyBreath{
+  50%{
+    transform:
+      scale(1.04);
+
+    opacity:.88;
+  }
+}
+
+@keyframes listeningBreath{
+  50%{
+    transform:
+      scale(1.15);
+
+    box-shadow:
+      0 0 25px
+      rgba(141,232,255,.25);
+  }
+}
+
+@keyframes thinkingPulse{
+  50%{
+    transform:
+      scale(.88);
+
+    opacity:.65;
+  }
+}
+
+
+/* =========================================================
+   SMALL SCREENS
+========================================================= */
+
+@media(max-height:500px){
+
+  .core{
+    width:170px;
+    height:170px;
+  }
+
+  .audio-spectrum{
+    width:220px;
+    height:220px;
+  }
+
+  .centre{
+    top:47%;
+  }
+}
+
 </style>
 </head>
 
 <body>
 
-<div class="auth-gate" id="authGate">
-  <form class="auth-card" id="loginForm">
+
+<!-- ======================================================
+     LOGIN
+====================================================== -->
+
+<div
+  class="auth-gate"
+  id="authGate"
+>
+
+  <form
+    class="auth-card"
+    id="loginForm"
+  >
+
     <div class="auth-core"></div>
-    <div class="auth-title">J.A.R.V.I.S.</div>
-    <div class="auth-subtitle">AUTHORISED ACCESS ONLY</div>
+
+    <div class="auth-title">
+      J.A.R.V.I.S.
+    </div>
+
+    <div class="auth-subtitle">
+      AUTHORISED ACCESS ONLY
+    </div>
+
 
     <input
       id="email"
@@ -553,6 +1135,7 @@ h1{
       required
     >
 
+
     <input
       id="password"
       type="password"
@@ -561,717 +1144,2268 @@ h1{
       required
     >
 
-    <button id="loginButton" type="submit">
+
+    <button
+      id="loginButton"
+      type="submit"
+    >
       AUTHENTICATE
     </button>
 
-    <div class="auth-error" id="authError"></div>
+
+    <div
+      class="auth-error"
+      id="authError"
+    ></div>
+
   </form>
+
 </div>
 
-<div class="panel" id="panel">
+
+
+<!-- ======================================================
+     MAIN
+====================================================== -->
+
+<div
+  class="panel standby"
+  id="panel"
+>
+
+
+  <div
+    class="scene-glow"
+    id="sceneGlow"
+  ></div>
+
 
   <div class="top">
-    <div>J.A.R.V.I.S.</div>
+
+    <div>
+      J.A.R.V.I.S.
+    </div>
+
 
     <div class="online">
-      <span class="dot"></span>
-      <span id="linkState">ONLINE</span>
 
-      <button class="logout" id="logoutButton">
+      <span class="dot"></span>
+
+      <span id="linkState">
+        ONLINE
+      </span>
+
+
+      <button
+        class="logout"
+        id="logoutButton"
+      >
         LOG OUT
       </button>
+
     </div>
+
   </div>
+
+
 
   <div class="centre">
 
-    <div class="core" id="core">
-      <div class="core-ambient" id="coreAmbient"></div>
 
-      <div class="voice-wave wave4" id="wave4"></div>
-      <div class="voice-wave wave3" id="wave3"></div>
-      <div class="voice-wave wave2" id="wave2"></div>
-      <div class="voice-wave wave1" id="wave1"></div>
+    <div
+      class="core"
+      id="core"
+    >
 
-      <div class="ring"></div>
-      <div class="ring2"></div>
-      <div class="ring3"></div>
 
-      <div class="core-halo" id="coreHalo"></div>
-      <div class="core-dot" id="coreDot"></div>
+      <div
+        class="core-ambient"
+        id="coreAmbient"
+      ></div>
+
+
+      <div
+        class="voice-wave wave4"
+        id="wave4"
+      ></div>
+
+
+      <div
+        class="voice-wave wave3"
+        id="wave3"
+      ></div>
+
+
+      <div
+        class="voice-wave wave2"
+        id="wave2"
+      ></div>
+
+
+      <div
+        class="voice-wave wave1"
+        id="wave1"
+      ></div>
+
+
+      <canvas
+        class="audio-spectrum"
+        id="audioSpectrum"
+        width="520"
+        height="520"
+      ></canvas>
+
+
+      <div class="thinking-ring"></div>
+
+      <div class="scan-ring"></div>
+
+      <div class="main-ring"></div>
+
+      <div class="inner-ring"></div>
+
+
+      <div
+        class="core-halo"
+        id="coreHalo"
+      ></div>
+
+
+      <div
+        class="core-dot"
+        id="coreDot"
+      ></div>
+
+
     </div>
 
-    <h1>JARVIS</h1>
 
-    <div class="status" id="status">
+    <h1>
+      JARVIS
+    </h1>
+
+
+    <div
+      class="status"
+      id="status"
+    >
       SYSTEM INTEGRITY 100%
     </div>
 
-    <div class="message" id="message">
+
+    <div
+      class="message"
+      id="message"
+    >
       Standing by, sir.
     </div>
 
-    <button class="voice-button" id="voiceButton">
+
+    <button
+      class="voice-button"
+      id="voiceButton"
+    >
       ACTIVATE VOICE
     </button>
+
+
   </div>
+
+
 
   <div class="bottom">
-    <div class="metric">
-      <b id="temp">--.-°C</b>
-      <span>HOME</span>
-    </div>
+
 
     <div class="metric">
-      <b id="solar">-- kW</b>
-      <span>SOLAR</span>
+
+      <b id="temp">
+        --.-°C
+      </b>
+
+      <span>
+        HOME
+      </span>
+
     </div>
 
-    <div class="metric">
-      <b id="bmw">--%</b>
-      <span>BMW</span>
-    </div>
 
     <div class="metric">
-      <b id="grid">-- kW</b>
-      <span>GRID</span>
+
+      <b id="solar">
+        -- kW
+      </b>
+
+      <span>
+        SOLAR
+      </span>
+
     </div>
+
+
+    <div class="metric">
+
+      <b id="bmw">
+        --%
+      </b>
+
+      <span>
+        BMW
+      </span>
+
+    </div>
+
+
+    <div class="metric">
+
+      <b id="grid">
+        -- kW
+      </b>
+
+      <span>
+        GRID
+      </span>
+
+    </div>
+
+
   </div>
+
+
 </div>
 
+
+
 <script type="module">
-import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
 
-const SUPABASE_URL = "https://hibrzsnwkbngaaujdvxl.supabase.co";
-const SUPABASE_KEY = "sb_publishable_yJBOE5AnX7-N8EkV98LNnA_LJ0KEz-P";
-
-const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
-
-const el = id => document.getElementById(id);
-
-let refreshTimer = null;
-let peerConnection = null;
-let dataChannel = null;
-let localStream = null;
-let remoteAudio = null;
-
-let voicePhase = "disconnected";
-let baseStatus = "SYSTEM INTEGRITY 100%";
-let baseMessage = "Standing by, sir.";
 
 /* =========================================================
-   AUDIO VISUALISER
+   SUPABASE
 ========================================================= */
 
-let audioContext = null;
-let remoteAnalyser = null;
-let remoteSource = null;
-let voiceBuffer = null;
-let voiceAnimationFrame = null;
-let smoothedVoiceLevel = 0;
+import {
+  createClient
+}
+from
+"https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
 
-async function setupVoiceVisuals(stream){
+
+const SUPABASE_URL =
+  "https://hibrzsnwkbngaaujdvxl.supabase.co";
+
+
+const SUPABASE_KEY =
+  "sb_publishable_yJBOE5AnX7-N8EkV98LNnA_LJ0KEz-P";
+
+
+const supabase =
+  createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+
+const el =
+  id =>
+    document.getElementById(id);
+
+
+
+/* =========================================================
+   STATE
+========================================================= */
+
+let refreshTimer =
+  null;
+
+
+let peerConnection =
+  null;
+
+
+let dataChannel =
+  null;
+
+
+let localStream =
+  null;
+
+
+let remoteAudio =
+  null;
+
+
+let voicePhase =
+  "disconnected";
+
+
+let baseStatus =
+  "SYSTEM INTEGRITY 100%";
+
+
+let baseMessage =
+  "Standing by, sir.";
+
+
+
+/* =========================================================
+   AUDIO ANALYSIS
+========================================================= */
+
+let audioContext =
+  null;
+
+
+let remoteAnalyser =
+  null;
+
+
+let remoteSource =
+  null;
+
+
+let audioTimeData =
+  null;
+
+
+let audioFreqData =
+  null;
+
+
+let animationFrame =
+  null;
+
+
+let smoothLevel =
+  0;
+
+
+
+async function setupAudioVisuals(
+  stream
+){
+
   try{
-    resetVoiceVisuals();
 
-    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-    if(!AudioContextClass){
-      console.warn("Web Audio API unavailable");
+    resetAudioVisuals();
+
+
+    const AudioContextClass =
+      window.AudioContext ||
+      window.webkitAudioContext;
+
+
+    if(
+      !AudioContextClass
+    ){
       return;
     }
 
-    audioContext = new AudioContextClass();
 
-    if(audioContext.state === "suspended"){
-      await audioContext.resume();
+    audioContext =
+      new AudioContextClass();
+
+
+    if(
+      audioContext.state ===
+      "suspended"
+    ){
+
+      await audioContext
+        .resume();
     }
 
-    remoteAnalyser = audioContext.createAnalyser();
-    remoteAnalyser.fftSize = 512;
-    remoteAnalyser.smoothingTimeConstant = .72;
 
-    voiceBuffer = new Uint8Array(remoteAnalyser.fftSize);
+    remoteAnalyser =
+      audioContext
+        .createAnalyser();
 
-    remoteSource = audioContext.createMediaStreamSource(stream);
-    remoteSource.connect(remoteAnalyser);
 
-    animateVoiceWave();
+    remoteAnalyser.fftSize =
+      512;
+
+
+    remoteAnalyser
+      .smoothingTimeConstant =
+        .70;
+
+
+    audioTimeData =
+      new Uint8Array(
+        remoteAnalyser
+          .fftSize
+      );
+
+
+    audioFreqData =
+      new Uint8Array(
+        remoteAnalyser
+          .frequencyBinCount
+      );
+
+
+    remoteSource =
+      audioContext
+        .createMediaStreamSource(
+          stream
+        );
+
+
+    remoteSource.connect(
+      remoteAnalyser
+    );
+
+
+    animateAudio();
+
   } catch(error){
-    console.warn("Voice visualiser failed:", error);
+
+    console.warn(
+      "Audio visualiser:",
+      error
+    );
   }
 }
 
-function animateVoiceWave(){
-  if(!remoteAnalyser || !voiceBuffer) return;
 
-  remoteAnalyser.getByteTimeDomainData(voiceBuffer);
 
-  let sumSquares = 0;
+/* =========================================================
+   DRAW RADIAL AUDIO BARS
+========================================================= */
 
-  for(let i = 0; i < voiceBuffer.length; i++){
-    const value = (voiceBuffer[i] - 128) / 128;
-    sumSquares += value * value;
+function drawSpectrum(
+  frequencies,
+  level
+){
+
+  const canvas =
+    el(
+      "audioSpectrum"
+    );
+
+
+  const ctx =
+    canvas
+      .getContext(
+        "2d"
+      );
+
+
+  const w =
+    canvas.width;
+
+
+  const h =
+    canvas.height;
+
+
+  ctx.clearRect(
+    0,
+    0,
+    w,
+    h
+  );
+
+
+  if(
+    voicePhase !==
+    "speaking"
+  ){
+    return;
   }
 
-  const rms = Math.sqrt(sumSquares / voiceBuffer.length);
 
-  let level = (rms - .006) * 12;
-  level = Math.max(0, Math.min(1, level));
+  const cx =
+    w / 2;
 
-  smoothedVoiceLevel = smoothedVoiceLevel * .68 + level * .32;
 
-  const v = smoothedVoiceLevel;
+  const cy =
+    h / 2;
 
-  const wave1 = el("wave1");
-  const wave2 = el("wave2");
-  const wave3 = el("wave3");
-  const wave4 = el("wave4");
-  const halo = el("coreHalo");
-  const ambient = el("coreAmbient");
-  const dot = el("coreDot");
-  const core = el("core");
 
-  if(wave1){
-    wave1.style.transform = `scale(${1 + v * .45})`;
-    wave1.style.opacity = `${.22 + v * .85}`;
-    wave1.style.borderColor = `rgba(141,232,255,${.25 + v * .65})`;
-    wave1.style.boxShadow = `0 0 ${18 + v * 44}px rgba(141,232,255,${.14 + v * .48})`;
+  const bars =
+    64;
+
+
+  const baseRadius =
+    151;
+
+
+  for(
+    let i = 0;
+    i < bars;
+    i++
+  ){
+
+    const angle =
+      (
+        i /
+        bars
+      ) *
+      Math.PI *
+      2
+      -
+      Math.PI /
+      2;
+
+
+    const freqIndex =
+      Math.floor(
+        (
+          i /
+          bars
+        ) *
+        Math.min(
+          frequencies.length,
+          100
+        )
+      );
+
+
+    const value =
+      frequencies[
+        freqIndex
+      ] /
+      255;
+
+
+    const strength =
+      Math.max(
+        value,
+        level *
+        .55
+      );
+
+
+    const length =
+      5 +
+      strength *
+      43;
+
+
+    const x1 =
+      cx +
+      Math.cos(
+        angle
+      ) *
+      baseRadius;
+
+
+    const y1 =
+      cy +
+      Math.sin(
+        angle
+      ) *
+      baseRadius;
+
+
+    const x2 =
+      cx +
+      Math.cos(
+        angle
+      ) *
+      (
+        baseRadius +
+        length
+      );
+
+
+    const y2 =
+      cy +
+      Math.sin(
+        angle
+      ) *
+      (
+        baseRadius +
+        length
+      );
+
+
+    const alpha =
+      .12 +
+      strength *
+      .70;
+
+
+    ctx.beginPath();
+
+
+    ctx.moveTo(
+      x1,
+      y1
+    );
+
+
+    ctx.lineTo(
+      x2,
+      y2
+    );
+
+
+    ctx.strokeStyle =
+      `rgba(
+        141,
+        232,
+        255,
+        ${alpha}
+      )`;
+
+
+    ctx.lineWidth =
+      2 +
+      strength *
+      1.5;
+
+
+    ctx.lineCap =
+      "round";
+
+
+    ctx.shadowColor =
+      "rgba(141,232,255,.7)";
+
+
+    ctx.shadowBlur =
+      strength *
+      12;
+
+
+    ctx.stroke();
   }
 
-  if(wave2){
-    wave2.style.transform = `scale(${1 + v * .65})`;
-    wave2.style.opacity = `${.14 + v * .58}`;
-    wave2.style.borderColor = `rgba(141,232,255,${.16 + v * .40})`;
-    wave2.style.boxShadow = `0 0 ${22 + v * 52}px rgba(141,232,255,${.08 + v * .28})`;
-  }
 
-  if(wave3){
-    wave3.style.transform = `scale(${1 + v * .88})`;
-    wave3.style.opacity = `${.10 + v * .36}`;
-    wave3.style.borderColor = `rgba(141,232,255,${.10 + v * .24})`;
-    wave3.style.boxShadow = `0 0 ${28 + v * 58}px rgba(141,232,255,${.05 + v * .18})`;
-  }
-
-  if(wave4){
-    wave4.style.transform = `scale(${1 + v * 1.08})`;
-    wave4.style.opacity = `${.06 + v * .24}`;
-    wave4.style.borderColor = `rgba(141,232,255,${.07 + v * .16})`;
-    wave4.style.boxShadow = `0 0 ${36 + v * 66}px rgba(141,232,255,${.04 + v * .12})`;
-  }
-
-  if(halo){
-    halo.style.transform = `scale(${1 + v * .16})`;
-    halo.style.opacity = `${.75 + v * .25}`;
-    halo.style.boxShadow =
-      `0 0 ${18 + v * 42}px rgba(141,232,255,${.10 + v * .30}),
-       inset 0 0 ${16 + v * 24}px rgba(141,232,255,${.04 + v * .10})`;
-  }
-
-  if(ambient){
-    ambient.style.transform = `scale(${1 + v * .18})`;
-    ambient.style.opacity = `${.45 + v * .48}`;
-  }
-
-  if(dot){
-    dot.style.transform = `scale(${1 + v * .12})`;
-    dot.style.boxShadow =
-      `0 0 ${24 + v * 26}px rgba(141,232,255,${.58 + v * .34}),
-       inset 0 0 ${14 + v * 14}px rgba(141,232,255,${.18 + v * .22})`;
-  }
-
-  if(core){
-    core.style.transform = `scale(${1 + v * .03})`;
-  }
-
-  voiceAnimationFrame = requestAnimationFrame(animateVoiceWave);
+  ctx.shadowBlur =
+    0;
 }
 
-function resetVoiceVisuals(){
-  if(voiceAnimationFrame){
-    cancelAnimationFrame(voiceAnimationFrame);
-    voiceAnimationFrame = null;
+
+
+/* =========================================================
+   AUDIO ANIMATION
+========================================================= */
+
+function animateAudio(){
+
+  if(
+    !remoteAnalyser ||
+    !audioTimeData ||
+    !audioFreqData
+  ){
+    return;
   }
 
-  smoothedVoiceLevel = 0;
 
-  const resetWave = (id, scale, opacity) => {
-    const node = el(id);
-    if(node){
-      node.style.transform = `scale(${scale})`;
-      node.style.opacity = `${opacity}`;
-    }
+  remoteAnalyser
+    .getByteTimeDomainData(
+      audioTimeData
+    );
+
+
+  remoteAnalyser
+    .getByteFrequencyData(
+      audioFreqData
+    );
+
+
+  let sum =
+    0;
+
+
+  for(
+    let i = 0;
+    i < audioTimeData.length;
+    i++
+  ){
+
+    const n =
+      (
+        audioTimeData[i] -
+        128
+      ) /
+      128;
+
+
+    sum +=
+      n * n;
+  }
+
+
+  const rms =
+    Math.sqrt(
+      sum /
+      audioTimeData.length
+    );
+
+
+  let level =
+    (
+      rms -
+      .005
+    ) *
+    13;
+
+
+  level =
+    Math.max(
+      0,
+      Math.min(
+        1,
+        level
+      )
+    );
+
+
+  smoothLevel =
+    smoothLevel *
+    .67 +
+    level *
+    .33;
+
+
+  const v =
+    smoothLevel;
+
+
+  animateWave(
+    "wave1",
+    1 + v * .42,
+    .10 + v * .86,
+    20 + v * 45
+  );
+
+
+  animateWave(
+    "wave2",
+    1 + v * .64,
+    .05 + v * .52,
+    25 + v * 55
+  );
+
+
+  animateWave(
+    "wave3",
+    1 + v * .90,
+    .025 + v * .34,
+    32 + v * 65
+  );
+
+
+  animateWave(
+    "wave4",
+    1 + v * 1.18,
+    .015 + v * .21,
+    40 + v * 80
+  );
+
+
+  const dot =
+    el(
+      "coreDot"
+    );
+
+
+  dot.style.transform =
+    `scale(${
+      1 +
+      v *
+      .18
+    })`;
+
+
+  const halo =
+    el(
+      "coreHalo"
+    );
+
+
+  halo.style.transform =
+    `scale(${
+      1 +
+      v *
+      .22
+    })`;
+
+
+  const ambient =
+    el(
+      "coreAmbient"
+    );
+
+
+  ambient.style.transform =
+    `scale(${
+      1 +
+      v *
+      .25
+    })`;
+
+
+  drawSpectrum(
+    audioFreqData,
+    v
+  );
+
+
+  animationFrame =
+    requestAnimationFrame(
+      animateAudio
+    );
+}
+
+
+
+function animateWave(
+  id,
+  scale,
+  opacity,
+  blur
+){
+
+  const node =
+    el(id);
+
+
+  node.style.transform =
+    `scale(${scale})`;
+
+
+  node.style.opacity =
+    opacity;
+
+
+  node.style.boxShadow =
+    `0 0 ${blur}px
+    rgba(
+      141,
+      232,
+      255,
+      ${
+        Math.min(
+          .48,
+          opacity *
+          .50
+        )
+      }
+    )`;
+}
+
+
+
+/* =========================================================
+   RESET VISUALS
+========================================================= */
+
+function resetAudioVisuals(){
+
+  if(
+    animationFrame
+  ){
+
+    cancelAnimationFrame(
+      animationFrame
+    );
+
+
+    animationFrame =
+      null;
+  }
+
+
+  smoothLevel =
+    0;
+
+
+  const defaults = {
+
+    wave1:.11,
+    wave2:.06,
+    wave3:.03,
+    wave4:.02
+
   };
 
-  resetWave("wave1",1,.28);
-  resetWave("wave2",1,.16);
-  resetWave("wave3",1,.11);
-  resetWave("wave4",1,.08);
 
-  const halo = el("coreHalo");
-  if(halo){
-    halo.style.transform = "scale(1)";
-    halo.style.opacity = ".9";
-    halo.style.boxShadow = "0 0 18px rgba(141,232,255,.12), inset 0 0 20px rgba(141,232,255,.05)";
-  }
+  Object.entries(
+    defaults
+  )
+  .forEach(
+    ([id,opacity]) => {
 
-  const ambient = el("coreAmbient");
-  if(ambient){
-    ambient.style.transform = "scale(1)";
-    ambient.style.opacity = ".55";
-  }
+      const node =
+        el(id);
 
-  const dot = el("coreDot");
-  if(dot){
-    dot.style.transform = "scale(1)";
-    dot.style.boxShadow = "0 0 22px rgba(141,232,255,.65), inset 0 0 16px rgba(141,232,255,.22)";
-  }
 
-  const core = el("core");
-  if(core){
-    core.style.transform = "scale(1)";
-  }
+      if(node){
 
-  remoteAnalyser = null;
-  remoteSource = null;
-  voiceBuffer = null;
+        node.style.transform =
+          "scale(1)";
 
-  if(audioContext){
-    try{ audioContext.close(); } catch{}
-    audioContext = null;
+
+        node.style.opacity =
+          opacity;
+
+
+        node.style.boxShadow =
+          "none";
+      }
+    }
+  );
+
+
+  const canvas =
+    el(
+      "audioSpectrum"
+    );
+
+
+  canvas
+    .getContext(
+      "2d"
+    )
+    .clearRect(
+      0,
+      0,
+      canvas.width,
+      canvas.height
+    );
+
+
+  const coreDot =
+    el(
+      "coreDot"
+    );
+
+
+  coreDot.style.transform =
+    "scale(1)";
+
+
+  el(
+    "coreHalo"
+  )
+  .style.transform =
+    "scale(1)";
+
+
+  el(
+    "coreAmbient"
+  )
+  .style.transform =
+    "scale(1)";
+
+
+  remoteAnalyser =
+    null;
+
+
+  remoteSource =
+    null;
+
+
+  audioTimeData =
+    null;
+
+
+  audioFreqData =
+    null;
+
+
+  if(
+    audioContext
+  ){
+
+    try{
+
+      audioContext
+        .close();
+
+    } catch{}
+
+
+    audioContext =
+      null;
   }
 }
+
+
 
 /* =========================================================
    HOME DATA
 ========================================================= */
 
-function fmtKw(value){
-  if(value === null || value === undefined || Number.isNaN(Number(value))){
+function fmtKw(
+  value
+){
+
+  if(
+    value === null ||
+    value === undefined ||
+    Number.isNaN(
+      Number(value)
+    )
+  ){
+
     return "-- kW";
   }
-  return `${(Number(value) / 1000).toFixed(2)} kW`;
+
+
+  return `${
+    (
+      Number(value) /
+      1000
+    )
+    .toFixed(2)
+  } kW`;
 }
+
+
 
 function restoreBaseStatus(){
-  if(voicePhase !== "disconnected") return;
-  el("status").textContent = baseStatus;
-  el("message").textContent = baseMessage;
+
+  if(
+    voicePhase !==
+    "disconnected"
+  ){
+    return;
+  }
+
+
+  el(
+    "status"
+  )
+  .textContent =
+    baseStatus;
+
+
+  el(
+    "message"
+  )
+  .textContent =
+    baseMessage;
 }
 
+
+
 async function loadData(){
+
   try{
-    const { data, error } = await supabase
-      .from("jarvis_status")
-      .select("id,temperature,solar,bmw,grid,updated_at")
-      .eq("id",1)
-      .single();
 
-    if(error) throw error;
+    const {
+      data,
+      error
+    } =
+      await supabase
+        .from(
+          "jarvis_status"
+        )
+        .select(
+          "id,temperature,solar,bmw,grid,updated_at"
+        )
+        .eq(
+          "id",
+          1
+        )
+        .single();
 
-    el("temp").textContent =
-      data.temperature == null
-        ? "--.-°C"
-        : `${Number(data.temperature).toFixed(1)}°C`;
 
-    el("solar").textContent = fmtKw(data.solar);
-    el("bmw").textContent = data.bmw == null ? "--%" : `${Math.round(Number(data.bmw))}%`;
-    el("grid").textContent = fmtKw(data.grid);
-
-    const updated = data.updated_at ? new Date(data.updated_at) : null;
-    const ageSec = updated ? (Date.now() - updated.getTime()) / 1000 : 999999;
-
-    if(ageSec > 180){
-      baseStatus = "DATA LINK STALE";
-      baseMessage = "Home data has not been updated recently, sir.";
-      document.querySelector(".bottom").classList.add("stale");
-    } else {
-      baseStatus = "SYSTEM INTEGRITY 100%";
-      baseMessage = "Standing by, sir.";
-      document.querySelector(".bottom").classList.remove("stale");
+    if(
+      error
+    ){
+      throw error;
     }
 
-    el("linkState").textContent = "ONLINE";
+
+    el(
+      "temp"
+    )
+    .textContent =
+      data.temperature == null
+        ?
+        "--.-°C"
+        :
+        `${
+          Number(
+            data.temperature
+          )
+          .toFixed(1)
+        }°C`;
+
+
+    el(
+      "solar"
+    )
+    .textContent =
+      fmtKw(
+        data.solar
+      );
+
+
+    el(
+      "bmw"
+    )
+    .textContent =
+      data.bmw == null
+        ?
+        "--%"
+        :
+        `${
+          Math.round(
+            Number(
+              data.bmw
+            )
+          )
+        }%`;
+
+
+    el(
+      "grid"
+    )
+    .textContent =
+      fmtKw(
+        data.grid
+      );
+
+
+    const updated =
+      data.updated_at
+        ?
+        new Date(
+          data.updated_at
+        )
+        :
+        null;
+
+
+    const age =
+      updated
+        ?
+        (
+          Date.now() -
+          updated.getTime()
+        ) /
+        1000
+        :
+        999999;
+
+
+    if(
+      age >
+      180
+    ){
+
+      baseStatus =
+        "DATA LINK STALE";
+
+
+      baseMessage =
+        "Home data has not been updated recently, sir.";
+
+
+      document
+        .querySelector(
+          ".bottom"
+        )
+        .classList
+        .add(
+          "stale"
+        );
+
+    } else {
+
+      baseStatus =
+        "SYSTEM INTEGRITY 100%";
+
+
+      baseMessage =
+        "Standing by, sir.";
+
+
+      document
+        .querySelector(
+          ".bottom"
+        )
+        .classList
+        .remove(
+          "stale"
+        );
+    }
+
+
+    el(
+      "linkState"
+    )
+    .textContent =
+      "ONLINE";
+
+
     restoreBaseStatus();
 
   } catch(error){
-    console.error("Home data:", error);
-    baseStatus = "DATA LINK DEGRADED";
-    baseMessage = "I appear to have misplaced Homey, sir.";
-    el("linkState").textContent = "LINK DEGRADED";
+
+    console.error(
+      error
+    );
+
+
+    baseStatus =
+      "DATA LINK DEGRADED";
+
+
+    baseMessage =
+      "I appear to have misplaced Homey, sir.";
+
+
+    el(
+      "linkState"
+    )
+    .textContent =
+      "LINK DEGRADED";
+
+
     restoreBaseStatus();
   }
 }
 
+
+
 /* =========================================================
-   AUTH UI
+   AUTH
 ========================================================= */
 
 function showLogin(){
-  stopVoice(false);
 
-  el("authGate").style.display = "flex";
-  el("panel").style.display = "none";
+  stopVoice(
+    false
+  );
 
-  if(refreshTimer){
-    clearInterval(refreshTimer);
-    refreshTimer = null;
+
+  el(
+    "authGate"
+  )
+  .style.display =
+    "flex";
+
+
+  el(
+    "panel"
+  )
+  .style.display =
+    "none";
+
+
+  if(
+    refreshTimer
+  ){
+
+    clearInterval(
+      refreshTimer
+    );
+
+
+    refreshTimer =
+      null;
   }
 }
 
+
+
 function showDashboard(){
-  el("authGate").style.display = "none";
-  el("panel").style.display = "block";
+
+  el(
+    "authGate"
+  )
+  .style.display =
+    "none";
+
+
+  el(
+    "panel"
+  )
+  .style.display =
+    "block";
+
+
+  setVisualState(
+    "standby"
+  );
+
 
   loadData();
 
-  if(!refreshTimer){
-    refreshTimer = setInterval(loadData, 5000);
+
+  if(
+    !refreshTimer
+  ){
+
+    refreshTimer =
+      setInterval(
+        loadData,
+        5000
+      );
   }
 }
 
+
+
 /* =========================================================
-   VOICE UI
+   STATE VISUALS
 ========================================================= */
 
-function setVoicePhase(phase){
-  voicePhase = phase;
+function setVisualState(
+  state
+){
 
-  const panel = el("panel");
-  panel.classList.remove("listening","analysing","speaking");
+  const panel =
+    el(
+      "panel"
+    );
 
-  if(phase === "connecting"){
-    el("status").textContent = "ESTABLISHING VOICE LINK";
-    el("message").textContent = "Securing realtime channel...";
+
+  panel.classList.remove(
+    "standby",
+    "listening",
+    "analysing",
+    "speaking"
+  );
+
+
+  panel.classList.add(
+    state
+  );
+}
+
+
+
+function setVoicePhase(
+  phase
+){
+
+  voicePhase =
+    phase;
+
+
+  if(
+    phase ===
+    "connecting"
+  ){
+
+    setVisualState(
+      "analysing"
+    );
+
+
+    el(
+      "status"
+    )
+    .textContent =
+      "ESTABLISHING VOICE LINK";
+
+
+    el(
+      "message"
+    )
+    .textContent =
+      "Securing realtime channel...";
+
   }
 
-  if(phase === "listening"){
-    panel.classList.add("listening");
-    el("status").textContent = "LISTENING";
-    el("message").textContent = "Voice link active.";
+
+  if(
+    phase ===
+    "listening"
+  ){
+
+    setVisualState(
+      "listening"
+    );
+
+
+    el(
+      "status"
+    )
+    .textContent =
+      "LISTENING";
+
+
+    el(
+      "message"
+    )
+    .textContent =
+      "Voice link active.";
+
   }
 
-  if(phase === "analysing"){
-    panel.classList.add("analysing");
-    el("status").textContent = "ANALYSING";
-    el("message").textContent = "Processing...";
+
+  if(
+    phase ===
+    "analysing"
+  ){
+
+    setVisualState(
+      "analysing"
+    );
+
+
+    el(
+      "status"
+    )
+    .textContent =
+      "ANALYSING";
+
+
+    el(
+      "message"
+    )
+    .textContent =
+      "Processing...";
+
   }
 
-  if(phase === "speaking"){
-    panel.classList.add("speaking");
-    el("status").textContent = "SPEAKING";
-    el("message").textContent = "JARVIS voice channel active.";
+
+  if(
+    phase ===
+    "speaking"
+  ){
+
+    setVisualState(
+      "speaking"
+    );
+
+
+    el(
+      "status"
+    )
+    .textContent =
+      "SPEAKING";
+
+
+    el(
+      "message"
+    )
+    .textContent =
+      "JARVIS voice channel active.";
+
   }
 
-  if(phase === "disconnected"){
+
+  if(
+    phase ===
+    "disconnected"
+  ){
+
+    setVisualState(
+      "standby"
+    );
+
+
     restoreBaseStatus();
   }
 }
+
+
 
 /* =========================================================
    REALTIME EVENTS
 ========================================================= */
 
-function handleRealtimeEvent(event){
-  const type = event?.type || "";
+function handleRealtimeEvent(
+  event
+){
 
-  if(type === "input_audio_buffer.speech_started"){
-    setVoicePhase("listening");
+  const type =
+    event?.type ||
+    "";
+
+
+  if(
+    type ===
+    "input_audio_buffer.speech_started"
+  ){
+
+    setVoicePhase(
+      "listening"
+    );
+
+
     return;
   }
 
-  if(type === "input_audio_buffer.speech_stopped"){
-    setVoicePhase("analysing");
+
+  if(
+    type ===
+    "input_audio_buffer.speech_stopped"
+  ){
+
+    setVoicePhase(
+      "analysing"
+    );
+
+
     return;
   }
 
-  if(type === "response.created"){
-    setVoicePhase("analysing");
+
+  if(
+    type ===
+    "response.created"
+  ){
+
+    setVoicePhase(
+      "analysing"
+    );
+
+
     return;
   }
 
-  if((type.includes("audio") && type.includes("delta")) || type === "response.output_audio.delta"){
-    setVoicePhase("speaking");
+
+  if(
+    (
+      type.includes(
+        "audio"
+      ) &&
+      type.includes(
+        "delta"
+      )
+    )
+    ||
+    type ===
+    "response.output_audio.delta"
+  ){
+
+    setVoicePhase(
+      "speaking"
+    );
+
+
     return;
   }
 
-  if(type === "response.done" || type === "response.completed"){
-    setVoicePhase("listening");
+
+  if(
+    type ===
+    "response.done"
+    ||
+    type ===
+    "response.completed"
+  ){
+
+    setVoicePhase(
+      "listening"
+    );
+
+
     return;
   }
 
-  if(type === "error"){
-    console.error("Realtime error:", event);
-    el("status").textContent = "VOICE LINK ERROR";
-    el("message").textContent = event?.error?.message || "Realtime channel reported an error.";
+
+  if(
+    type ===
+    "error"
+  ){
+
+    console.error(
+      event
+    );
+
+
+    el(
+      "status"
+    )
+    .textContent =
+      "VOICE LINK ERROR";
+
+
+    el(
+      "message"
+    )
+    .textContent =
+      event?.error?.message
+      ||
+      "Realtime channel reported an error.";
   }
 }
+
+
 
 /* =========================================================
    START VOICE
 ========================================================= */
 
 async function startVoice(){
-  if(peerConnection) return;
 
-  const button = el("voiceButton");
-  button.disabled = true;
-  button.textContent = "CONNECTING...";
-  setVoicePhase("connecting");
+  if(
+    peerConnection
+  ){
+    return;
+  }
+
+
+  const button =
+    el(
+      "voiceButton"
+    );
+
+
+  button.disabled =
+    true;
+
+
+  button.textContent =
+    "CONNECTING...";
+
+
+  setVoicePhase(
+    "connecting"
+  );
+
 
   try{
-    if(!navigator.mediaDevices?.getUserMedia){
-      throw new Error("Microphone access is not available in this browser.");
+
+
+    if(
+      !navigator
+        .mediaDevices
+        ?.getUserMedia
+    ){
+
+      throw new Error(
+        "Microphone access is unavailable in this browser."
+      );
     }
 
-    if(!window.RTCPeerConnection){
-      throw new Error("WebRTC is not supported by this browser.");
+
+    const {
+      data:tokenData,
+      error:tokenError
+    } =
+      await supabase
+        .functions
+        .invoke(
+          "jarvis-realtime",
+          {
+            body:{}
+          }
+        );
+
+
+    if(
+      tokenError
+    ){
+
+      throw tokenError;
     }
 
-    const { data:tokenData, error:tokenError } =
-      await supabase.functions.invoke("jarvis-realtime", { body:{} });
 
-    if(tokenError) throw tokenError;
+    const key =
+      tokenData?.value;
 
-    const ephemeralKey = tokenData?.value;
 
-    if(!ephemeralKey){
-      console.error("Realtime token:", tokenData);
-      throw new Error("No ephemeral realtime key returned.");
+    if(
+      !key
+    ){
+
+      throw new Error(
+        "No ephemeral realtime key returned."
+      );
     }
 
-    const pc = new RTCPeerConnection();
-    peerConnection = pc;
 
-    const audio = document.createElement("audio");
-    audio.autoplay = true;
-    audio.playsInline = true;
-    audio.style.display = "none";
-    document.body.appendChild(audio);
-    remoteAudio = audio;
 
-    pc.ontrack = event => {
-      const stream = event.streams[0];
-      audio.srcObject = stream;
-      setupVoiceVisuals(stream);
+    const pc =
+      new RTCPeerConnection();
 
-      audio.play().catch(error => {
-        console.warn("Audio autoplay:", error);
+
+    peerConnection =
+      pc;
+
+
+
+    /* speaker audio */
+
+    const audio =
+      document.createElement(
+        "audio"
+      );
+
+
+    audio.autoplay =
+      true;
+
+
+    audio.playsInline =
+      true;
+
+
+    audio.style.display =
+      "none";
+
+
+    document.body
+      .appendChild(
+        audio
+      );
+
+
+    remoteAudio =
+      audio;
+
+
+    pc.ontrack =
+      event => {
+
+        const stream =
+          event.streams[0];
+
+
+        audio.srcObject =
+          stream;
+
+
+        setupAudioVisuals(
+          stream
+        );
+
+
+        audio.play()
+          .catch(
+            error =>
+              console.warn(
+                error
+              )
+          );
+      };
+
+
+
+    /* microphone */
+
+    const stream =
+      await navigator
+        .mediaDevices
+        .getUserMedia({
+          audio:{
+            echoCancellation:true,
+            noiseSuppression:true,
+            autoGainControl:true
+          }
+        });
+
+
+    localStream =
+      stream;
+
+
+    const track =
+      stream
+        .getAudioTracks()[0];
+
+
+    pc.addTrack(
+      track,
+      stream
+    );
+
+
+
+    /* data channel */
+
+    const dc =
+      pc.createDataChannel(
+        "oai-events"
+      );
+
+
+    dataChannel =
+      dc;
+
+
+    dc.addEventListener(
+      "open",
+      () => {
+
+        button.disabled =
+          false;
+
+
+        button.textContent =
+          "DISCONNECT VOICE";
+
+
+        button.classList.add(
+          "active"
+        );
+
+
+        setVoicePhase(
+          "listening"
+        );
+      }
+    );
+
+
+    dc.addEventListener(
+      "message",
+      event => {
+
+        try{
+
+          const message =
+            JSON.parse(
+              event.data
+            );
+
+
+          handleRealtimeEvent(
+            message
+          );
+
+        } catch(error){
+
+          console.warn(
+            error
+          );
+        }
+      }
+    );
+
+
+
+    const offer =
+      await pc
+        .createOffer();
+
+
+    await pc
+      .setLocalDescription(
+        offer
+      );
+
+
+
+    const response =
+      await fetch(
+        "https://api.openai.com/v1/realtime/calls",
+        {
+
+          method:
+            "POST",
+
+          body:
+            offer.sdp,
+
+          headers:{
+
+            "Authorization":
+              `Bearer ${key}`,
+
+            "Content-Type":
+              "application/sdp"
+
+          }
+
+        }
+      );
+
+
+    if(
+      !response.ok
+    ){
+
+      throw new Error(
+        await response
+          .text()
+      );
+    }
+
+
+    await pc
+      .setRemoteDescription({
+
+        type:
+          "answer",
+
+        sdp:
+          await response
+            .text()
+
       });
-    };
 
-    const stream = await navigator.mediaDevices.getUserMedia({
-      audio:{
-        echoCancellation:true,
-        noiseSuppression:true,
-        autoGainControl:true
+
+
+    pc.addEventListener(
+      "connectionstatechange",
+      () => {
+
+        if(
+          peerConnection !==
+          pc
+        ){
+          return;
+        }
+
+
+        if(
+          pc.connectionState ===
+          "failed"
+          ||
+          pc.connectionState ===
+          "closed"
+        ){
+
+          stopVoice();
+        }
       }
-    });
+    );
 
-    localStream = stream;
-
-    const track = stream.getAudioTracks()[0];
-    if(!track){
-      throw new Error("No microphone audio track available.");
-    }
-
-    pc.addTrack(track, stream);
-
-    const dc = pc.createDataChannel("oai-events");
-    dataChannel = dc;
-
-    dc.addEventListener("open", () => {
-      button.disabled = false;
-      button.textContent = "DISCONNECT VOICE";
-      button.classList.add("active");
-      setVoicePhase("listening");
-    });
-
-    dc.addEventListener("message", event => {
-      try{
-        const message = JSON.parse(event.data);
-        console.log("Realtime:", message);
-        handleRealtimeEvent(message);
-      } catch(error){
-        console.warn("Unreadable realtime event:", error);
-      }
-    });
-
-    dc.addEventListener("close", () => {
-      if(peerConnection === pc){
-        stopVoice();
-      }
-    });
-
-    const offer = await pc.createOffer();
-    await pc.setLocalDescription(offer);
-
-    const sdpResponse = await fetch("https://api.openai.com/v1/realtime/calls", {
-      method:"POST",
-      body:offer.sdp,
-      headers:{
-        "Authorization": `Bearer ${ephemeralKey}`,
-        "Content-Type":"application/sdp"
-      }
-    });
-
-    if(!sdpResponse.ok){
-      const errorText = await sdpResponse.text();
-      throw new Error(`Realtime SDP ${sdpResponse.status}: ${errorText}`);
-    }
-
-    const answer = {
-      type:"answer",
-      sdp: await sdpResponse.text()
-    };
-
-    await pc.setRemoteDescription(answer);
-
-    pc.addEventListener("connectionstatechange", () => {
-      console.log("WebRTC:", pc.connectionState);
-
-      if(peerConnection !== pc) return;
-
-      if(pc.connectionState === "failed" || pc.connectionState === "closed"){
-        stopVoice();
-      }
-    });
 
   } catch(error){
-    console.error("Voice startup failed:", error);
 
-    stopVoice(false);
+    console.error(
+      error
+    );
 
-    el("status").textContent = "VOICE LINK FAILED";
 
-    if(error?.name === "NotAllowedError"){
-      el("message").textContent = "Microphone permission was denied.";
-    } else {
-      el("message").textContent = error?.message || "Realtime connection could not be established.";
-    }
+    stopVoice(
+      false
+    );
 
-    button.disabled = false;
-    button.textContent = "RETRY VOICE";
+
+    el(
+      "status"
+    )
+    .textContent =
+      "VOICE LINK FAILED";
+
+
+    el(
+      "message"
+    )
+    .textContent =
+      error?.message
+      ||
+      "Realtime connection failed.";
+
+
+    button.disabled =
+      false;
+
+
+    button.textContent =
+      "RETRY VOICE";
   }
 }
 
+
+
 /* =========================================================
-   STOP VOICE
+   STOP
 ========================================================= */
 
-function stopVoice(updateUi = true){
-  const pc = peerConnection;
-  const dc = dataChannel;
+function stopVoice(
+  updateUi = true
+){
 
-  peerConnection = null;
-  dataChannel = null;
+  const pc =
+    peerConnection;
 
-  resetVoiceVisuals();
 
-  if(localStream){
-    for(const track of localStream.getTracks()){
+  const dc =
+    dataChannel;
+
+
+  peerConnection =
+    null;
+
+
+  dataChannel =
+    null;
+
+
+  resetAudioVisuals();
+
+
+  if(
+    localStream
+  ){
+
+    for(
+      const track
+      of localStream
+        .getTracks()
+    ){
+
       track.stop();
     }
-    localStream = null;
+
+
+    localStream =
+      null;
   }
 
-  if(remoteAudio){
+
+  if(
+    remoteAudio
+  ){
+
     try{
+
       remoteAudio.pause();
-      remoteAudio.srcObject = null;
-      remoteAudio.remove();
+
+
+      remoteAudio
+        .remove();
+
     } catch{}
-    remoteAudio = null;
+
+
+    remoteAudio =
+      null;
   }
 
-  try{ dc?.close(); }catch{}
-  try{ pc?.close(); }catch{}
 
-  voicePhase = "disconnected";
+  try{
+    dc?.close();
+  }catch{}
 
-  el("panel").classList.remove("listening","analysing","speaking");
 
-  const button = el("voiceButton");
-  button.disabled = false;
-  button.textContent = "ACTIVATE VOICE";
-  button.classList.remove("active");
+  try{
+    pc?.close();
+  }catch{}
 
-  if(updateUi){
+
+  voicePhase =
+    "disconnected";
+
+
+  const button =
+    el(
+      "voiceButton"
+    );
+
+
+  button.disabled =
+    false;
+
+
+  button.textContent =
+    "ACTIVATE VOICE";
+
+
+  button.classList.remove(
+    "active"
+  );
+
+
+  setVisualState(
+    "standby"
+  );
+
+
+  if(
+    updateUi
+  ){
+
     restoreBaseStatus();
   }
 }
+
+
 
 /* =========================================================
    BUTTONS
 ========================================================= */
 
-el("voiceButton").addEventListener("click", async () => {
-  if(peerConnection){
-    stopVoice();
-  } else {
-    await startVoice();
+el(
+  "voiceButton"
+)
+.addEventListener(
+  "click",
+  async () => {
+
+    if(
+      peerConnection
+    ){
+
+      stopVoice();
+
+    } else {
+
+      await startVoice();
+    }
   }
-});
+);
 
-el("loginForm").addEventListener("submit", async event => {
-  event.preventDefault();
 
-  const email = el("email").value.trim();
-  const password = el("password").value;
-  const button = el("loginButton");
 
-  el("authError").textContent = "";
-  button.disabled = true;
-  button.textContent = "AUTHENTICATING...";
+el(
+  "loginForm"
+)
+.addEventListener(
+  "submit",
+  async event => {
 
-  const { error } = await supabase.auth.signInWithPassword({
-    email,
-    password
-  });
+    event.preventDefault();
 
-  button.disabled = false;
-  button.textContent = "AUTHENTICATE";
 
-  if(error){
-    el("authError").textContent = "ACCESS DENIED";
-    return;
+    const email =
+      el(
+        "email"
+      )
+      .value
+      .trim();
+
+
+    const password =
+      el(
+        "password"
+      )
+      .value;
+
+
+    const button =
+      el(
+        "loginButton"
+      );
+
+
+    button.disabled =
+      true;
+
+
+    button.textContent =
+      "AUTHENTICATING...";
+
+
+    const {
+      error
+    } =
+      await supabase
+        .auth
+        .signInWithPassword({
+          email,
+          password
+        });
+
+
+    button.disabled =
+      false;
+
+
+    button.textContent =
+      "AUTHENTICATE";
+
+
+    if(
+      error
+    ){
+
+      el(
+        "authError"
+      )
+      .textContent =
+        "ACCESS DENIED";
+
+
+      return;
+    }
+
+
+    el(
+      "password"
+    )
+    .value =
+      "";
+
+
+    showDashboard();
   }
+);
 
-  el("password").value = "";
-  showDashboard();
-});
 
-el("logoutButton").addEventListener("click", async () => {
-  stopVoice(false);
 
-  await supabase.auth.signOut({
-    scope:"local"
-  });
+el(
+  "logoutButton"
+)
+.addEventListener(
+  "click",
+  async () => {
 
-  showLogin();
-});
+    stopVoice(
+      false
+    );
+
+
+    await supabase
+      .auth
+      .signOut({
+        scope:
+          "local"
+      });
+
+
+    showLogin();
+  }
+);
+
+
 
 /* =========================================================
-   INITIAL SESSION
+   SESSION
 ========================================================= */
 
-const { data:{ session } } = await supabase.auth.getSession();
+const {
+  data:{
+    session
+  }
+} =
+  await supabase
+    .auth
+    .getSession();
 
-if(session){
+
+if(
+  session
+){
+
   showDashboard();
+
 } else {
+
   showLogin();
 }
 
-supabase.auth.onAuthStateChange((event, session) => {
-  if(event === "SIGNED_OUT"){
-    showLogin();
-  }
 
-  if(event === "SIGNED_IN" && session){
-    showDashboard();
-  }
-});
+
+supabase
+  .auth
+  .onAuthStateChange(
+    (
+      event,
+      session
+    ) => {
+
+      if(
+        event ===
+        "SIGNED_OUT"
+      ){
+
+        showLogin();
+      }
+
+
+      if(
+        event ===
+        "SIGNED_IN"
+        &&
+        session
+      ){
+
+        showDashboard();
+      }
+    }
+  );
+
 </script>
+
 </body>
 </html>
