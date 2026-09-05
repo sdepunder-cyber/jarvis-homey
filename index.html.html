@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>J.A.R.V.I.S.</title>
+<style>
+  :root{
+    --bg:#071018;
+    --panel:#0a1620;
+    --line:rgba(127,220,255,.25);
+    --text:#eaf8ff;
+    --muted:#7f9aa8;
+    --glow:#8de8ff;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;width:100%;height:100%;background:transparent;font-family:Inter,Arial,sans-serif;color:var(--text);overflow:hidden}
+  body{display:flex;align-items:center;justify-content:center;padding:8px}
+  .panel{
+    width:100%;height:100%;min-height:220px;
+    border:1px solid var(--line);
+    border-radius:24px;
+    background:
+      radial-gradient(circle at 50% 45%, rgba(65,182,222,.10), transparent 35%),
+      linear-gradient(180deg, rgba(8,18,28,.98), rgba(3,9,14,.98));
+    position:relative;overflow:hidden;
+    box-shadow:inset 0 0 40px rgba(95,210,255,.04);
+  }
+  .top{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:15px 18px 4px;font-size:12px;letter-spacing:.18em;color:var(--muted)
+  }
+  .online{display:flex;align-items:center;gap:7px}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--glow);box-shadow:0 0 10px var(--glow)}
+  .centre{position:absolute;left:50%;top:49%;transform:translate(-50%,-50%);text-align:center}
+  .core{
+    position:relative;width:122px;height:122px;margin:auto;
+    display:flex;align-items:center;justify-content:center
+  }
+  .ring,.ring2,.ring3{
+    position:absolute;border-radius:50%;border:1px solid rgba(141,232,255,.4)
+  }
+  .ring{inset:0;animation:spin 12s linear infinite}
+  .ring:before,.ring:after{
+    content:"";position:absolute;background:var(--glow);box-shadow:0 0 9px var(--glow);border-radius:50%
+  }
+  .ring:before{width:5px;height:5px;left:9px;top:25px}
+  .ring:after{width:4px;height:4px;right:13px;bottom:22px}
+  .ring2{inset:14px;border-style:dashed;opacity:.55;animation:spinReverse 18s linear infinite}
+  .ring3{inset:31px;border-width:2px;opacity:.65;animation:pulse 2.8s ease-in-out infinite}
+  .core-dot{
+    width:24px;height:24px;border-radius:50%;
+    border:1px solid rgba(141,232,255,.9);
+    box-shadow:0 0 20px rgba(141,232,255,.55), inset 0 0 12px rgba(141,232,255,.25)
+  }
+  h1{font-size:15px;letter-spacing:.32em;margin:10px 0 7px;padding-left:.32em;font-weight:600}
+  .status{font-size:11px;letter-spacing:.2em;color:var(--glow);min-height:16px}
+  .message{margin-top:8px;font-size:11px;color:var(--muted);min-height:16px}
+  .bottom{
+    position:absolute;left:14px;right:14px;bottom:12px;
+    display:grid;grid-template-columns:repeat(4,1fr);gap:7px
+  }
+  .metric{
+    border-top:1px solid rgba(141,232,255,.15);
+    padding-top:7px;text-align:center
+  }
+  .metric b{display:block;font-size:12px;font-weight:500}
+  .metric span{font-size:8px;letter-spacing:.13em;color:var(--muted)}
+  .controls{
+    position:absolute;right:10px;top:44px;display:flex;flex-direction:column;gap:5px;opacity:.0;
+    transition:.2s
+  }
+  .panel:hover .controls{opacity:.85}
+  button{
+    appearance:none;border:1px solid rgba(141,232,255,.22);background:rgba(9,22,32,.9);
+    color:#9fb4bf;border-radius:8px;padding:5px 7px;font-size:8px;cursor:pointer
+  }
+  .approval{display:none;margin-top:9px;gap:7px;justify-content:center}
+  .approval button{font-size:9px;padding:7px 13px}
+  .approval .allow{color:var(--text);border-color:rgba(141,232,255,.55)}
+  .listening .ring3{animation:pulseFast .8s ease-in-out infinite}
+  .analysing .ring{animation-duration:2.4s}
+  .analysing .ring2{animation-duration:3.7s}
+  .speaking .ring3{animation:pulseFast .45s ease-in-out infinite}
+  .approval-mode .approval{display:flex}
+  .approval-mode .ring,.approval-mode .ring2{animation-play-state:paused}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  @keyframes spinReverse{to{transform:rotate(-360deg)}}
+  @keyframes pulse{50%{transform:scale(1.08);opacity:1}}
+  @keyframes pulseFast{50%{transform:scale(1.17);opacity:1;box-shadow:0 0 18px rgba(141,232,255,.12)}}
+</style>
+</head>
+<body>
+<div class="panel" id="panel">
+  <div class="top">
+    <div>J.A.R.V.I.S.</div>
+    <div class="online"><span class="dot"></span><span>ONLINE</span></div>
+  </div>
+
+  <div class="centre">
+    <div class="core">
+      <div class="ring"></div><div class="ring2"></div><div class="ring3"></div><div class="core-dot"></div>
+    </div>
+    <h1>JARVIS</h1>
+    <div class="status" id="status">SYSTEMS NOMINAL</div>
+    <div class="message" id="message">Standing by, sir.</div>
+    <div class="approval">
+      <button class="allow" onclick="approve()">ALLOW</button>
+      <button onclick="deny()">DENY</button>
+    </div>
+  </div>
+
+  <div class="bottom">
+    <div class="metric"><b id="temp">24.0°C</b><span>HOME</span></div>
+    <div class="metric"><b id="solar">0.8 kW</b><span>SOLAR</span></div>
+    <div class="metric"><b id="bmw">37%</b><span>BMW</span></div>
+    <div class="metric"><b id="grid">+1.3 kW</b><span>GRID</span></div>
+  </div>
+
+  <!-- Test controls: only visible when hovering -->
+  <div class="controls">
+    <button onclick="setMode('standby')">STANDBY</button>
+    <button onclick="setMode('listening')">LISTEN</button>
+    <button onclick="setMode('analysing')">THINK</button>
+    <button onclick="setMode('speaking')">SPEAK</button>
+    <button onclick="setMode('approval')">APPROVAL</button>
+  </div>
+</div>
+
+<script>
+const panel = document.getElementById('panel');
+const statusEl = document.getElementById('status');
+const messageEl = document.getElementById('message');
+
+function setMode(mode){
+  panel.className='panel';
+  if(mode==='listening'){
+    panel.classList.add('listening');
+    statusEl.textContent='LISTENING';
+    messageEl.textContent='I’m listening, sir.';
+  } else if(mode==='analysing'){
+    panel.classList.add('analysing');
+    statusEl.textContent='ANALYSING';
+    messageEl.textContent='Considering the available data.';
+  } else if(mode==='speaking'){
+    panel.classList.add('speaking');
+    statusEl.textContent='SPEAKING';
+    messageEl.textContent='Everything appears remarkably civilised.';
+  } else if(mode==='approval'){
+    panel.classList.add('approval-mode');
+    statusEl.textContent='AUTHORISATION REQUIRED';
+    messageEl.textContent='Lower the living-room blinds to 75%?';
+  } else {
+    statusEl.textContent='SYSTEMS NOMINAL';
+    messageEl.textContent='Standing by, sir.';
+  }
+}
+function approve(){
+  panel.className='panel';
+  statusEl.textContent='AUTHORISED';
+  messageEl.textContent='Certainly, sir.';
+  setTimeout(()=>setMode('standby'),1800);
+}
+function deny(){
+  panel.className='panel';
+  statusEl.textContent='DECLINED';
+  messageEl.textContent='Very well, sir.';
+  setTimeout(()=>setMode('standby'),1800);
+}
+
+/* Later we can replace these demo values with live Homey data. */
+window.jarvis = {
+  setMode,
+  setData(data={}){
+    if(data.temp !== undefined) document.getElementById('temp').textContent=data.temp;
+    if(data.solar !== undefined) document.getElementById('solar').textContent=data.solar;
+    if(data.bmw !== undefined) document.getElementById('bmw').textContent=data.bmw;
+    if(data.grid !== undefined) document.getElementById('grid').textContent=data.grid;
+    if(data.message !== undefined) messageEl.textContent=data.message;
+  }
+};
+</script>
+</body>
+</html>
