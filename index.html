@@ -1,40 +1,33 @@
 <!doctype html>
 <html lang="en">
-
 <head>
-
 <meta charset="utf-8">
-
-<meta
-  name="viewport"
-  content="width=device-width,initial-scale=1,viewport-fit=cover"
->
-
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>J.A.R.V.I.S.</title>
 
 <style>
-
 :root{
   --bg:#071018;
+  --bg2:#03090e;
   --text:#eaf8ff;
   --muted:#7f9aa8;
   --glow:#8de8ff;
+  --glowSoft:rgba(141,232,255,.18);
+  --glowMid:rgba(141,232,255,.32);
+  --glowStrong:rgba(141,232,255,.55);
   --danger:#ff8f8f;
 }
 
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
-html,
-body{
+html,body{
   margin:0;
   width:100%;
   height:100%;
+  overflow:hidden;
+  font-family:Inter,Arial,sans-serif;
   background:var(--bg);
   color:var(--text);
-  font-family:Inter,Arial,sans-serif;
-  overflow:hidden;
 }
 
 body{
@@ -48,281 +41,191 @@ body{
 ========================================================= */
 
 .auth-gate{
-
   position:fixed;
   inset:0;
   z-index:50;
-
   display:flex;
   align-items:center;
   justify-content:center;
-
   padding:24px;
-
   background:
-    radial-gradient(
-      circle at 50% 40%,
-      rgba(65,182,222,.12),
-      transparent 34%
-    ),
-    linear-gradient(
-      180deg,
-      #08121c,
-      #03090e
-    );
+    radial-gradient(circle at 50% 38%, rgba(65,182,222,.14), transparent 34%),
+    radial-gradient(circle at 50% 65%, rgba(141,232,255,.04), transparent 45%),
+    linear-gradient(180deg,#08121c,#03090e);
 }
 
 .auth-card{
-
   width:min(360px,100%);
-
   padding:32px 28px;
-
-  border:
-    1px solid
-    rgba(141,232,255,.18);
-
+  border:1px solid rgba(141,232,255,.18);
   border-radius:14px;
-
-  background:
-    rgba(6,16,24,.88);
-
+  background:rgba(6,16,24,.88);
   box-shadow:
-    0 0 50px rgba(95,210,255,.05),
-    inset 0 0 30px rgba(95,210,255,.025);
-
+    0 0 60px rgba(95,210,255,.06),
+    inset 0 0 36px rgba(95,210,255,.025);
   text-align:center;
 }
 
 .auth-core{
-
   position:relative;
-
-  width:72px;
-  height:72px;
-
-  margin:
-    0 auto 24px;
-
+  width:76px;
+  height:76px;
+  margin:0 auto 24px;
   border-radius:50%;
-
-  border:
-    1px solid
-    rgba(141,232,255,.65);
-
+  border:1px solid rgba(141,232,255,.65);
   box-shadow:
-    0 0 22px rgba(141,232,255,.22),
+    0 0 24px rgba(141,232,255,.22),
     inset 0 0 14px rgba(141,232,255,.12);
 }
 
 .auth-core:before,
 .auth-core:after{
-
   content:"";
-
   position:absolute;
-
   border-radius:50%;
-
-  border:
-    1px dashed
-    rgba(141,232,255,.32);
+  border:1px dashed rgba(141,232,255,.28);
 }
 
-.auth-core:before{
-  inset:9px;
-}
-
-.auth-core:after{
-  inset:23px;
-}
+.auth-core:before{ inset:9px; }
+.auth-core:after{ inset:23px; }
 
 .auth-title{
-
   font-size:16px;
-
   letter-spacing:.32em;
-
   padding-left:.32em;
-
   margin-bottom:7px;
 }
 
 .auth-subtitle{
-
   color:var(--muted);
-
   font-size:10px;
-
   letter-spacing:.18em;
-
   margin-bottom:25px;
 }
 
 .auth-card input{
-
   width:100%;
-
   margin-bottom:11px;
-
   padding:12px 13px;
-
   border-radius:8px;
-
-  border:
-    1px solid
-    rgba(141,232,255,.18);
-
+  border:1px solid rgba(141,232,255,.18);
   outline:none;
-
-  background:
-    rgba(3,10,16,.92);
-
+  background:rgba(3,10,16,.92);
   color:var(--text);
-
   font-size:14px;
 }
 
 .auth-card input:focus{
-
-  border-color:
-    rgba(141,232,255,.6);
-
-  box-shadow:
-    0 0 12px
-    rgba(141,232,255,.08);
+  border-color:rgba(141,232,255,.6);
+  box-shadow:0 0 12px rgba(141,232,255,.08);
 }
 
 .auth-card button{
-
   width:100%;
-
   padding:12px;
-
   border-radius:8px;
-
-  border:
-    1px solid
-    rgba(141,232,255,.45);
-
-  background:
-    rgba(10,32,45,.72);
-
+  border:1px solid rgba(141,232,255,.45);
+  background:rgba(10,32,45,.72);
   color:var(--text);
-
   font-size:11px;
-
   letter-spacing:.16em;
-
   cursor:pointer;
 }
 
 .auth-error{
-
   min-height:18px;
-
   margin-top:13px;
-
   color:var(--danger);
-
   font-size:10px;
 }
 
-
 /* =========================================================
-   MAIN PANEL
+   PANEL
 ========================================================= */
 
 .panel{
-
   display:none;
-
   width:100%;
   height:100%;
-
   position:relative;
-
   overflow:hidden;
-
   background:
-    radial-gradient(
-      circle at 50% 45%,
-      rgba(65,182,222,.10),
-      transparent 35%
-    ),
-    linear-gradient(
-      180deg,
-      rgba(8,18,28,1),
-      rgba(3,9,14,1)
-    );
-
-  box-shadow:
-    inset 0 0 40px
-    rgba(95,210,255,.04);
+    radial-gradient(circle at 50% 42%, rgba(65,182,222,.14), transparent 28%),
+    radial-gradient(circle at 50% 48%, rgba(141,232,255,.05), transparent 40%),
+    linear-gradient(180deg, rgba(8,18,28,1), rgba(3,9,14,1));
+  box-shadow:inset 0 0 40px rgba(95,210,255,.04);
 }
 
+.panel:before,
+.panel:after{
+  content:"";
+  position:absolute;
+  inset:auto;
+  left:50%;
+  top:48%;
+  transform:translate(-50%,-50%);
+  border-radius:50%;
+  pointer-events:none;
+  transition:opacity .18s linear, transform .18s linear, box-shadow .18s linear;
+}
+
+.panel:before{
+  width:300px;
+  height:300px;
+  background:radial-gradient(circle, rgba(141,232,255,.08), transparent 62%);
+  opacity:.45;
+  filter:blur(18px);
+}
+
+.panel:after{
+  width:460px;
+  height:460px;
+  background:radial-gradient(circle, rgba(141,232,255,.035), transparent 68%);
+  opacity:.25;
+  filter:blur(42px);
+}
+
+.listening.panel:before{ opacity:.58; transform:translate(-50%,-50%) scale(1.05); }
+.analysing.panel:before{ opacity:.72; transform:translate(-50%,-50%) scale(1.10); }
+.speaking.panel:before{ opacity:.95; transform:translate(-50%,-50%) scale(1.18); }
+.speaking.panel:after{ opacity:.40; transform:translate(-50%,-50%) scale(1.12); }
 
 /* =========================================================
-   TOP BAR
+   TOP
 ========================================================= */
 
 .top{
-
   display:flex;
-
   justify-content:space-between;
-
   align-items:center;
-
-  padding:
-    15px 18px 4px;
-
+  padding:15px 18px 4px;
   font-size:12px;
-
   letter-spacing:.18em;
-
   color:var(--muted);
 }
 
 .online{
-
   display:flex;
-
   align-items:center;
-
   gap:7px;
 }
 
 .dot{
-
   width:7px;
   height:7px;
-
   border-radius:50%;
-
   background:var(--glow);
-
-  box-shadow:
-    0 0 10px
-    var(--glow);
+  box-shadow:0 0 10px var(--glow);
 }
 
 .logout{
-
   margin-left:10px;
-
   border:0;
-
   background:none;
-
   color:var(--muted);
-
   font-size:8px;
-
   letter-spacing:.12em;
-
   cursor:pointer;
-
   opacity:.65;
 }
 
@@ -331,487 +234,316 @@ body{
   color:var(--text);
 }
 
-
 /* =========================================================
    CENTRE
 ========================================================= */
 
 .centre{
-
   position:absolute;
-
   left:50%;
   top:48%;
-
-  transform:
-    translate(-50%,-50%);
-
-  width:min(90%,520px);
-
+  transform:translate(-50%,-50%);
+  width:min(90%,540px);
   text-align:center;
 }
 
-
 /* =========================================================
-   JARVIS CORE
+   CORE
 ========================================================= */
 
 .core{
-
   position:relative;
-
-  width:148px;
-  height:148px;
-
+  width:176px;
+  height:176px;
   margin:auto;
-
   display:flex;
-
   align-items:center;
-
   justify-content:center;
+  filter:drop-shadow(0 0 12px rgba(141,232,255,.10));
+  transition:transform .12s linear, filter .12s linear;
 }
 
-
-/* ---------------------------------------------------------
-   NORMAL ROTATING RINGS
---------------------------------------------------------- */
-
-.ring,
-.ring2,
-.ring3{
-
+.core-ambient{
   position:absolute;
-
+  inset:-42px;
   border-radius:50%;
+  background:radial-gradient(circle, rgba(141,232,255,.10), rgba(141,232,255,.03) 35%, transparent 68%);
+  opacity:.55;
+  filter:blur(20px);
+  pointer-events:none;
+  transition:opacity .12s linear, transform .12s linear;
+}
 
+.core-halo{
+  position:absolute;
+  inset:20px;
+  border-radius:50%;
+  border:1px solid rgba(141,232,255,.12);
+  box-shadow:
+    0 0 18px rgba(141,232,255,.12),
+    inset 0 0 20px rgba(141,232,255,.05);
+  pointer-events:none;
+  transition:transform .12s linear, opacity .12s linear;
+  opacity:.9;
+}
+
+.ring,.ring2,.ring3{
+  position:absolute;
+  border-radius:50%;
   pointer-events:none;
 }
 
 .ring{
-
-  inset:13px;
-
-  border:
-    1px solid
-    rgba(141,232,255,.42);
-
-  animation:
-    spin 12s linear infinite;
+  inset:16px;
+  border:1px solid rgba(141,232,255,.42);
+  animation:spin 12s linear infinite;
 }
 
 .ring:before,
 .ring:after{
-
   content:"";
-
   position:absolute;
-
-  background:
-    var(--glow);
-
-  box-shadow:
-    0 0 9px
-    var(--glow);
-
+  background:var(--glow);
+  box-shadow:0 0 10px var(--glow);
   border-radius:50%;
 }
 
 .ring:before{
-
   width:5px;
   height:5px;
-
-  left:9px;
-  top:25px;
+  left:10px;
+  top:28px;
 }
 
 .ring:after{
-
   width:4px;
   height:4px;
-
-  right:13px;
-  bottom:22px;
+  right:16px;
+  bottom:24px;
 }
 
 .ring2{
-
-  inset:27px;
-
-  border:
-    1px dashed
-    rgba(141,232,255,.35);
-
-  opacity:.55;
-
-  animation:
-    spinReverse
-    18s linear infinite;
+  inset:31px;
+  border:1px dashed rgba(141,232,255,.34);
+  opacity:.60;
+  animation:spinReverse 17s linear infinite;
 }
 
 .ring3{
-
-  inset:44px;
-
-  border:
-    2px solid
-    rgba(141,232,255,.38);
-
-  opacity:.65;
-
-  animation:
-    idlePulse
-    2.8s ease-in-out infinite;
+  inset:50px;
+  border:2px solid rgba(141,232,255,.40);
+  opacity:.72;
+  animation:idlePulse 2.8s ease-in-out infinite;
 }
 
-
 /* =========================================================
-   AUDIO REACTIVE WAVES
+   AUDIO WAVES
 ========================================================= */
 
 .voice-wave{
-
   position:absolute;
-
   border-radius:50%;
-
   pointer-events:none;
-
-  opacity:.18;
-
-  will-change:
-    transform,
-    opacity,
-    box-shadow;
+  will-change:transform,opacity,box-shadow,border-color;
+  transition:transform .08s linear, opacity .08s linear, box-shadow .08s linear, border-color .08s linear;
 }
 
 .wave1{
-
-  inset:5px;
-
-  border:
-    1px solid
-    rgba(141,232,255,.24);
-
-  box-shadow:
-    0 0 10px
-    rgba(141,232,255,.09);
+  inset:10px;
+  border:2px solid rgba(141,232,255,.28);
+  box-shadow:0 0 20px rgba(141,232,255,.12);
+  opacity:.28;
 }
 
 .wave2{
-
-  inset:-4px;
-
-  border:
-    1px solid
-    rgba(141,232,255,.15);
-
-  opacity:.12;
+  inset:-6px;
+  border:2px solid rgba(141,232,255,.18);
+  box-shadow:0 0 26px rgba(141,232,255,.08);
+  opacity:.16;
 }
 
 .wave3{
-
-  inset:-14px;
-
-  border:
-    1px solid
-    rgba(141,232,255,.08);
-
-  opacity:.08;
+  inset:-22px;
+  border:2px solid rgba(141,232,255,.12);
+  box-shadow:0 0 32px rgba(141,232,255,.06);
+  opacity:.11;
 }
 
+.wave4{
+  inset:-38px;
+  border:1px solid rgba(141,232,255,.08);
+  box-shadow:0 0 42px rgba(141,232,255,.05);
+  opacity:.08;
+}
 
 /* =========================================================
    CORE DOT
 ========================================================= */
 
 .core-dot{
-
   position:relative;
-
   z-index:4;
-
-  width:27px;
-  height:27px;
-
+  width:30px;
+  height:30px;
   border-radius:50%;
-
-  border:
-    1px solid
-    rgba(141,232,255,.95);
-
-  background:
-    radial-gradient(
-      circle,
-      rgba(141,232,255,.08),
-      rgba(141,232,255,.015)
-    );
-
+  border:1px solid rgba(141,232,255,.97);
+  background:radial-gradient(circle, rgba(141,232,255,.15), rgba(141,232,255,.02));
   box-shadow:
-    0 0 20px
-      rgba(141,232,255,.55),
-    inset 0 0 12px
-      rgba(141,232,255,.25);
+    0 0 22px rgba(141,232,255,.65),
+    inset 0 0 16px rgba(141,232,255,.22);
+  transition:transform .08s linear, box-shadow .08s linear;
 }
 
-
 /* =========================================================
-   VOICE STATES
+   STATES
 ========================================================= */
 
 .listening .ring3{
-
-  animation:
-    listeningPulse
-    1.3s ease-in-out infinite;
+  animation:listeningPulse 1.15s ease-in-out infinite;
 }
 
 .analysing .ring{
-
-  animation-duration:
-    2.5s;
+  animation-duration:2.2s;
 }
 
 .analysing .ring2{
-
-  animation-duration:
-    3.7s;
+  animation-duration:3.2s;
 }
 
 .speaking .core-dot{
-
   box-shadow:
-    0 0 28px
-      rgba(141,232,255,.85),
-    inset 0 0 16px
-      rgba(141,232,255,.35);
+    0 0 34px rgba(141,232,255,.95),
+    inset 0 0 22px rgba(141,232,255,.32);
 }
 
+.speaking .core{
+  filter:drop-shadow(0 0 18px rgba(141,232,255,.22));
+}
 
 /* =========================================================
    TEXT
 ========================================================= */
 
 h1{
-
   font-size:15px;
-
   letter-spacing:.32em;
-
-  margin:
-    9px 0 7px;
-
+  margin:10px 0 7px;
   padding-left:.32em;
-
   font-weight:600;
 }
 
 .status{
-
   font-size:11px;
-
   letter-spacing:.2em;
-
   color:var(--glow);
-
   min-height:16px;
 }
 
 .message{
-
   margin-top:8px;
-
   font-size:11px;
-
   color:var(--muted);
-
   min-height:16px;
 }
-
 
 /* =========================================================
    VOICE BUTTON
 ========================================================= */
 
 .voice-button{
-
   margin-top:18px;
-
-  padding:
-    9px 18px;
-
+  padding:9px 18px;
   border-radius:8px;
-
-  border:
-    1px solid
-    rgba(141,232,255,.30);
-
-  background:
-    rgba(8,25,36,.65);
-
+  border:1px solid rgba(141,232,255,.30);
+  background:rgba(8,25,36,.65);
   color:var(--glow);
-
   font-size:9px;
-
   letter-spacing:.18em;
-
   cursor:pointer;
-
   transition:.2s;
 }
 
 .voice-button.active{
-
-  border-color:
-    rgba(141,232,255,.7);
-
-  box-shadow:
-    0 0 14px
-    rgba(141,232,255,.12);
+  border-color:rgba(141,232,255,.7);
+  box-shadow:0 0 14px rgba(141,232,255,.14);
 }
 
 .voice-button:disabled{
-
   opacity:.45;
-
   cursor:default;
 }
 
-
 /* =========================================================
-   BOTTOM METRICS
+   METRICS
 ========================================================= */
 
 .bottom{
-
   position:absolute;
-
   left:14px;
   right:14px;
   bottom:12px;
-
   display:grid;
-
-  grid-template-columns:
-    repeat(4,1fr);
-
+  grid-template-columns:repeat(4,1fr);
   gap:7px;
-
-  transition:
-    opacity .3s;
+  transition:opacity .3s;
 }
 
 .metric{
-
-  border-top:
-    1px solid
-    rgba(141,232,255,.15);
-
+  border-top:1px solid rgba(141,232,255,.15);
   padding-top:7px;
-
   text-align:center;
 }
 
 .metric b{
-
   display:block;
-
   font-size:12px;
-
   font-weight:500;
 }
 
 .metric span{
-
   font-size:8px;
-
   letter-spacing:.13em;
-
   color:var(--muted);
 }
 
-.stale{
-  opacity:.55;
-}
-
+.stale{ opacity:.55; }
 
 /* =========================================================
-   ANIMATIONS
+   ANIMS
 ========================================================= */
 
 @keyframes spin{
-
-  to{
-    transform:
-      rotate(360deg);
-  }
+  to{ transform:rotate(360deg); }
 }
 
 @keyframes spinReverse{
-
-  to{
-    transform:
-      rotate(-360deg);
-  }
+  to{ transform:rotate(-360deg); }
 }
 
 @keyframes idlePulse{
-
   50%{
-    transform:
-      scale(1.05);
-
-    opacity:.9;
+    transform:scale(1.06);
+    opacity:.94;
   }
 }
 
 @keyframes listeningPulse{
-
   50%{
-    transform:
-      scale(1.10);
-
+    transform:scale(1.11);
     opacity:1;
-
-    box-shadow:
-      0 0 16px
-      rgba(141,232,255,.12);
+    box-shadow:0 0 16px rgba(141,232,255,.12);
   }
 }
-
 </style>
-
 </head>
-
 
 <body>
 
-
-<!-- ======================================================
-     LOGIN
-====================================================== -->
-
-<div
-  class="auth-gate"
-  id="authGate"
->
-
-  <form
-    class="auth-card"
-    id="loginForm"
-  >
-
+<div class="auth-gate" id="authGate">
+  <form class="auth-card" id="loginForm">
     <div class="auth-core"></div>
-
-    <div class="auth-title">
-      J.A.R.V.I.S.
-    </div>
-
-    <div class="auth-subtitle">
-      AUTHORISED ACCESS ONLY
-    </div>
-
+    <div class="auth-title">J.A.R.V.I.S.</div>
+    <div class="auth-subtitle">AUTHORISED ACCESS ONLY</div>
 
     <input
       id="email"
@@ -821,7 +553,6 @@ h1{
       required
     >
 
-
     <input
       id="password"
       type="password"
@@ -830,1891 +561,717 @@ h1{
       required
     >
 
-
-    <button
-      id="loginButton"
-      type="submit"
-    >
+    <button id="loginButton" type="submit">
       AUTHENTICATE
     </button>
 
-
-    <div
-      class="auth-error"
-      id="authError"
-    ></div>
-
+    <div class="auth-error" id="authError"></div>
   </form>
-
 </div>
 
-
-
-<!-- ======================================================
-     JARVIS PANEL
-====================================================== -->
-
-<div
-  class="panel"
-  id="panel"
->
-
+<div class="panel" id="panel">
 
   <div class="top">
-
-    <div>
-      J.A.R.V.I.S.
-    </div>
-
+    <div>J.A.R.V.I.S.</div>
 
     <div class="online">
-
       <span class="dot"></span>
+      <span id="linkState">ONLINE</span>
 
-      <span id="linkState">
-        ONLINE
-      </span>
-
-
-      <button
-        class="logout"
-        id="logoutButton"
-      >
+      <button class="logout" id="logoutButton">
         LOG OUT
       </button>
-
     </div>
-
   </div>
-
-
 
   <div class="centre">
 
+    <div class="core" id="core">
+      <div class="core-ambient" id="coreAmbient"></div>
 
-    <div
-      class="core"
-      id="core"
-    >
-
+      <div class="voice-wave wave4" id="wave4"></div>
       <div class="voice-wave wave3" id="wave3"></div>
-
       <div class="voice-wave wave2" id="wave2"></div>
-
       <div class="voice-wave wave1" id="wave1"></div>
 
-
       <div class="ring"></div>
-
       <div class="ring2"></div>
-
       <div class="ring3"></div>
 
-
-      <div class="core-dot"></div>
-
+      <div class="core-halo" id="coreHalo"></div>
+      <div class="core-dot" id="coreDot"></div>
     </div>
 
+    <h1>JARVIS</h1>
 
-    <h1>
-      JARVIS
-    </h1>
-
-
-    <div
-      class="status"
-      id="status"
-    >
+    <div class="status" id="status">
       SYSTEM INTEGRITY 100%
     </div>
 
-
-    <div
-      class="message"
-      id="message"
-    >
+    <div class="message" id="message">
       Standing by, sir.
     </div>
 
-
-    <button
-      class="voice-button"
-      id="voiceButton"
-    >
+    <button class="voice-button" id="voiceButton">
       ACTIVATE VOICE
     </button>
-
   </div>
-
-
 
   <div class="bottom">
-
-
     <div class="metric">
-
-      <b id="temp">
-        --.-°C
-      </b>
-
-      <span>
-        HOME
-      </span>
-
+      <b id="temp">--.-°C</b>
+      <span>HOME</span>
     </div>
 
-
     <div class="metric">
-
-      <b id="solar">
-        -- kW
-      </b>
-
-      <span>
-        SOLAR
-      </span>
-
+      <b id="solar">-- kW</b>
+      <span>SOLAR</span>
     </div>
 
-
     <div class="metric">
-
-      <b id="bmw">
-        --%
-      </b>
-
-      <span>
-        BMW
-      </span>
-
+      <b id="bmw">--%</b>
+      <span>BMW</span>
     </div>
 
-
     <div class="metric">
-
-      <b id="grid">
-        -- kW
-      </b>
-
-      <span>
-        GRID
-      </span>
-
+      <b id="grid">-- kW</b>
+      <span>GRID</span>
     </div>
-
   </div>
-
-
 </div>
 
-
-
 <script type="module">
+import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
 
+const SUPABASE_URL = "https://hibrzsnwkbngaaujdvxl.supabase.co";
+const SUPABASE_KEY = "sb_publishable_yJBOE5AnX7-N8EkV98LNnA_LJ0KEz-P";
 
-/* =========================================================
-   SUPABASE
-========================================================= */
+const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-import {
-  createClient
-} from
-"https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+const el = id => document.getElementById(id);
 
+let refreshTimer = null;
+let peerConnection = null;
+let dataChannel = null;
+let localStream = null;
+let remoteAudio = null;
 
-const SUPABASE_URL =
-  "https://hibrzsnwkbngaaujdvxl.supabase.co";
-
-
-const SUPABASE_KEY =
-  "sb_publishable_yJBOE5AnX7-N8EkV98LNnA_LJ0KEz-P";
-
-
-const supabase =
-  createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-  );
-
-
-const el =
-  id =>
-    document.getElementById(id);
-
-
-
-/* =========================================================
-   GLOBAL STATE
-========================================================= */
-
-let refreshTimer =
-  null;
-
-
-let peerConnection =
-  null;
-
-
-let dataChannel =
-  null;
-
-
-let localStream =
-  null;
-
-
-let remoteAudio =
-  null;
-
-
-let voicePhase =
-  "disconnected";
-
-
-let baseStatus =
-  "SYSTEM INTEGRITY 100%";
-
-
-let baseMessage =
-  "Standing by, sir.";
-
-
+let voicePhase = "disconnected";
+let baseStatus = "SYSTEM INTEGRITY 100%";
+let baseMessage = "Standing by, sir.";
 
 /* =========================================================
    AUDIO VISUALISER
 ========================================================= */
 
-let audioContext =
-  null;
+let audioContext = null;
+let remoteAnalyser = null;
+let remoteSource = null;
+let voiceBuffer = null;
+let voiceAnimationFrame = null;
+let smoothedVoiceLevel = 0;
 
-
-let remoteAnalyser =
-  null;
-
-
-let remoteSource =
-  null;
-
-
-let voiceBuffer =
-  null;
-
-
-let voiceAnimationFrame =
-  null;
-
-
-let smoothedVoiceLevel =
-  0;
-
-
-
-async function setupVoiceVisuals(
-  stream
-){
-
+async function setupVoiceVisuals(stream){
   try{
-
     resetVoiceVisuals();
 
-
-    const AudioContextClass =
-      window.AudioContext ||
-      window.webkitAudioContext;
-
-
+    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
     if(!AudioContextClass){
-
-      console.warn(
-        "Web Audio API unavailable"
-      );
-
+      console.warn("Web Audio API unavailable");
       return;
     }
 
+    audioContext = new AudioContextClass();
 
-    audioContext =
-      new AudioContextClass();
-
-
-    if(
-      audioContext.state ===
-      "suspended"
-    ){
-
+    if(audioContext.state === "suspended"){
       await audioContext.resume();
     }
 
+    remoteAnalyser = audioContext.createAnalyser();
+    remoteAnalyser.fftSize = 512;
+    remoteAnalyser.smoothingTimeConstant = .72;
 
-    remoteAnalyser =
-      audioContext
-        .createAnalyser();
+    voiceBuffer = new Uint8Array(remoteAnalyser.fftSize);
 
-
-    remoteAnalyser.fftSize =
-      256;
-
-
-    remoteAnalyser
-      .smoothingTimeConstant =
-        .65;
-
-
-    voiceBuffer =
-      new Uint8Array(
-        remoteAnalyser
-          .fftSize
-      );
-
-
-    remoteSource =
-      audioContext
-        .createMediaStreamSource(
-          stream
-        );
-
-
-    remoteSource.connect(
-      remoteAnalyser
-    );
-
+    remoteSource = audioContext.createMediaStreamSource(stream);
+    remoteSource.connect(remoteAnalyser);
 
     animateVoiceWave();
-
   } catch(error){
-
-    console.warn(
-      "Voice visualiser failed:",
-      error
-    );
+    console.warn("Voice visualiser failed:", error);
   }
 }
-
-
 
 function animateVoiceWave(){
+  if(!remoteAnalyser || !voiceBuffer) return;
 
-  if(
-    !remoteAnalyser ||
-    !voiceBuffer
-  ){
-    return;
+  remoteAnalyser.getByteTimeDomainData(voiceBuffer);
+
+  let sumSquares = 0;
+
+  for(let i = 0; i < voiceBuffer.length; i++){
+    const value = (voiceBuffer[i] - 128) / 128;
+    sumSquares += value * value;
   }
 
+  const rms = Math.sqrt(sumSquares / voiceBuffer.length);
 
-  remoteAnalyser
-    .getByteTimeDomainData(
-      voiceBuffer
-    );
+  let level = (rms - .006) * 12;
+  level = Math.max(0, Math.min(1, level));
 
+  smoothedVoiceLevel = smoothedVoiceLevel * .68 + level * .32;
 
-  let sumSquares =
-    0;
+  const v = smoothedVoiceLevel;
 
-
-  for(
-    let i = 0;
-    i < voiceBuffer.length;
-    i++
-  ){
-
-    const value =
-      (
-        voiceBuffer[i] -
-        128
-      ) / 128;
-
-
-    sumSquares +=
-      value * value;
-  }
-
-
-  const rms =
-    Math.sqrt(
-      sumSquares /
-      voiceBuffer.length
-    );
-
-
-  let level =
-    (
-      rms -
-      .008
-    ) * 8;
-
-
-  level =
-    Math.max(
-      0,
-      Math.min(
-        1,
-        level
-      )
-    );
-
-
-  smoothedVoiceLevel =
-    smoothedVoiceLevel *
-      .72
-    +
-    level *
-      .28;
-
-
-  const v =
-    smoothedVoiceLevel;
-
-
-  const wave1 =
-    el("wave1");
-
-
-  const wave2 =
-    el("wave2");
-
-
-  const wave3 =
-    el("wave3");
-
+  const wave1 = el("wave1");
+  const wave2 = el("wave2");
+  const wave3 = el("wave3");
+  const wave4 = el("wave4");
+  const halo = el("coreHalo");
+  const ambient = el("coreAmbient");
+  const dot = el("coreDot");
+  const core = el("core");
 
   if(wave1){
-
-    wave1.style.transform =
-      `scale(${1 + v * .22})`;
-
-
-    wave1.style.opacity =
-      `${.18 + v * .78}`;
-
-
-    wave1.style.borderColor =
-      `rgba(141,232,255,${.22 + v * .65})`;
-
-
-    wave1.style.boxShadow =
-      `
-        0 0 ${10 + v * 32}px
-        rgba(141,232,255,${.10 + v * .45})
-      `;
+    wave1.style.transform = `scale(${1 + v * .45})`;
+    wave1.style.opacity = `${.22 + v * .85}`;
+    wave1.style.borderColor = `rgba(141,232,255,${.25 + v * .65})`;
+    wave1.style.boxShadow = `0 0 ${18 + v * 44}px rgba(141,232,255,${.14 + v * .48})`;
   }
-
 
   if(wave2){
-
-    wave2.style.transform =
-      `scale(${1 + v * .31})`;
-
-
-    wave2.style.opacity =
-      `${.10 + v * .52}`;
-
-
-    wave2.style.borderColor =
-      `rgba(141,232,255,${.12 + v * .38})`;
+    wave2.style.transform = `scale(${1 + v * .65})`;
+    wave2.style.opacity = `${.14 + v * .58}`;
+    wave2.style.borderColor = `rgba(141,232,255,${.16 + v * .40})`;
+    wave2.style.boxShadow = `0 0 ${22 + v * 52}px rgba(141,232,255,${.08 + v * .28})`;
   }
-
 
   if(wave3){
-
-    wave3.style.transform =
-      `scale(${1 + v * .42})`;
-
-
-    wave3.style.opacity =
-      `${.06 + v * .30}`;
-
-
-    wave3.style.borderColor =
-      `rgba(141,232,255,${.08 + v * .24})`;
+    wave3.style.transform = `scale(${1 + v * .88})`;
+    wave3.style.opacity = `${.10 + v * .36}`;
+    wave3.style.borderColor = `rgba(141,232,255,${.10 + v * .24})`;
+    wave3.style.boxShadow = `0 0 ${28 + v * 58}px rgba(141,232,255,${.05 + v * .18})`;
   }
 
+  if(wave4){
+    wave4.style.transform = `scale(${1 + v * 1.08})`;
+    wave4.style.opacity = `${.06 + v * .24}`;
+    wave4.style.borderColor = `rgba(141,232,255,${.07 + v * .16})`;
+    wave4.style.boxShadow = `0 0 ${36 + v * 66}px rgba(141,232,255,${.04 + v * .12})`;
+  }
 
-  voiceAnimationFrame =
-    requestAnimationFrame(
-      animateVoiceWave
-    );
+  if(halo){
+    halo.style.transform = `scale(${1 + v * .16})`;
+    halo.style.opacity = `${.75 + v * .25}`;
+    halo.style.boxShadow =
+      `0 0 ${18 + v * 42}px rgba(141,232,255,${.10 + v * .30}),
+       inset 0 0 ${16 + v * 24}px rgba(141,232,255,${.04 + v * .10})`;
+  }
+
+  if(ambient){
+    ambient.style.transform = `scale(${1 + v * .18})`;
+    ambient.style.opacity = `${.45 + v * .48}`;
+  }
+
+  if(dot){
+    dot.style.transform = `scale(${1 + v * .12})`;
+    dot.style.boxShadow =
+      `0 0 ${24 + v * 26}px rgba(141,232,255,${.58 + v * .34}),
+       inset 0 0 ${14 + v * 14}px rgba(141,232,255,${.18 + v * .22})`;
+  }
+
+  if(core){
+    core.style.transform = `scale(${1 + v * .03})`;
+  }
+
+  voiceAnimationFrame = requestAnimationFrame(animateVoiceWave);
 }
-
-
 
 function resetVoiceVisuals(){
-
-  if(
-    voiceAnimationFrame
-  ){
-
-    cancelAnimationFrame(
-      voiceAnimationFrame
-    );
-
-    voiceAnimationFrame =
-      null;
+  if(voiceAnimationFrame){
+    cancelAnimationFrame(voiceAnimationFrame);
+    voiceAnimationFrame = null;
   }
 
+  smoothedVoiceLevel = 0;
 
-  smoothedVoiceLevel =
-    0;
-
-
-  const defaults = [
-
-    ["wave1",1,.18],
-
-    ["wave2",1,.10],
-
-    ["wave3",1,.06]
-
-  ];
-
-
-  for(
-    const [
-      id,
-      scale,
-      opacity
-    ]
-    of defaults
-  ){
-
-    const wave =
-      el(id);
-
-
-    if(wave){
-
-      wave.style.transform =
-        `scale(${scale})`;
-
-
-      wave.style.opacity =
-        opacity;
+  const resetWave = (id, scale, opacity) => {
+    const node = el(id);
+    if(node){
+      node.style.transform = `scale(${scale})`;
+      node.style.opacity = `${opacity}`;
     }
+  };
+
+  resetWave("wave1",1,.28);
+  resetWave("wave2",1,.16);
+  resetWave("wave3",1,.11);
+  resetWave("wave4",1,.08);
+
+  const halo = el("coreHalo");
+  if(halo){
+    halo.style.transform = "scale(1)";
+    halo.style.opacity = ".9";
+    halo.style.boxShadow = "0 0 18px rgba(141,232,255,.12), inset 0 0 20px rgba(141,232,255,.05)";
   }
 
+  const ambient = el("coreAmbient");
+  if(ambient){
+    ambient.style.transform = "scale(1)";
+    ambient.style.opacity = ".55";
+  }
 
-  remoteAnalyser =
-    null;
+  const dot = el("coreDot");
+  if(dot){
+    dot.style.transform = "scale(1)";
+    dot.style.boxShadow = "0 0 22px rgba(141,232,255,.65), inset 0 0 16px rgba(141,232,255,.22)";
+  }
 
+  const core = el("core");
+  if(core){
+    core.style.transform = "scale(1)";
+  }
 
-  remoteSource =
-    null;
-
-
-  voiceBuffer =
-    null;
-
+  remoteAnalyser = null;
+  remoteSource = null;
+  voiceBuffer = null;
 
   if(audioContext){
-
-    try{
-
-      audioContext.close();
-
-    } catch{}
-
-
-    audioContext =
-      null;
+    try{ audioContext.close(); } catch{}
+    audioContext = null;
   }
 }
-
-
 
 /* =========================================================
    HOME DATA
 ========================================================= */
 
-function fmtKw(
-  value
-){
-
-  if(
-    value === null ||
-    value === undefined ||
-    Number.isNaN(
-      Number(value)
-    )
-  ){
-
+function fmtKw(value){
+  if(value === null || value === undefined || Number.isNaN(Number(value))){
     return "-- kW";
   }
-
-
-  return `${
-    (
-      Number(value) /
-      1000
-    ).toFixed(2)
-  } kW`;
+  return `${(Number(value) / 1000).toFixed(2)} kW`;
 }
-
-
 
 function restoreBaseStatus(){
-
-  if(
-    voicePhase !==
-    "disconnected"
-  ){
-    return;
-  }
-
-
-  el("status")
-    .textContent =
-      baseStatus;
-
-
-  el("message")
-    .textContent =
-      baseMessage;
+  if(voicePhase !== "disconnected") return;
+  el("status").textContent = baseStatus;
+  el("message").textContent = baseMessage;
 }
 
-
-
 async function loadData(){
-
   try{
+    const { data, error } = await supabase
+      .from("jarvis_status")
+      .select("id,temperature,solar,bmw,grid,updated_at")
+      .eq("id",1)
+      .single();
 
-    const {
-      data,
-      error
-    } =
-      await supabase
-        .from(
-          "jarvis_status"
-        )
-        .select(
-          "id,temperature,solar,bmw,grid,updated_at"
-        )
-        .eq(
-          "id",
-          1
-        )
-        .single();
+    if(error) throw error;
 
+    el("temp").textContent =
+      data.temperature == null
+        ? "--.-°C"
+        : `${Number(data.temperature).toFixed(1)}°C`;
 
-    if(error){
-      throw error;
-    }
+    el("solar").textContent = fmtKw(data.solar);
+    el("bmw").textContent = data.bmw == null ? "--%" : `${Math.round(Number(data.bmw))}%`;
+    el("grid").textContent = fmtKw(data.grid);
 
+    const updated = data.updated_at ? new Date(data.updated_at) : null;
+    const ageSec = updated ? (Date.now() - updated.getTime()) / 1000 : 999999;
 
-    el("temp")
-      .textContent =
-        data.temperature == null
-          ? "--.-°C"
-          : `${
-              Number(
-                data.temperature
-              ).toFixed(1)
-            }°C`;
-
-
-    el("solar")
-      .textContent =
-        fmtKw(
-          data.solar
-        );
-
-
-    el("bmw")
-      .textContent =
-        data.bmw == null
-          ? "--%"
-          : `${
-              Math.round(
-                Number(
-                  data.bmw
-                )
-              )
-            }%`;
-
-
-    el("grid")
-      .textContent =
-        fmtKw(
-          data.grid
-        );
-
-
-    const updated =
-      data.updated_at
-        ? new Date(
-            data.updated_at
-          )
-        : null;
-
-
-    const ageSec =
-      updated
-        ? (
-            Date.now() -
-            updated.getTime()
-          ) / 1000
-        : 999999;
-
-
-    if(
-      ageSec >
-      180
-    ){
-
-      baseStatus =
-        "DATA LINK STALE";
-
-
-      baseMessage =
-        "Home data has not been updated recently, sir.";
-
-
-      document
-        .querySelector(
-          ".bottom"
-        )
-        .classList
-        .add(
-          "stale"
-        );
-
+    if(ageSec > 180){
+      baseStatus = "DATA LINK STALE";
+      baseMessage = "Home data has not been updated recently, sir.";
+      document.querySelector(".bottom").classList.add("stale");
     } else {
-
-      baseStatus =
-        "SYSTEM INTEGRITY 100%";
-
-
-      baseMessage =
-        "Standing by, sir.";
-
-
-      document
-        .querySelector(
-          ".bottom"
-        )
-        .classList
-        .remove(
-          "stale"
-        );
+      baseStatus = "SYSTEM INTEGRITY 100%";
+      baseMessage = "Standing by, sir.";
+      document.querySelector(".bottom").classList.remove("stale");
     }
 
-
-    el("linkState")
-      .textContent =
-        "ONLINE";
-
-
+    el("linkState").textContent = "ONLINE";
     restoreBaseStatus();
 
   } catch(error){
-
-    console.error(
-      "Home data:",
-      error
-    );
-
-
-    baseStatus =
-      "DATA LINK DEGRADED";
-
-
-    baseMessage =
-      "I appear to have misplaced Homey, sir.";
-
-
-    el("linkState")
-      .textContent =
-        "LINK DEGRADED";
-
-
+    console.error("Home data:", error);
+    baseStatus = "DATA LINK DEGRADED";
+    baseMessage = "I appear to have misplaced Homey, sir.";
+    el("linkState").textContent = "LINK DEGRADED";
     restoreBaseStatus();
   }
 }
-
-
 
 /* =========================================================
    AUTH UI
 ========================================================= */
 
 function showLogin(){
+  stopVoice(false);
 
-  stopVoice(
-    false
-  );
+  el("authGate").style.display = "flex";
+  el("panel").style.display = "none";
 
-
-  el("authGate")
-    .style.display =
-      "flex";
-
-
-  el("panel")
-    .style.display =
-      "none";
-
-
-  if(
-    refreshTimer
-  ){
-
-    clearInterval(
-      refreshTimer
-    );
-
-
-    refreshTimer =
-      null;
+  if(refreshTimer){
+    clearInterval(refreshTimer);
+    refreshTimer = null;
   }
 }
 
-
-
 function showDashboard(){
-
-  el("authGate")
-    .style.display =
-      "none";
-
-
-  el("panel")
-    .style.display =
-      "block";
-
+  el("authGate").style.display = "none";
+  el("panel").style.display = "block";
 
   loadData();
 
-
-  if(
-    !refreshTimer
-  ){
-
-    refreshTimer =
-      setInterval(
-        loadData,
-        5000
-      );
+  if(!refreshTimer){
+    refreshTimer = setInterval(loadData, 5000);
   }
 }
-
-
 
 /* =========================================================
    VOICE UI
 ========================================================= */
 
-function setVoicePhase(
-  phase
-){
+function setVoicePhase(phase){
+  voicePhase = phase;
 
-  voicePhase =
-    phase;
+  const panel = el("panel");
+  panel.classList.remove("listening","analysing","speaking");
 
-
-  const panel =
-    el("panel");
-
-
-  panel.classList.remove(
-    "listening",
-    "analysing",
-    "speaking"
-  );
-
-
-  if(
-    phase ===
-    "connecting"
-  ){
-
-    el("status")
-      .textContent =
-        "ESTABLISHING VOICE LINK";
-
-
-    el("message")
-      .textContent =
-        "Securing realtime channel...";
+  if(phase === "connecting"){
+    el("status").textContent = "ESTABLISHING VOICE LINK";
+    el("message").textContent = "Securing realtime channel...";
   }
 
-
-  if(
-    phase ===
-    "listening"
-  ){
-
-    panel.classList.add(
-      "listening"
-    );
-
-
-    el("status")
-      .textContent =
-        "LISTENING";
-
-
-    el("message")
-      .textContent =
-        "Voice link active.";
+  if(phase === "listening"){
+    panel.classList.add("listening");
+    el("status").textContent = "LISTENING";
+    el("message").textContent = "Voice link active.";
   }
 
-
-  if(
-    phase ===
-    "analysing"
-  ){
-
-    panel.classList.add(
-      "analysing"
-    );
-
-
-    el("status")
-      .textContent =
-        "ANALYSING";
-
-
-    el("message")
-      .textContent =
-        "Processing...";
+  if(phase === "analysing"){
+    panel.classList.add("analysing");
+    el("status").textContent = "ANALYSING";
+    el("message").textContent = "Processing...";
   }
 
-
-  if(
-    phase ===
-    "speaking"
-  ){
-
-    panel.classList.add(
-      "speaking"
-    );
-
-
-    el("status")
-      .textContent =
-        "SPEAKING";
-
-
-    el("message")
-      .textContent =
-        "JARVIS voice channel active.";
+  if(phase === "speaking"){
+    panel.classList.add("speaking");
+    el("status").textContent = "SPEAKING";
+    el("message").textContent = "JARVIS voice channel active.";
   }
 
-
-  if(
-    phase ===
-    "disconnected"
-  ){
-
+  if(phase === "disconnected"){
     restoreBaseStatus();
   }
 }
-
-
 
 /* =========================================================
    REALTIME EVENTS
 ========================================================= */
 
-function handleRealtimeEvent(
-  event
-){
+function handleRealtimeEvent(event){
+  const type = event?.type || "";
 
-  const type =
-    event?.type ||
-    "";
-
-
-  if(
-    type ===
-    "input_audio_buffer.speech_started"
-  ){
-
-    setVoicePhase(
-      "listening"
-    );
-
+  if(type === "input_audio_buffer.speech_started"){
+    setVoicePhase("listening");
     return;
   }
 
-
-  if(
-    type ===
-    "input_audio_buffer.speech_stopped"
-  ){
-
-    setVoicePhase(
-      "analysing"
-    );
-
+  if(type === "input_audio_buffer.speech_stopped"){
+    setVoicePhase("analysing");
     return;
   }
 
-
-  if(
-    type ===
-    "response.created"
-  ){
-
-    setVoicePhase(
-      "analysing"
-    );
-
+  if(type === "response.created"){
+    setVoicePhase("analysing");
     return;
   }
 
-
-  if(
-    (
-      type.includes(
-        "audio"
-      ) &&
-      type.includes(
-        "delta"
-      )
-    ) ||
-    type ===
-    "response.output_audio.delta"
-  ){
-
-    setVoicePhase(
-      "speaking"
-    );
-
+  if((type.includes("audio") && type.includes("delta")) || type === "response.output_audio.delta"){
+    setVoicePhase("speaking");
     return;
   }
 
-
-  if(
-    type ===
-      "response.done" ||
-    type ===
-      "response.completed"
-  ){
-
-    setVoicePhase(
-      "listening"
-    );
-
+  if(type === "response.done" || type === "response.completed"){
+    setVoicePhase("listening");
     return;
   }
 
-
-  if(
-    type ===
-    "error"
-  ){
-
-    console.error(
-      "Realtime error:",
-      event
-    );
-
-
-    el("status")
-      .textContent =
-        "VOICE LINK ERROR";
-
-
-    el("message")
-      .textContent =
-        event?.error?.message ||
-        "Realtime channel reported an error.";
+  if(type === "error"){
+    console.error("Realtime error:", event);
+    el("status").textContent = "VOICE LINK ERROR";
+    el("message").textContent = event?.error?.message || "Realtime channel reported an error.";
   }
 }
-
-
 
 /* =========================================================
    START VOICE
 ========================================================= */
 
 async function startVoice(){
+  if(peerConnection) return;
 
-  if(
-    peerConnection
-  ){
-    return;
-  }
-
-
-  const button =
-    el(
-      "voiceButton"
-    );
-
-
-  button.disabled =
-    true;
-
-
-  button.textContent =
-    "CONNECTING...";
-
-
-  setVoicePhase(
-    "connecting"
-  );
-
+  const button = el("voiceButton");
+  button.disabled = true;
+  button.textContent = "CONNECTING...";
+  setVoicePhase("connecting");
 
   try{
-
-
-    /* -----------------------------------------------------
-       Browser capabilities
-    ----------------------------------------------------- */
-
-    if(
-      !navigator
-        .mediaDevices
-        ?.getUserMedia
-    ){
-
-      throw new Error(
-        "Microphone access is not available in this browser."
-      );
+    if(!navigator.mediaDevices?.getUserMedia){
+      throw new Error("Microphone access is not available in this browser.");
     }
 
-
-    if(
-      !window
-        .RTCPeerConnection
-    ){
-
-      throw new Error(
-        "WebRTC is not supported by this browser."
-      );
+    if(!window.RTCPeerConnection){
+      throw new Error("WebRTC is not supported by this browser.");
     }
 
+    const { data:tokenData, error:tokenError } =
+      await supabase.functions.invoke("jarvis-realtime", { body:{} });
 
+    if(tokenError) throw tokenError;
 
-    /* -----------------------------------------------------
-       Temporary OpenAI key via Supabase
-    ----------------------------------------------------- */
+    const ephemeralKey = tokenData?.value;
 
-    const {
-      data:tokenData,
-      error:tokenError
-    } =
-      await supabase
-        .functions
-        .invoke(
-          "jarvis-realtime",
-          {
-            body:{}
-          }
-        );
-
-
-    if(
-      tokenError
-    ){
-
-      throw tokenError;
+    if(!ephemeralKey){
+      console.error("Realtime token:", tokenData);
+      throw new Error("No ephemeral realtime key returned.");
     }
 
-
-    const ephemeralKey =
-      tokenData?.value;
-
-
-    if(
-      !ephemeralKey
-    ){
-
-      console.error(
-        "Realtime token:",
-        tokenData
-      );
-
-
-      throw new Error(
-        "No ephemeral realtime key returned."
-      );
-    }
-
-
-
-    /* -----------------------------------------------------
-       WebRTC
-    ----------------------------------------------------- */
-
-    const pc =
-      new RTCPeerConnection();
-
-
-    peerConnection =
-      pc;
-
-
-
-    /* -----------------------------------------------------
-       JARVIS AUDIO OUTPUT
-    ----------------------------------------------------- */
-
-    const audio =
-      document.createElement(
-        "audio"
-      );
-
-
-    audio.autoplay =
-      true;
-
-
-    audio.playsInline =
-      true;
-
-
-    audio.style.display =
-      "none";
-
-
-    document.body.appendChild(
-      audio
-    );
-
-
-    remoteAudio =
-      audio;
-
-
-    pc.ontrack =
-      event => {
-
-        const stream =
-          event.streams[0];
-
-
-        audio.srcObject =
-          stream;
-
-
-        setupVoiceVisuals(
-          stream
-        );
-
-
-        audio.play()
-          .catch(
-            error => {
-
-              console.warn(
-                "Audio autoplay:",
-                error
-              );
-            }
-          );
-      };
-
-
-
-    /* -----------------------------------------------------
-       MICROPHONE
-    ----------------------------------------------------- */
-
-    const stream =
-      await navigator
-        .mediaDevices
-        .getUserMedia({
-          audio:{
-            echoCancellation:true,
-            noiseSuppression:true,
-            autoGainControl:true
-          }
-        });
-
-
-    localStream =
-      stream;
-
-
-    const track =
-      stream
-        .getAudioTracks()[0];
-
-
-    if(
-      !track
-    ){
-
-      throw new Error(
-        "No microphone audio track available."
-      );
-    }
-
-
-    pc.addTrack(
-      track,
-      stream
-    );
-
-
-
-    /* -----------------------------------------------------
-       DATA CHANNEL
-    ----------------------------------------------------- */
-
-    const dc =
-      pc.createDataChannel(
-        "oai-events"
-      );
-
-
-    dataChannel =
-      dc;
-
-
-    dc.addEventListener(
-      "open",
-      () => {
-
-        button.disabled =
-          false;
-
-
-        button.textContent =
-          "DISCONNECT VOICE";
-
-
-        button
-          .classList
-          .add(
-            "active"
-          );
-
-
-        setVoicePhase(
-          "listening"
-        );
-      }
-    );
-
-
-    dc.addEventListener(
-      "message",
-      event => {
-
-        try{
-
-          const message =
-            JSON.parse(
-              event.data
-            );
-
-
-          console.log(
-            "Realtime:",
-            message
-          );
-
-
-          handleRealtimeEvent(
-            message
-          );
-
-        } catch(error){
-
-          console.warn(
-            "Unreadable realtime event:",
-            error
-          );
-        }
-      }
-    );
-
-
-    dc.addEventListener(
-      "close",
-      () => {
-
-        if(
-          peerConnection ===
-          pc
-        ){
-
-          stopVoice();
-        }
-      }
-    );
-
-
-
-    /* -----------------------------------------------------
-       SDP OFFER
-    ----------------------------------------------------- */
-
-    const offer =
-      await pc.createOffer();
-
-
-    await pc
-      .setLocalDescription(
-        offer
-      );
-
-
-
-    /* -----------------------------------------------------
-       OPENAI REALTIME
-    ----------------------------------------------------- */
-
-    const sdpResponse =
-      await fetch(
-        "https://api.openai.com/v1/realtime/calls",
-        {
-
-          method:
-            "POST",
-
-          body:
-            offer.sdp,
-
-          headers:{
-
-            "Authorization":
-              `Bearer ${ephemeralKey}`,
-
-            "Content-Type":
-              "application/sdp"
-
-          }
-
-        }
-      );
-
-
-    if(
-      !sdpResponse.ok
-    ){
-
-      const errorText =
-        await sdpResponse
-          .text();
-
-
-      throw new Error(
-        `Realtime SDP ${sdpResponse.status}: ${errorText}`
-      );
-    }
-
-
-    const answer = {
-
-      type:
-        "answer",
-
-      sdp:
-        await sdpResponse
-          .text()
-
+    const pc = new RTCPeerConnection();
+    peerConnection = pc;
+
+    const audio = document.createElement("audio");
+    audio.autoplay = true;
+    audio.playsInline = true;
+    audio.style.display = "none";
+    document.body.appendChild(audio);
+    remoteAudio = audio;
+
+    pc.ontrack = event => {
+      const stream = event.streams[0];
+      audio.srcObject = stream;
+      setupVoiceVisuals(stream);
+
+      audio.play().catch(error => {
+        console.warn("Audio autoplay:", error);
+      });
     };
 
-
-    await pc
-      .setRemoteDescription(
-        answer
-      );
-
-
-
-    pc.addEventListener(
-      "connectionstatechange",
-      () => {
-
-        console.log(
-          "WebRTC:",
-          pc.connectionState
-        );
-
-
-        if(
-          peerConnection !==
-          pc
-        ){
-          return;
-        }
-
-
-        if(
-          pc.connectionState ===
-            "failed" ||
-          pc.connectionState ===
-            "closed"
-        ){
-
-          stopVoice();
-        }
+    const stream = await navigator.mediaDevices.getUserMedia({
+      audio:{
+        echoCancellation:true,
+        noiseSuppression:true,
+        autoGainControl:true
       }
-    );
+    });
 
+    localStream = stream;
 
-  } catch(error){
-
-    console.error(
-      "Voice startup failed:",
-      error
-    );
-
-
-    stopVoice(
-      false
-    );
-
-
-    el("status")
-      .textContent =
-        "VOICE LINK FAILED";
-
-
-    if(
-      error?.name ===
-      "NotAllowedError"
-    ){
-
-      el("message")
-        .textContent =
-          "Microphone permission was denied.";
-
-    } else {
-
-      el("message")
-        .textContent =
-          error?.message ||
-          "Realtime connection could not be established.";
+    const track = stream.getAudioTracks()[0];
+    if(!track){
+      throw new Error("No microphone audio track available.");
     }
 
+    pc.addTrack(track, stream);
 
-    button.disabled =
-      false;
+    const dc = pc.createDataChannel("oai-events");
+    dataChannel = dc;
 
+    dc.addEventListener("open", () => {
+      button.disabled = false;
+      button.textContent = "DISCONNECT VOICE";
+      button.classList.add("active");
+      setVoicePhase("listening");
+    });
 
-    button.textContent =
-      "RETRY VOICE";
+    dc.addEventListener("message", event => {
+      try{
+        const message = JSON.parse(event.data);
+        console.log("Realtime:", message);
+        handleRealtimeEvent(message);
+      } catch(error){
+        console.warn("Unreadable realtime event:", error);
+      }
+    });
+
+    dc.addEventListener("close", () => {
+      if(peerConnection === pc){
+        stopVoice();
+      }
+    });
+
+    const offer = await pc.createOffer();
+    await pc.setLocalDescription(offer);
+
+    const sdpResponse = await fetch("https://api.openai.com/v1/realtime/calls", {
+      method:"POST",
+      body:offer.sdp,
+      headers:{
+        "Authorization": `Bearer ${ephemeralKey}`,
+        "Content-Type":"application/sdp"
+      }
+    });
+
+    if(!sdpResponse.ok){
+      const errorText = await sdpResponse.text();
+      throw new Error(`Realtime SDP ${sdpResponse.status}: ${errorText}`);
+    }
+
+    const answer = {
+      type:"answer",
+      sdp: await sdpResponse.text()
+    };
+
+    await pc.setRemoteDescription(answer);
+
+    pc.addEventListener("connectionstatechange", () => {
+      console.log("WebRTC:", pc.connectionState);
+
+      if(peerConnection !== pc) return;
+
+      if(pc.connectionState === "failed" || pc.connectionState === "closed"){
+        stopVoice();
+      }
+    });
+
+  } catch(error){
+    console.error("Voice startup failed:", error);
+
+    stopVoice(false);
+
+    el("status").textContent = "VOICE LINK FAILED";
+
+    if(error?.name === "NotAllowedError"){
+      el("message").textContent = "Microphone permission was denied.";
+    } else {
+      el("message").textContent = error?.message || "Realtime connection could not be established.";
+    }
+
+    button.disabled = false;
+    button.textContent = "RETRY VOICE";
   }
 }
-
-
 
 /* =========================================================
    STOP VOICE
 ========================================================= */
 
-function stopVoice(
-  updateUi = true
-){
+function stopVoice(updateUi = true){
+  const pc = peerConnection;
+  const dc = dataChannel;
 
-  const pc =
-    peerConnection;
-
-
-  const dc =
-    dataChannel;
-
-
-  peerConnection =
-    null;
-
-
-  dataChannel =
-    null;
-
+  peerConnection = null;
+  dataChannel = null;
 
   resetVoiceVisuals();
 
-
-  if(
-    localStream
-  ){
-
-    for(
-      const track
-      of localStream
-        .getTracks()
-    ){
-
+  if(localStream){
+    for(const track of localStream.getTracks()){
       track.stop();
     }
-
-
-    localStream =
-      null;
+    localStream = null;
   }
 
-
-  if(
-    remoteAudio
-  ){
-
+  if(remoteAudio){
     try{
-
       remoteAudio.pause();
-
-
-      remoteAudio.srcObject =
-        null;
-
-
+      remoteAudio.srcObject = null;
       remoteAudio.remove();
-
     } catch{}
-
-
-    remoteAudio =
-      null;
+    remoteAudio = null;
   }
 
+  try{ dc?.close(); }catch{}
+  try{ pc?.close(); }catch{}
 
-  try{
-    dc?.close();
-  }catch{}
+  voicePhase = "disconnected";
 
+  el("panel").classList.remove("listening","analysing","speaking");
 
-  try{
-    pc?.close();
-  }catch{}
+  const button = el("voiceButton");
+  button.disabled = false;
+  button.textContent = "ACTIVATE VOICE";
+  button.classList.remove("active");
 
-
-  voicePhase =
-    "disconnected";
-
-
-  el("panel")
-    .classList
-    .remove(
-      "listening",
-      "analysing",
-      "speaking"
-    );
-
-
-  const button =
-    el(
-      "voiceButton"
-    );
-
-
-  button.disabled =
-    false;
-
-
-  button.textContent =
-    "ACTIVATE VOICE";
-
-
-  button
-    .classList
-    .remove(
-      "active"
-    );
-
-
-  if(
-    updateUi
-  ){
-
+  if(updateUi){
     restoreBaseStatus();
   }
 }
 
-
-
 /* =========================================================
-   VOICE BUTTON
+   BUTTONS
 ========================================================= */
 
-el("voiceButton")
-  .addEventListener(
-    "click",
-    async () => {
+el("voiceButton").addEventListener("click", async () => {
+  if(peerConnection){
+    stopVoice();
+  } else {
+    await startVoice();
+  }
+});
 
-      if(
-        peerConnection
-      ){
+el("loginForm").addEventListener("submit", async event => {
+  event.preventDefault();
 
-        stopVoice();
+  const email = el("email").value.trim();
+  const password = el("password").value;
+  const button = el("loginButton");
 
-      } else {
+  el("authError").textContent = "";
+  button.disabled = true;
+  button.textContent = "AUTHENTICATING...";
 
-        await startVoice();
-      }
-    }
-  );
+  const { error } = await supabase.auth.signInWithPassword({
+    email,
+    password
+  });
 
+  button.disabled = false;
+  button.textContent = "AUTHENTICATE";
 
+  if(error){
+    el("authError").textContent = "ACCESS DENIED";
+    return;
+  }
 
-/* =========================================================
-   LOGIN
-========================================================= */
+  el("password").value = "";
+  showDashboard();
+});
 
-el("loginForm")
-  .addEventListener(
-    "submit",
-    async event => {
+el("logoutButton").addEventListener("click", async () => {
+  stopVoice(false);
 
-      event.preventDefault();
+  await supabase.auth.signOut({
+    scope:"local"
+  });
 
-
-      const email =
-        el("email")
-          .value
-          .trim();
-
-
-      const password =
-        el("password")
-          .value;
-
-
-      const button =
-        el(
-          "loginButton"
-        );
-
-
-      el("authError")
-        .textContent =
-          "";
-
-
-      button.disabled =
-        true;
-
-
-      button.textContent =
-        "AUTHENTICATING...";
-
-
-      const {
-        error
-      } =
-        await supabase
-          .auth
-          .signInWithPassword({
-            email,
-            password
-          });
-
-
-      button.disabled =
-        false;
-
-
-      button.textContent =
-        "AUTHENTICATE";
-
-
-      if(
-        error
-      ){
-
-        el("authError")
-          .textContent =
-            "ACCESS DENIED";
-
-
-        return;
-      }
-
-
-      el("password")
-        .value =
-          "";
-
-
-      showDashboard();
-    }
-  );
-
-
-
-/* =========================================================
-   LOGOUT
-========================================================= */
-
-el("logoutButton")
-  .addEventListener(
-    "click",
-    async () => {
-
-      stopVoice(
-        false
-      );
-
-
-      await supabase
-        .auth
-        .signOut({
-          scope:
-            "local"
-        });
-
-
-      showLogin();
-    }
-  );
-
-
+  showLogin();
+});
 
 /* =========================================================
    INITIAL SESSION
 ========================================================= */
 
-const {
+const { data:{ session } } = await supabase.auth.getSession();
 
-  data:{
-    session
-  }
-
-} =
-  await supabase
-    .auth
-    .getSession();
-
-
-if(
-  session
-){
-
+if(session){
   showDashboard();
-
 } else {
-
   showLogin();
 }
 
+supabase.auth.onAuthStateChange((event, session) => {
+  if(event === "SIGNED_OUT"){
+    showLogin();
+  }
 
-
-supabase
-  .auth
-  .onAuthStateChange(
-    (
-      event,
-      session
-    ) => {
-
-      if(
-        event ===
-        "SIGNED_OUT"
-      ){
-
-        showLogin();
-      }
-
-
-      if(
-        event ===
-          "SIGNED_IN" &&
-        session
-      ){
-
-        showDashboard();
-      }
-    }
-  );
-
-
+  if(event === "SIGNED_IN" && session){
+    showDashboard();
+  }
+});
 </script>
-
 </body>
-
 </html>
