@@ -7,23 +7,34 @@
 <style>
   :root{
     --bg:#071018;
-    --panel:#0a1620;
-    --line:rgba(127,220,255,.25);
     --text:#eaf8ff;
     --muted:#7f9aa8;
     --glow:#8de8ff;
   }
   *{box-sizing:border-box}
-  html,body{margin:0;width:100%;height:100%;background:transparent;font-family:Inter,Arial,sans-serif;color:var(--text);overflow:hidden}
-  body{display:flex;align-items:center;justify-content:center;padding:8px}
+  html,body{
+    margin:0;
+    width:100%;
+    height:100%;
+    background:var(--bg);
+    font-family:Inter,Arial,sans-serif;
+    color:var(--text);
+    overflow:hidden;
+  }
+  body{
+    display:flex;
+    align-items:stretch;
+    justify-content:stretch;
+    padding:0;
+  }
   .panel{
-    width:100%;height:100%;min-height:220px;
-    border:1px solid var(--line);
-    border-radius:24px;
+    width:100%;
+    height:100%;
+    position:relative;
+    overflow:hidden;
     background:
       radial-gradient(circle at 50% 45%, rgba(65,182,222,.10), transparent 35%),
-      linear-gradient(180deg, rgba(8,18,28,.98), rgba(3,9,14,.98));
-    position:relative;overflow:hidden;
+      linear-gradient(180deg, rgba(8,18,28,1), rgba(3,9,14,1));
     box-shadow:inset 0 0 40px rgba(95,210,255,.04);
   }
   .top{
@@ -32,7 +43,11 @@
   }
   .online{display:flex;align-items:center;gap:7px}
   .dot{width:7px;height:7px;border-radius:50%;background:var(--glow);box-shadow:0 0 10px var(--glow)}
-  .centre{position:absolute;left:50%;top:49%;transform:translate(-50%,-50%);text-align:center}
+  .centre{
+    position:absolute;left:50%;top:49%;
+    transform:translate(-50%,-50%);
+    text-align:center
+  }
   .core{
     position:relative;width:122px;height:122px;margin:auto;
     display:flex;align-items:center;justify-content:center
@@ -117,7 +132,6 @@
     <div class="metric"><b id="grid">+1.3 kW</b><span>GRID</span></div>
   </div>
 
-  <!-- Test controls: only visible when hovering -->
   <div class="controls">
     <button onclick="setMode('standby')">STANDBY</button>
     <button onclick="setMode('listening')">LISTEN</button>
@@ -167,8 +181,6 @@ function deny(){
   messageEl.textContent='Very well, sir.';
   setTimeout(()=>setMode('standby'),1800);
 }
-
-/* Later we can replace these demo values with live Homey data. */
 window.jarvis = {
   setMode,
   setData(data={}){
