@@ -1,383 +1,817 @@
 <!doctype html>
 <html lang="en">
+
 <head>
+
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+
+<meta
+  name="viewport"
+  content="width=device-width,initial-scale=1,viewport-fit=cover"
+>
+
 <title>J.A.R.V.I.S.</title>
 
 <style>
-  :root{
-    --bg:#071018;
-    --text:#eaf8ff;
-    --muted:#7f9aa8;
-    --glow:#8de8ff;
-    --danger:#ff8f8f;
+
+:root{
+  --bg:#071018;
+  --text:#eaf8ff;
+  --muted:#7f9aa8;
+  --glow:#8de8ff;
+  --danger:#ff8f8f;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+html,
+body{
+  margin:0;
+  width:100%;
+  height:100%;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Inter,Arial,sans-serif;
+  overflow:hidden;
+}
+
+body{
+  display:flex;
+  align-items:stretch;
+  justify-content:stretch;
+}
+
+/* =========================================================
+   LOGIN
+========================================================= */
+
+.auth-gate{
+
+  position:fixed;
+  inset:0;
+  z-index:50;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  padding:24px;
+
+  background:
+    radial-gradient(
+      circle at 50% 40%,
+      rgba(65,182,222,.12),
+      transparent 34%
+    ),
+    linear-gradient(
+      180deg,
+      #08121c,
+      #03090e
+    );
+}
+
+.auth-card{
+
+  width:min(360px,100%);
+
+  padding:32px 28px;
+
+  border:
+    1px solid
+    rgba(141,232,255,.18);
+
+  border-radius:14px;
+
+  background:
+    rgba(6,16,24,.88);
+
+  box-shadow:
+    0 0 50px rgba(95,210,255,.05),
+    inset 0 0 30px rgba(95,210,255,.025);
+
+  text-align:center;
+}
+
+.auth-core{
+
+  position:relative;
+
+  width:72px;
+  height:72px;
+
+  margin:
+    0 auto 24px;
+
+  border-radius:50%;
+
+  border:
+    1px solid
+    rgba(141,232,255,.65);
+
+  box-shadow:
+    0 0 22px rgba(141,232,255,.22),
+    inset 0 0 14px rgba(141,232,255,.12);
+}
+
+.auth-core:before,
+.auth-core:after{
+
+  content:"";
+
+  position:absolute;
+
+  border-radius:50%;
+
+  border:
+    1px dashed
+    rgba(141,232,255,.32);
+}
+
+.auth-core:before{
+  inset:9px;
+}
+
+.auth-core:after{
+  inset:23px;
+}
+
+.auth-title{
+
+  font-size:16px;
+
+  letter-spacing:.32em;
+
+  padding-left:.32em;
+
+  margin-bottom:7px;
+}
+
+.auth-subtitle{
+
+  color:var(--muted);
+
+  font-size:10px;
+
+  letter-spacing:.18em;
+
+  margin-bottom:25px;
+}
+
+.auth-card input{
+
+  width:100%;
+
+  margin-bottom:11px;
+
+  padding:12px 13px;
+
+  border-radius:8px;
+
+  border:
+    1px solid
+    rgba(141,232,255,.18);
+
+  outline:none;
+
+  background:
+    rgba(3,10,16,.92);
+
+  color:var(--text);
+
+  font-size:14px;
+}
+
+.auth-card input:focus{
+
+  border-color:
+    rgba(141,232,255,.6);
+
+  box-shadow:
+    0 0 12px
+    rgba(141,232,255,.08);
+}
+
+.auth-card button{
+
+  width:100%;
+
+  padding:12px;
+
+  border-radius:8px;
+
+  border:
+    1px solid
+    rgba(141,232,255,.45);
+
+  background:
+    rgba(10,32,45,.72);
+
+  color:var(--text);
+
+  font-size:11px;
+
+  letter-spacing:.16em;
+
+  cursor:pointer;
+}
+
+.auth-error{
+
+  min-height:18px;
+
+  margin-top:13px;
+
+  color:var(--danger);
+
+  font-size:10px;
+}
+
+
+/* =========================================================
+   MAIN PANEL
+========================================================= */
+
+.panel{
+
+  display:none;
+
+  width:100%;
+  height:100%;
+
+  position:relative;
+
+  overflow:hidden;
+
+  background:
+    radial-gradient(
+      circle at 50% 45%,
+      rgba(65,182,222,.10),
+      transparent 35%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(8,18,28,1),
+      rgba(3,9,14,1)
+    );
+
+  box-shadow:
+    inset 0 0 40px
+    rgba(95,210,255,.04);
+}
+
+
+/* =========================================================
+   TOP BAR
+========================================================= */
+
+.top{
+
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:center;
+
+  padding:
+    15px 18px 4px;
+
+  font-size:12px;
+
+  letter-spacing:.18em;
+
+  color:var(--muted);
+}
+
+.online{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:7px;
+}
+
+.dot{
+
+  width:7px;
+  height:7px;
+
+  border-radius:50%;
+
+  background:var(--glow);
+
+  box-shadow:
+    0 0 10px
+    var(--glow);
+}
+
+.logout{
+
+  margin-left:10px;
+
+  border:0;
+
+  background:none;
+
+  color:var(--muted);
+
+  font-size:8px;
+
+  letter-spacing:.12em;
+
+  cursor:pointer;
+
+  opacity:.65;
+}
+
+.logout:hover{
+  opacity:1;
+  color:var(--text);
+}
+
+
+/* =========================================================
+   CENTRE
+========================================================= */
+
+.centre{
+
+  position:absolute;
+
+  left:50%;
+  top:48%;
+
+  transform:
+    translate(-50%,-50%);
+
+  width:min(90%,520px);
+
+  text-align:center;
+}
+
+
+/* =========================================================
+   JARVIS CORE
+========================================================= */
+
+.core{
+
+  position:relative;
+
+  width:148px;
+  height:148px;
+
+  margin:auto;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+}
+
+
+/* ---------------------------------------------------------
+   NORMAL ROTATING RINGS
+--------------------------------------------------------- */
+
+.ring,
+.ring2,
+.ring3{
+
+  position:absolute;
+
+  border-radius:50%;
+
+  pointer-events:none;
+}
+
+.ring{
+
+  inset:13px;
+
+  border:
+    1px solid
+    rgba(141,232,255,.42);
+
+  animation:
+    spin 12s linear infinite;
+}
+
+.ring:before,
+.ring:after{
+
+  content:"";
+
+  position:absolute;
+
+  background:
+    var(--glow);
+
+  box-shadow:
+    0 0 9px
+    var(--glow);
+
+  border-radius:50%;
+}
+
+.ring:before{
+
+  width:5px;
+  height:5px;
+
+  left:9px;
+  top:25px;
+}
+
+.ring:after{
+
+  width:4px;
+  height:4px;
+
+  right:13px;
+  bottom:22px;
+}
+
+.ring2{
+
+  inset:27px;
+
+  border:
+    1px dashed
+    rgba(141,232,255,.35);
+
+  opacity:.55;
+
+  animation:
+    spinReverse
+    18s linear infinite;
+}
+
+.ring3{
+
+  inset:44px;
+
+  border:
+    2px solid
+    rgba(141,232,255,.38);
+
+  opacity:.65;
+
+  animation:
+    idlePulse
+    2.8s ease-in-out infinite;
+}
+
+
+/* =========================================================
+   AUDIO REACTIVE WAVES
+========================================================= */
+
+.voice-wave{
+
+  position:absolute;
+
+  border-radius:50%;
+
+  pointer-events:none;
+
+  opacity:.18;
+
+  will-change:
+    transform,
+    opacity,
+    box-shadow;
+}
+
+.wave1{
+
+  inset:5px;
+
+  border:
+    1px solid
+    rgba(141,232,255,.24);
+
+  box-shadow:
+    0 0 10px
+    rgba(141,232,255,.09);
+}
+
+.wave2{
+
+  inset:-4px;
+
+  border:
+    1px solid
+    rgba(141,232,255,.15);
+
+  opacity:.12;
+}
+
+.wave3{
+
+  inset:-14px;
+
+  border:
+    1px solid
+    rgba(141,232,255,.08);
+
+  opacity:.08;
+}
+
+
+/* =========================================================
+   CORE DOT
+========================================================= */
+
+.core-dot{
+
+  position:relative;
+
+  z-index:4;
+
+  width:27px;
+  height:27px;
+
+  border-radius:50%;
+
+  border:
+    1px solid
+    rgba(141,232,255,.95);
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(141,232,255,.08),
+      rgba(141,232,255,.015)
+    );
+
+  box-shadow:
+    0 0 20px
+      rgba(141,232,255,.55),
+    inset 0 0 12px
+      rgba(141,232,255,.25);
+}
+
+
+/* =========================================================
+   VOICE STATES
+========================================================= */
+
+.listening .ring3{
+
+  animation:
+    listeningPulse
+    1.3s ease-in-out infinite;
+}
+
+.analysing .ring{
+
+  animation-duration:
+    2.5s;
+}
+
+.analysing .ring2{
+
+  animation-duration:
+    3.7s;
+}
+
+.speaking .core-dot{
+
+  box-shadow:
+    0 0 28px
+      rgba(141,232,255,.85),
+    inset 0 0 16px
+      rgba(141,232,255,.35);
+}
+
+
+/* =========================================================
+   TEXT
+========================================================= */
+
+h1{
+
+  font-size:15px;
+
+  letter-spacing:.32em;
+
+  margin:
+    9px 0 7px;
+
+  padding-left:.32em;
+
+  font-weight:600;
+}
+
+.status{
+
+  font-size:11px;
+
+  letter-spacing:.2em;
+
+  color:var(--glow);
+
+  min-height:16px;
+}
+
+.message{
+
+  margin-top:8px;
+
+  font-size:11px;
+
+  color:var(--muted);
+
+  min-height:16px;
+}
+
+
+/* =========================================================
+   VOICE BUTTON
+========================================================= */
+
+.voice-button{
+
+  margin-top:18px;
+
+  padding:
+    9px 18px;
+
+  border-radius:8px;
+
+  border:
+    1px solid
+    rgba(141,232,255,.30);
+
+  background:
+    rgba(8,25,36,.65);
+
+  color:var(--glow);
+
+  font-size:9px;
+
+  letter-spacing:.18em;
+
+  cursor:pointer;
+
+  transition:.2s;
+}
+
+.voice-button.active{
+
+  border-color:
+    rgba(141,232,255,.7);
+
+  box-shadow:
+    0 0 14px
+    rgba(141,232,255,.12);
+}
+
+.voice-button:disabled{
+
+  opacity:.45;
+
+  cursor:default;
+}
+
+
+/* =========================================================
+   BOTTOM METRICS
+========================================================= */
+
+.bottom{
+
+  position:absolute;
+
+  left:14px;
+  right:14px;
+  bottom:12px;
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(4,1fr);
+
+  gap:7px;
+
+  transition:
+    opacity .3s;
+}
+
+.metric{
+
+  border-top:
+    1px solid
+    rgba(141,232,255,.15);
+
+  padding-top:7px;
+
+  text-align:center;
+}
+
+.metric b{
+
+  display:block;
+
+  font-size:12px;
+
+  font-weight:500;
+}
+
+.metric span{
+
+  font-size:8px;
+
+  letter-spacing:.13em;
+
+  color:var(--muted);
+}
+
+.stale{
+  opacity:.55;
+}
+
+
+/* =========================================================
+   ANIMATIONS
+========================================================= */
+
+@keyframes spin{
+
+  to{
+    transform:
+      rotate(360deg);
   }
+}
 
-  *{box-sizing:border-box}
+@keyframes spinReverse{
 
-  html,body{
-    margin:0;
-    width:100%;
-    height:100%;
-    background:var(--bg);
-    font-family:Inter,Arial,sans-serif;
-    color:var(--text);
-    overflow:hidden;
+  to{
+    transform:
+      rotate(-360deg);
   }
+}
 
-  body{
-    display:flex;
-    align-items:stretch;
-    justify-content:stretch;
+@keyframes idlePulse{
+
+  50%{
+    transform:
+      scale(1.05);
+
+    opacity:.9;
   }
+}
 
-  /* LOGIN */
+@keyframes listeningPulse{
 
-  .auth-gate{
-    position:fixed;
-    inset:0;
-    z-index:50;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:24px;
-    background:
-      radial-gradient(circle at 50% 40%,rgba(65,182,222,.12),transparent 34%),
-      linear-gradient(180deg,#08121c,#03090e);
-  }
+  50%{
+    transform:
+      scale(1.10);
 
-  .auth-card{
-    width:min(360px,100%);
-    padding:32px 28px;
-    border:1px solid rgba(141,232,255,.18);
-    border-radius:14px;
-    background:rgba(6,16,24,.88);
+    opacity:1;
+
     box-shadow:
-      0 0 50px rgba(95,210,255,.05),
-      inset 0 0 30px rgba(95,210,255,.025);
-    text-align:center;
+      0 0 16px
+      rgba(141,232,255,.12);
   }
+}
 
-  .auth-core{
-    position:relative;
-    width:72px;
-    height:72px;
-    margin:0 auto 24px;
-    border-radius:50%;
-    border:1px solid rgba(141,232,255,.65);
-    box-shadow:
-      0 0 22px rgba(141,232,255,.22),
-      inset 0 0 14px rgba(141,232,255,.12);
-  }
-
-  .auth-core:before,
-  .auth-core:after{
-    content:"";
-    position:absolute;
-    border-radius:50%;
-    border:1px dashed rgba(141,232,255,.32);
-  }
-
-  .auth-core:before{inset:9px}
-  .auth-core:after{inset:23px}
-
-  .auth-title{
-    font-size:16px;
-    letter-spacing:.32em;
-    padding-left:.32em;
-    margin-bottom:7px;
-  }
-
-  .auth-subtitle{
-    color:var(--muted);
-    font-size:10px;
-    letter-spacing:.18em;
-    margin-bottom:25px;
-  }
-
-  .auth-card input{
-    width:100%;
-    margin-bottom:11px;
-    padding:12px 13px;
-    border-radius:8px;
-    border:1px solid rgba(141,232,255,.18);
-    outline:none;
-    background:rgba(3,10,16,.92);
-    color:var(--text);
-    font-size:14px;
-  }
-
-  .auth-card input:focus{
-    border-color:rgba(141,232,255,.6);
-    box-shadow:0 0 12px rgba(141,232,255,.08);
-  }
-
-  .auth-card button{
-    width:100%;
-    padding:12px;
-    border-radius:8px;
-    border:1px solid rgba(141,232,255,.45);
-    background:rgba(10,32,45,.72);
-    color:var(--text);
-    font-size:11px;
-    letter-spacing:.16em;
-    cursor:pointer;
-  }
-
-  .auth-error{
-    min-height:18px;
-    margin-top:13px;
-    color:var(--danger);
-    font-size:10px;
-  }
-
-  /* JARVIS */
-
-  .panel{
-    display:none;
-    width:100%;
-    height:100%;
-    position:relative;
-    overflow:hidden;
-    background:
-      radial-gradient(circle at 50% 45%,rgba(65,182,222,.10),transparent 35%),
-      linear-gradient(180deg,rgba(8,18,28,1),rgba(3,9,14,1));
-    box-shadow:inset 0 0 40px rgba(95,210,255,.04);
-  }
-
-  .top{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:15px 18px 4px;
-    font-size:12px;
-    letter-spacing:.18em;
-    color:var(--muted);
-  }
-
-  .online{
-    display:flex;
-    align-items:center;
-    gap:7px;
-  }
-
-  .dot{
-    width:7px;
-    height:7px;
-    border-radius:50%;
-    background:var(--glow);
-    box-shadow:0 0 10px var(--glow);
-  }
-
-  .logout{
-    margin-left:10px;
-    border:0;
-    background:none;
-    color:var(--muted);
-    font-size:8px;
-    letter-spacing:.12em;
-    cursor:pointer;
-    opacity:.65;
-  }
-
-  .centre{
-    position:absolute;
-    left:50%;
-    top:48%;
-    transform:translate(-50%,-50%);
-    text-align:center;
-    width:min(90%,500px);
-  }
-
-  .core{
-    position:relative;
-    width:122px;
-    height:122px;
-    margin:auto;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-  }
-
-  .ring,.ring2,.ring3{
-    position:absolute;
-    border-radius:50%;
-    border:1px solid rgba(141,232,255,.4);
-  }
-
-  .ring{
-    inset:0;
-    animation:spin 12s linear infinite;
-  }
-
-  .ring:before,.ring:after{
-    content:"";
-    position:absolute;
-    background:var(--glow);
-    box-shadow:0 0 9px var(--glow);
-    border-radius:50%;
-  }
-
-  .ring:before{
-    width:5px;
-    height:5px;
-    left:9px;
-    top:25px;
-  }
-
-  .ring:after{
-    width:4px;
-    height:4px;
-    right:13px;
-    bottom:22px;
-  }
-
-  .ring2{
-    inset:14px;
-    border-style:dashed;
-    opacity:.55;
-    animation:spinReverse 18s linear infinite;
-  }
-
-  .ring3{
-    inset:31px;
-    border-width:2px;
-    opacity:.65;
-    animation:pulse 2.8s ease-in-out infinite;
-  }
-
-  .core-dot{
-    width:24px;
-    height:24px;
-    border-radius:50%;
-    border:1px solid rgba(141,232,255,.9);
-    box-shadow:
-      0 0 20px rgba(141,232,255,.55),
-      inset 0 0 12px rgba(141,232,255,.25);
-  }
-
-  h1{
-    font-size:15px;
-    letter-spacing:.32em;
-    margin:10px 0 7px;
-    padding-left:.32em;
-    font-weight:600;
-  }
-
-  .status{
-    font-size:11px;
-    letter-spacing:.2em;
-    color:var(--glow);
-    min-height:16px;
-  }
-
-  .message{
-    margin-top:8px;
-    font-size:11px;
-    color:var(--muted);
-    min-height:16px;
-  }
-
-  .voice-button{
-    margin-top:18px;
-    padding:9px 18px;
-    border-radius:8px;
-    border:1px solid rgba(141,232,255,.30);
-    background:rgba(8,25,36,.65);
-    color:var(--glow);
-    font-size:9px;
-    letter-spacing:.18em;
-    cursor:pointer;
-  }
-
-  .voice-button.active{
-    border-color:rgba(141,232,255,.7);
-    box-shadow:0 0 14px rgba(141,232,255,.12);
-  }
-
-  .voice-button:disabled{
-    opacity:.45;
-    cursor:default;
-  }
-
-  .bottom{
-    position:absolute;
-    left:14px;
-    right:14px;
-    bottom:12px;
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:7px;
-  }
-
-  .metric{
-    border-top:1px solid rgba(141,232,255,.15);
-    padding-top:7px;
-    text-align:center;
-  }
-
-  .metric b{
-    display:block;
-    font-size:12px;
-    font-weight:500;
-  }
-
-  .metric span{
-    font-size:8px;
-    letter-spacing:.13em;
-    color:var(--muted);
-  }
-
-  .stale{opacity:.55}
-
-  .listening .ring3{
-    animation:pulseFast .75s ease-in-out infinite;
-  }
-
-  .analysing .ring{
-    animation-duration:2.5s;
-  }
-
-  .analysing .ring2{
-    animation-duration:3.7s;
-  }
-
-  .speaking .ring3{
-    animation:pulseFast .4s ease-in-out infinite;
-  }
-
-  @keyframes spin{
-    to{transform:rotate(360deg)}
-  }
-
-  @keyframes spinReverse{
-    to{transform:rotate(-360deg)}
-  }
-
-  @keyframes pulse{
-    50%{transform:scale(1.08);opacity:1}
-  }
-
-  @keyframes pulseFast{
-    50%{
-      transform:scale(1.17);
-      opacity:1;
-      box-shadow:0 0 18px rgba(141,232,255,.15);
-    }
-  }
 </style>
+
 </head>
+
 
 <body>
 
-<div class="auth-gate" id="authGate">
-  <form class="auth-card" id="loginForm">
+
+<!-- ======================================================
+     LOGIN
+====================================================== -->
+
+<div
+  class="auth-gate"
+  id="authGate"
+>
+
+  <form
+    class="auth-card"
+    id="loginForm"
+  >
 
     <div class="auth-core"></div>
 
-    <div class="auth-title">J.A.R.V.I.S.</div>
-    <div class="auth-subtitle">AUTHORISED ACCESS ONLY</div>
+    <div class="auth-title">
+      J.A.R.V.I.S.
+    </div>
+
+    <div class="auth-subtitle">
+      AUTHORISED ACCESS ONLY
+    </div>
+
 
     <input
       id="email"
@@ -387,6 +821,7 @@
       required
     >
 
+
     <input
       id="password"
       type="password"
@@ -395,165 +830,668 @@
       required
     >
 
-    <button id="loginButton" type="submit">
+
+    <button
+      id="loginButton"
+      type="submit"
+    >
       AUTHENTICATE
     </button>
 
-    <div class="auth-error" id="authError"></div>
+
+    <div
+      class="auth-error"
+      id="authError"
+    ></div>
 
   </form>
+
 </div>
 
-<div class="panel" id="panel">
+
+
+<!-- ======================================================
+     JARVIS PANEL
+====================================================== -->
+
+<div
+  class="panel"
+  id="panel"
+>
+
 
   <div class="top">
 
-    <div>J.A.R.V.I.S.</div>
+    <div>
+      J.A.R.V.I.S.
+    </div>
+
 
     <div class="online">
-      <span class="dot"></span>
-      <span id="linkState">ONLINE</span>
 
-      <button class="logout" id="logoutButton">
+      <span class="dot"></span>
+
+      <span id="linkState">
+        ONLINE
+      </span>
+
+
+      <button
+        class="logout"
+        id="logoutButton"
+      >
         LOG OUT
       </button>
+
     </div>
 
   </div>
 
+
+
   <div class="centre">
 
-    <div class="core">
+
+    <div
+      class="core"
+      id="core"
+    >
+
+      <div class="voice-wave wave3" id="wave3"></div>
+
+      <div class="voice-wave wave2" id="wave2"></div>
+
+      <div class="voice-wave wave1" id="wave1"></div>
+
+
       <div class="ring"></div>
+
       <div class="ring2"></div>
+
       <div class="ring3"></div>
+
+
       <div class="core-dot"></div>
+
     </div>
 
-    <h1>JARVIS</h1>
 
-    <div class="status" id="status">
+    <h1>
+      JARVIS
+    </h1>
+
+
+    <div
+      class="status"
+      id="status"
+    >
       SYSTEM INTEGRITY 100%
     </div>
 
-    <div class="message" id="message">
+
+    <div
+      class="message"
+      id="message"
+    >
       Standing by, sir.
     </div>
 
-    <button class="voice-button" id="voiceButton">
+
+    <button
+      class="voice-button"
+      id="voiceButton"
+    >
       ACTIVATE VOICE
     </button>
 
   </div>
 
+
+
   <div class="bottom">
 
-    <div class="metric">
-      <b id="temp">--.-°C</b>
-      <span>HOME</span>
-    </div>
 
     <div class="metric">
-      <b id="solar">-- kW</b>
-      <span>SOLAR</span>
+
+      <b id="temp">
+        --.-°C
+      </b>
+
+      <span>
+        HOME
+      </span>
+
     </div>
 
-    <div class="metric">
-      <b id="bmw">--%</b>
-      <span>BMW</span>
-    </div>
 
     <div class="metric">
-      <b id="grid">-- kW</b>
-      <span>GRID</span>
+
+      <b id="solar">
+        -- kW
+      </b>
+
+      <span>
+        SOLAR
+      </span>
+
+    </div>
+
+
+    <div class="metric">
+
+      <b id="bmw">
+        --%
+      </b>
+
+      <span>
+        BMW
+      </span>
+
+    </div>
+
+
+    <div class="metric">
+
+      <b id="grid">
+        -- kW
+      </b>
+
+      <span>
+        GRID
+      </span>
+
     </div>
 
   </div>
 
+
 </div>
+
+
 
 <script type="module">
 
-import { createClient } from
-  "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+
+/* =========================================================
+   SUPABASE
+========================================================= */
+
+import {
+  createClient
+} from
+"https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
 
 
 const SUPABASE_URL =
   "https://hibrzsnwkbngaaujdvxl.supabase.co";
 
+
 const SUPABASE_KEY =
   "sb_publishable_yJBOE5AnX7-N8EkV98LNnA_LJ0KEz-P";
 
 
-const supabase = createClient(
-  SUPABASE_URL,
-  SUPABASE_KEY
-);
+const supabase =
+  createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
 
 
-const el = id =>
-  document.getElementById(id);
+const el =
+  id =>
+    document.getElementById(id);
 
 
-let refreshTimer = null;
 
-let peerConnection = null;
-let dataChannel = null;
-let localStream = null;
-let remoteAudio = null;
+/* =========================================================
+   GLOBAL STATE
+========================================================= */
 
-let voicePhase = "disconnected";
+let refreshTimer =
+  null;
+
+
+let peerConnection =
+  null;
+
+
+let dataChannel =
+  null;
+
+
+let localStream =
+  null;
+
+
+let remoteAudio =
+  null;
+
+
+let voicePhase =
+  "disconnected";
+
 
 let baseStatus =
   "SYSTEM INTEGRITY 100%";
+
 
 let baseMessage =
   "Standing by, sir.";
 
 
-/* ---------------------------------
-   HOME DATA
----------------------------------- */
 
-function fmtKw(value){
+/* =========================================================
+   AUDIO VISUALISER
+========================================================= */
+
+let audioContext =
+  null;
+
+
+let remoteAnalyser =
+  null;
+
+
+let remoteSource =
+  null;
+
+
+let voiceBuffer =
+  null;
+
+
+let voiceAnimationFrame =
+  null;
+
+
+let smoothedVoiceLevel =
+  0;
+
+
+
+async function setupVoiceVisuals(
+  stream
+){
+
+  try{
+
+    resetVoiceVisuals();
+
+
+    const AudioContextClass =
+      window.AudioContext ||
+      window.webkitAudioContext;
+
+
+    if(!AudioContextClass){
+
+      console.warn(
+        "Web Audio API unavailable"
+      );
+
+      return;
+    }
+
+
+    audioContext =
+      new AudioContextClass();
+
+
+    if(
+      audioContext.state ===
+      "suspended"
+    ){
+
+      await audioContext.resume();
+    }
+
+
+    remoteAnalyser =
+      audioContext
+        .createAnalyser();
+
+
+    remoteAnalyser.fftSize =
+      256;
+
+
+    remoteAnalyser
+      .smoothingTimeConstant =
+        .65;
+
+
+    voiceBuffer =
+      new Uint8Array(
+        remoteAnalyser
+          .fftSize
+      );
+
+
+    remoteSource =
+      audioContext
+        .createMediaStreamSource(
+          stream
+        );
+
+
+    remoteSource.connect(
+      remoteAnalyser
+    );
+
+
+    animateVoiceWave();
+
+  } catch(error){
+
+    console.warn(
+      "Voice visualiser failed:",
+      error
+    );
+  }
+}
+
+
+
+function animateVoiceWave(){
+
+  if(
+    !remoteAnalyser ||
+    !voiceBuffer
+  ){
+    return;
+  }
+
+
+  remoteAnalyser
+    .getByteTimeDomainData(
+      voiceBuffer
+    );
+
+
+  let sumSquares =
+    0;
+
+
+  for(
+    let i = 0;
+    i < voiceBuffer.length;
+    i++
+  ){
+
+    const value =
+      (
+        voiceBuffer[i] -
+        128
+      ) / 128;
+
+
+    sumSquares +=
+      value * value;
+  }
+
+
+  const rms =
+    Math.sqrt(
+      sumSquares /
+      voiceBuffer.length
+    );
+
+
+  let level =
+    (
+      rms -
+      .008
+    ) * 8;
+
+
+  level =
+    Math.max(
+      0,
+      Math.min(
+        1,
+        level
+      )
+    );
+
+
+  smoothedVoiceLevel =
+    smoothedVoiceLevel *
+      .72
+    +
+    level *
+      .28;
+
+
+  const v =
+    smoothedVoiceLevel;
+
+
+  const wave1 =
+    el("wave1");
+
+
+  const wave2 =
+    el("wave2");
+
+
+  const wave3 =
+    el("wave3");
+
+
+  if(wave1){
+
+    wave1.style.transform =
+      `scale(${1 + v * .22})`;
+
+
+    wave1.style.opacity =
+      `${.18 + v * .78}`;
+
+
+    wave1.style.borderColor =
+      `rgba(141,232,255,${.22 + v * .65})`;
+
+
+    wave1.style.boxShadow =
+      `
+        0 0 ${10 + v * 32}px
+        rgba(141,232,255,${.10 + v * .45})
+      `;
+  }
+
+
+  if(wave2){
+
+    wave2.style.transform =
+      `scale(${1 + v * .31})`;
+
+
+    wave2.style.opacity =
+      `${.10 + v * .52}`;
+
+
+    wave2.style.borderColor =
+      `rgba(141,232,255,${.12 + v * .38})`;
+  }
+
+
+  if(wave3){
+
+    wave3.style.transform =
+      `scale(${1 + v * .42})`;
+
+
+    wave3.style.opacity =
+      `${.06 + v * .30}`;
+
+
+    wave3.style.borderColor =
+      `rgba(141,232,255,${.08 + v * .24})`;
+  }
+
+
+  voiceAnimationFrame =
+    requestAnimationFrame(
+      animateVoiceWave
+    );
+}
+
+
+
+function resetVoiceVisuals(){
+
+  if(
+    voiceAnimationFrame
+  ){
+
+    cancelAnimationFrame(
+      voiceAnimationFrame
+    );
+
+    voiceAnimationFrame =
+      null;
+  }
+
+
+  smoothedVoiceLevel =
+    0;
+
+
+  const defaults = [
+
+    ["wave1",1,.18],
+
+    ["wave2",1,.10],
+
+    ["wave3",1,.06]
+
+  ];
+
+
+  for(
+    const [
+      id,
+      scale,
+      opacity
+    ]
+    of defaults
+  ){
+
+    const wave =
+      el(id);
+
+
+    if(wave){
+
+      wave.style.transform =
+        `scale(${scale})`;
+
+
+      wave.style.opacity =
+        opacity;
+    }
+  }
+
+
+  remoteAnalyser =
+    null;
+
+
+  remoteSource =
+    null;
+
+
+  voiceBuffer =
+    null;
+
+
+  if(audioContext){
+
+    try{
+
+      audioContext.close();
+
+    } catch{}
+
+
+    audioContext =
+      null;
+  }
+}
+
+
+
+/* =========================================================
+   HOME DATA
+========================================================= */
+
+function fmtKw(
+  value
+){
 
   if(
     value === null ||
     value === undefined ||
-    Number.isNaN(Number(value))
+    Number.isNaN(
+      Number(value)
+    )
   ){
+
     return "-- kW";
   }
 
-  return `${(Number(value) / 1000).toFixed(2)} kW`;
+
+  return `${
+    (
+      Number(value) /
+      1000
+    ).toFixed(2)
+  } kW`;
 }
+
 
 
 function restoreBaseStatus(){
 
-  if(voicePhase !== "disconnected"){
+  if(
+    voicePhase !==
+    "disconnected"
+  ){
     return;
   }
 
-  el("status").textContent =
-    baseStatus;
 
-  el("message").textContent =
-    baseMessage;
+  el("status")
+    .textContent =
+      baseStatus;
+
+
+  el("message")
+    .textContent =
+      baseMessage;
 }
+
 
 
 async function loadData(){
 
-  try {
+  try{
 
-    const { data, error } =
+    const {
+      data,
+      error
+    } =
       await supabase
-        .from("jarvis_status")
+        .from(
+          "jarvis_status"
+        )
         .select(
           "id,temperature,solar,bmw,grid,updated_at"
         )
-        .eq("id",1)
+        .eq(
+          "id",
+          1
+        )
         .single();
 
 
@@ -562,125 +1500,193 @@ async function loadData(){
     }
 
 
-    el("temp").textContent =
-      data.temperature == null
-        ? "--.-°C"
-        : `${Number(data.temperature).toFixed(1)}°C`;
+    el("temp")
+      .textContent =
+        data.temperature == null
+          ? "--.-°C"
+          : `${
+              Number(
+                data.temperature
+              ).toFixed(1)
+            }°C`;
 
 
-    el("solar").textContent =
-      fmtKw(data.solar);
+    el("solar")
+      .textContent =
+        fmtKw(
+          data.solar
+        );
 
 
-    el("bmw").textContent =
-      data.bmw == null
-        ? "--%"
-        : `${Math.round(Number(data.bmw))}%`;
+    el("bmw")
+      .textContent =
+        data.bmw == null
+          ? "--%"
+          : `${
+              Math.round(
+                Number(
+                  data.bmw
+                )
+              )
+            }%`;
 
 
-    el("grid").textContent =
-      fmtKw(data.grid);
+    el("grid")
+      .textContent =
+        fmtKw(
+          data.grid
+        );
 
 
     const updated =
       data.updated_at
-        ? new Date(data.updated_at)
+        ? new Date(
+            data.updated_at
+          )
         : null;
 
 
     const ageSec =
       updated
-        ? (Date.now() - updated.getTime()) / 1000
+        ? (
+            Date.now() -
+            updated.getTime()
+          ) / 1000
         : 999999;
 
 
-    if(ageSec > 180){
+    if(
+      ageSec >
+      180
+    ){
 
       baseStatus =
         "DATA LINK STALE";
 
+
       baseMessage =
         "Home data has not been updated recently, sir.";
 
+
       document
-        .querySelector(".bottom")
-        .classList.add("stale");
+        .querySelector(
+          ".bottom"
+        )
+        .classList
+        .add(
+          "stale"
+        );
 
     } else {
 
       baseStatus =
         "SYSTEM INTEGRITY 100%";
 
+
       baseMessage =
         "Standing by, sir.";
 
+
       document
-        .querySelector(".bottom")
-        .classList.remove("stale");
+        .querySelector(
+          ".bottom"
+        )
+        .classList
+        .remove(
+          "stale"
+        );
     }
 
 
-    el("linkState").textContent =
-      "ONLINE";
+    el("linkState")
+      .textContent =
+        "ONLINE";
 
 
     restoreBaseStatus();
 
   } catch(error){
 
-    console.error(error);
+    console.error(
+      "Home data:",
+      error
+    );
+
 
     baseStatus =
       "DATA LINK DEGRADED";
 
+
     baseMessage =
       "I appear to have misplaced Homey, sir.";
 
-    el("linkState").textContent =
-      "LINK DEGRADED";
+
+    el("linkState")
+      .textContent =
+        "LINK DEGRADED";
+
 
     restoreBaseStatus();
   }
 }
 
 
-/* ---------------------------------
-   AUTH
----------------------------------- */
+
+/* =========================================================
+   AUTH UI
+========================================================= */
 
 function showLogin(){
 
-  stopVoice(false);
-
-  el("authGate").style.display =
-    "flex";
-
-  el("panel").style.display =
-    "none";
+  stopVoice(
+    false
+  );
 
 
-  if(refreshTimer){
+  el("authGate")
+    .style.display =
+      "flex";
 
-    clearInterval(refreshTimer);
 
-    refreshTimer = null;
+  el("panel")
+    .style.display =
+      "none";
+
+
+  if(
+    refreshTimer
+  ){
+
+    clearInterval(
+      refreshTimer
+    );
+
+
+    refreshTimer =
+      null;
   }
 }
 
 
+
 function showDashboard(){
 
-  el("authGate").style.display =
-    "none";
+  el("authGate")
+    .style.display =
+      "none";
 
-  el("panel").style.display =
-    "block";
+
+  el("panel")
+    .style.display =
+      "block";
 
 
   loadData();
 
 
-  if(!refreshTimer){
+  if(
+    !refreshTimer
+  ){
 
     refreshTimer =
       setInterval(
@@ -691,13 +1697,18 @@ function showDashboard(){
 }
 
 
-/* ---------------------------------
+
+/* =========================================================
    VOICE UI
----------------------------------- */
+========================================================= */
 
-function setVoicePhase(phase){
+function setVoicePhase(
+  phase
+){
 
-  voicePhase = phase;
+  voicePhase =
+    phase;
+
 
   const panel =
     el("panel");
@@ -710,79 +1721,112 @@ function setVoicePhase(phase){
   );
 
 
-  if(phase === "connecting"){
+  if(
+    phase ===
+    "connecting"
+  ){
 
-    el("status").textContent =
-      "ESTABLISHING VOICE LINK";
+    el("status")
+      .textContent =
+        "ESTABLISHING VOICE LINK";
 
-    el("message").textContent =
-      "Securing realtime channel...";
 
+    el("message")
+      .textContent =
+        "Securing realtime channel...";
   }
 
 
-  if(phase === "listening"){
+  if(
+    phase ===
+    "listening"
+  ){
 
     panel.classList.add(
       "listening"
     );
 
-    el("status").textContent =
-      "LISTENING";
 
-    el("message").textContent =
-      "Voice link active.";
+    el("status")
+      .textContent =
+        "LISTENING";
+
+
+    el("message")
+      .textContent =
+        "Voice link active.";
   }
 
 
-  if(phase === "analysing"){
+  if(
+    phase ===
+    "analysing"
+  ){
 
     panel.classList.add(
       "analysing"
     );
 
-    el("status").textContent =
-      "ANALYSING";
 
-    el("message").textContent =
-      "Processing...";
+    el("status")
+      .textContent =
+        "ANALYSING";
+
+
+    el("message")
+      .textContent =
+        "Processing...";
   }
 
 
-  if(phase === "speaking"){
+  if(
+    phase ===
+    "speaking"
+  ){
 
     panel.classList.add(
       "speaking"
     );
 
-    el("status").textContent =
-      "SPEAKING";
 
-    el("message").textContent =
-      "JARVIS voice channel active.";
+    el("status")
+      .textContent =
+        "SPEAKING";
+
+
+    el("message")
+      .textContent =
+        "JARVIS voice channel active.";
   }
 
 
-  if(phase === "disconnected"){
+  if(
+    phase ===
+    "disconnected"
+  ){
 
     restoreBaseStatus();
   }
 }
 
 
-/* ---------------------------------
-   REALTIME EVENTS
----------------------------------- */
 
-function handleRealtimeEvent(event){
+/* =========================================================
+   REALTIME EVENTS
+========================================================= */
+
+function handleRealtimeEvent(
+  event
+){
 
   const type =
-    event?.type || "";
+    event?.type ||
+    "";
 
 
   if(
     type ===
-      "input_audio_buffer.speech_started"
+    "input_audio_buffer.speech_started"
   ){
 
     setVoicePhase(
@@ -795,7 +1839,7 @@ function handleRealtimeEvent(event){
 
   if(
     type ===
-      "input_audio_buffer.speech_stopped"
+    "input_audio_buffer.speech_stopped"
   ){
 
     setVoicePhase(
@@ -807,8 +1851,8 @@ function handleRealtimeEvent(event){
 
 
   if(
-    type === "response.created" ||
-    type === "response.in_progress"
+    type ===
+    "response.created"
   ){
 
     setVoicePhase(
@@ -820,9 +1864,16 @@ function handleRealtimeEvent(event){
 
 
   if(
-    type.includes("audio") &&
-    type.includes("delta") &&
-    type.startsWith("response")
+    (
+      type.includes(
+        "audio"
+      ) &&
+      type.includes(
+        "delta"
+      )
+    ) ||
+    type ===
+    "response.output_audio.delta"
   ){
 
     setVoicePhase(
@@ -834,8 +1885,10 @@ function handleRealtimeEvent(event){
 
 
   if(
-    type === "response.done" ||
-    type === "response.completed"
+    type ===
+      "response.done" ||
+    type ===
+      "response.completed"
   ){
 
     setVoicePhase(
@@ -846,38 +1899,53 @@ function handleRealtimeEvent(event){
   }
 
 
-  if(type === "error"){
+  if(
+    type ===
+    "error"
+  ){
 
     console.error(
       "Realtime error:",
       event
     );
 
-    el("status").textContent =
-      "VOICE LINK ERROR";
 
-    el("message").textContent =
-      "Realtime channel reported an error.";
+    el("status")
+      .textContent =
+        "VOICE LINK ERROR";
+
+
+    el("message")
+      .textContent =
+        event?.error?.message ||
+        "Realtime channel reported an error.";
   }
 }
 
 
-/* ---------------------------------
+
+/* =========================================================
    START VOICE
----------------------------------- */
+========================================================= */
 
 async function startVoice(){
 
-  if(peerConnection){
+  if(
+    peerConnection
+  ){
     return;
   }
 
 
   const button =
-    el("voiceButton");
+    el(
+      "voiceButton"
+    );
 
 
-  button.disabled = true;
+  button.disabled =
+    true;
+
 
   button.textContent =
     "CONNECTING...";
@@ -888,26 +1956,59 @@ async function startVoice(){
   );
 
 
-  try {
+  try{
 
-    /*
-      1. Ask our protected Supabase function
-         for a temporary OpenAI key.
-    */
+
+    /* -----------------------------------------------------
+       Browser capabilities
+    ----------------------------------------------------- */
+
+    if(
+      !navigator
+        .mediaDevices
+        ?.getUserMedia
+    ){
+
+      throw new Error(
+        "Microphone access is not available in this browser."
+      );
+    }
+
+
+    if(
+      !window
+        .RTCPeerConnection
+    ){
+
+      throw new Error(
+        "WebRTC is not supported by this browser."
+      );
+    }
+
+
+
+    /* -----------------------------------------------------
+       Temporary OpenAI key via Supabase
+    ----------------------------------------------------- */
 
     const {
-      data: tokenData,
-      error: tokenError
+      data:tokenData,
+      error:tokenError
     } =
-      await supabase.functions.invoke(
-        "jarvis-realtime",
-        {
-          body: {}
-        }
-      );
+      await supabase
+        .functions
+        .invoke(
+          "jarvis-realtime",
+          {
+            body:{}
+          }
+        );
 
 
-    if(tokenError){
+    if(
+      tokenError
+    ){
+
       throw tokenError;
     }
 
@@ -916,22 +2017,26 @@ async function startVoice(){
       tokenData?.value;
 
 
-    if(!ephemeralKey){
+    if(
+      !ephemeralKey
+    ){
 
       console.error(
-        "Realtime token response:",
+        "Realtime token:",
         tokenData
       );
 
+
       throw new Error(
-        "No ephemeral realtime key returned"
+        "No ephemeral realtime key returned."
       );
     }
 
 
-    /*
-      2. Create WebRTC connection.
-    */
+
+    /* -----------------------------------------------------
+       WebRTC
+    ----------------------------------------------------- */
 
     const pc =
       new RTCPeerConnection();
@@ -941,9 +2046,10 @@ async function startVoice(){
       pc;
 
 
-    /*
-      3. Play JARVIS audio.
-    */
+
+    /* -----------------------------------------------------
+       JARVIS AUDIO OUTPUT
+    ----------------------------------------------------- */
 
     const audio =
       document.createElement(
@@ -951,36 +2057,64 @@ async function startVoice(){
       );
 
 
+    audio.autoplay =
+      true;
+
+
+    audio.playsInline =
+      true;
+
+
+    audio.style.display =
+      "none";
+
+
+    document.body.appendChild(
+      audio
+    );
+
+
     remoteAudio =
       audio;
 
-    audio.autoplay = true;
 
-    audio.playsInline = true;
+    pc.ontrack =
+      event => {
 
-
-    pc.ontrack = event => {
-
-      audio.srcObject =
-        event.streams[0];
+        const stream =
+          event.streams[0];
 
 
-      audio.play().catch(
-        error =>
-          console.warn(
-            "Audio autoplay:",
-            error
-          )
-      );
-    };
+        audio.srcObject =
+          stream;
 
 
-    /*
-      4. Get tablet microphone.
-    */
+        setupVoiceVisuals(
+          stream
+        );
+
+
+        audio.play()
+          .catch(
+            error => {
+
+              console.warn(
+                "Audio autoplay:",
+                error
+              );
+            }
+          );
+      };
+
+
+
+    /* -----------------------------------------------------
+       MICROPHONE
+    ----------------------------------------------------- */
 
     const stream =
-      await navigator.mediaDevices
+      await navigator
+        .mediaDevices
         .getUserMedia({
           audio:{
             echoCancellation:true,
@@ -994,27 +2128,31 @@ async function startVoice(){
       stream;
 
 
-    const audioTrack =
-      stream.getAudioTracks()[0];
+    const track =
+      stream
+        .getAudioTracks()[0];
 
 
-    if(!audioTrack){
+    if(
+      !track
+    ){
 
       throw new Error(
-        "No microphone audio track"
+        "No microphone audio track available."
       );
     }
 
 
     pc.addTrack(
-      audioTrack,
+      track,
       stream
     );
 
 
-    /*
-      5. Data channel for status events.
-    */
+
+    /* -----------------------------------------------------
+       DATA CHANNEL
+    ----------------------------------------------------- */
 
     const dc =
       pc.createDataChannel(
@@ -1033,12 +2171,17 @@ async function startVoice(){
         button.disabled =
           false;
 
+
         button.textContent =
           "DISCONNECT VOICE";
 
-        button.classList.add(
-          "active"
-        );
+
+        button
+          .classList
+          .add(
+            "active"
+          );
+
 
         setVoicePhase(
           "listening"
@@ -1051,7 +2194,7 @@ async function startVoice(){
       "message",
       event => {
 
-        try {
+        try{
 
           const message =
             JSON.parse(
@@ -1072,7 +2215,7 @@ async function startVoice(){
         } catch(error){
 
           console.warn(
-            "Unreadable realtime event",
+            "Unreadable realtime event:",
             error
           );
         }
@@ -1085,55 +2228,68 @@ async function startVoice(){
       () => {
 
         if(
-          peerConnection === pc
+          peerConnection ===
+          pc
         ){
+
           stopVoice();
         }
       }
     );
 
 
-    /*
-      6. Generate SDP offer.
-    */
+
+    /* -----------------------------------------------------
+       SDP OFFER
+    ----------------------------------------------------- */
 
     const offer =
       await pc.createOffer();
 
 
-    await pc.setLocalDescription(
-      offer
-    );
+    await pc
+      .setLocalDescription(
+        offer
+      );
 
 
-    /*
-      7. Use temporary key to connect
-         directly to OpenAI Realtime.
-    */
+
+    /* -----------------------------------------------------
+       OPENAI REALTIME
+    ----------------------------------------------------- */
 
     const sdpResponse =
       await fetch(
         "https://api.openai.com/v1/realtime/calls",
         {
-          method:"POST",
 
-          body:offer.sdp,
+          method:
+            "POST",
+
+          body:
+            offer.sdp,
 
           headers:{
+
             "Authorization":
               `Bearer ${ephemeralKey}`,
 
             "Content-Type":
               "application/sdp"
+
           }
+
         }
       );
 
 
-    if(!sdpResponse.ok){
+    if(
+      !sdpResponse.ok
+    ){
 
       const errorText =
-        await sdpResponse.text();
+        await sdpResponse
+          .text();
 
 
       throw new Error(
@@ -1143,15 +2299,22 @@ async function startVoice(){
 
 
     const answer = {
-      type:"answer",
+
+      type:
+        "answer",
+
       sdp:
-        await sdpResponse.text()
+        await sdpResponse
+          .text()
+
     };
 
 
-    await pc.setRemoteDescription(
-      answer
-    );
+    await pc
+      .setRemoteDescription(
+        answer
+      );
+
 
 
     pc.addEventListener(
@@ -1165,7 +2328,8 @@ async function startVoice(){
 
 
         if(
-          peerConnection !== pc
+          peerConnection !==
+          pc
         ){
           return;
         }
@@ -1177,6 +2341,7 @@ async function startVoice(){
           pc.connectionState ===
             "closed"
         ){
+
           stopVoice();
         }
       }
@@ -1191,11 +2356,14 @@ async function startVoice(){
     );
 
 
-    stopVoice(false);
+    stopVoice(
+      false
+    );
 
 
-    el("status").textContent =
-      "VOICE LINK FAILED";
+    el("status")
+      .textContent =
+        "VOICE LINK FAILED";
 
 
     if(
@@ -1203,13 +2371,16 @@ async function startVoice(){
       "NotAllowedError"
     ){
 
-      el("message").textContent =
-        "Microphone permission was denied.";
+      el("message")
+        .textContent =
+          "Microphone permission was denied.";
 
     } else {
 
-      el("message").textContent =
-  error?.message || "Realtime connection could not be established.";
+      el("message")
+        .textContent =
+          error?.message ||
+          "Realtime connection could not be established.";
     }
 
 
@@ -1223,9 +2394,10 @@ async function startVoice(){
 }
 
 
-/* ---------------------------------
+
+/* =========================================================
    STOP VOICE
----------------------------------- */
+========================================================= */
 
 function stopVoice(
   updateUi = true
@@ -1234,6 +2406,7 @@ function stopVoice(
   const pc =
     peerConnection;
 
+
   const dc =
     dataChannel;
 
@@ -1241,31 +2414,53 @@ function stopVoice(
   peerConnection =
     null;
 
+
   dataChannel =
     null;
 
 
-  if(localStream){
+  resetVoiceVisuals();
+
+
+  if(
+    localStream
+  ){
 
     for(
       const track
-      of localStream.getTracks()
+      of localStream
+        .getTracks()
     ){
+
       track.stop();
     }
 
-    localStream = null;
+
+    localStream =
+      null;
   }
 
 
-  if(remoteAudio){
+  if(
+    remoteAudio
+  ){
 
-    remoteAudio.pause();
+    try{
 
-    remoteAudio.srcObject =
+      remoteAudio.pause();
+
+
+      remoteAudio.srcObject =
+        null;
+
+
+      remoteAudio.remove();
+
+    } catch{}
+
+
+    remoteAudio =
       null;
-
-    remoteAudio = null;
   }
 
 
@@ -1283,15 +2478,19 @@ function stopVoice(
     "disconnected";
 
 
-  el("panel").classList.remove(
-    "listening",
-    "analysing",
-    "speaking"
-  );
+  el("panel")
+    .classList
+    .remove(
+      "listening",
+      "analysing",
+      "speaking"
+    );
 
 
   const button =
-    el("voiceButton");
+    el(
+      "voiceButton"
+    );
 
 
   button.disabled =
@@ -1302,28 +2501,35 @@ function stopVoice(
     "ACTIVATE VOICE";
 
 
-  button.classList.remove(
-    "active"
-  );
+  button
+    .classList
+    .remove(
+      "active"
+    );
 
 
-  if(updateUi){
+  if(
+    updateUi
+  ){
 
     restoreBaseStatus();
   }
 }
 
 
-/* ---------------------------------
-   BUTTONS
----------------------------------- */
+
+/* =========================================================
+   VOICE BUTTON
+========================================================= */
 
 el("voiceButton")
   .addEventListener(
     "click",
     async () => {
 
-      if(peerConnection){
+      if(
+        peerConnection
+      ){
 
         stopVoice();
 
@@ -1334,6 +2540,11 @@ el("voiceButton")
     }
   );
 
+
+
+/* =========================================================
+   LOGIN
+========================================================= */
 
 el("loginForm")
   .addEventListener(
@@ -1355,11 +2566,14 @@ el("loginForm")
 
 
       const button =
-        el("loginButton");
+        el(
+          "loginButton"
+        );
 
 
       el("authError")
-        .textContent = "";
+        .textContent =
+          "";
 
 
       button.disabled =
@@ -1370,8 +2584,11 @@ el("loginForm")
         "AUTHENTICATING...";
 
 
-      const { error } =
-        await supabase.auth
+      const {
+        error
+      } =
+        await supabase
+          .auth
           .signInWithPassword({
             email,
             password
@@ -1386,18 +2603,22 @@ el("loginForm")
         "AUTHENTICATE";
 
 
-      if(error){
+      if(
+        error
+      ){
 
         el("authError")
           .textContent =
             "ACCESS DENIED";
 
+
         return;
       }
 
 
-      el("password").value =
-        "";
+      el("password")
+        .value =
+          "";
 
 
       showDashboard();
@@ -1405,17 +2626,26 @@ el("loginForm")
   );
 
 
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
 el("logoutButton")
   .addEventListener(
     "click",
     async () => {
 
-      stopVoice(false);
+      stopVoice(
+        false
+      );
 
 
-      await supabase.auth
+      await supabase
+        .auth
         .signOut({
-          scope:"local"
+          scope:
+            "local"
         });
 
 
@@ -1424,20 +2654,26 @@ el("logoutButton")
   );
 
 
-/* ---------------------------------
+
+/* =========================================================
    INITIAL SESSION
----------------------------------- */
+========================================================= */
 
 const {
+
   data:{
     session
   }
+
 } =
-  await supabase.auth
+  await supabase
+    .auth
     .getSession();
 
 
-if(session){
+if(
+  session
+){
 
   showDashboard();
 
@@ -1447,9 +2683,14 @@ if(session){
 }
 
 
-supabase.auth
+
+supabase
+  .auth
   .onAuthStateChange(
-    (event,session) => {
+    (
+      event,
+      session
+    ) => {
 
       if(
         event ===
@@ -1462,7 +2703,7 @@ supabase.auth
 
       if(
         event ===
-        "SIGNED_IN" &&
+          "SIGNED_IN" &&
         session
       ){
 
@@ -1471,7 +2712,9 @@ supabase.auth
     }
   );
 
+
 </script>
 
 </body>
+
 </html>
