@@ -4,114 +4,641 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>J.A.R.V.I.S.</title>
+
 <style>
-  :root{--bg:#071018;--text:#eaf8ff;--muted:#7f9aa8;--glow:#8de8ff}
+  :root{
+    --bg:#071018;
+    --text:#eaf8ff;
+    --muted:#7f9aa8;
+    --glow:#8de8ff;
+  }
+
   *{box-sizing:border-box}
-  html,body{margin:0;width:100%;height:100%;background:var(--bg);font-family:Inter,Arial,sans-serif;color:var(--text);overflow:hidden}
-  body{display:flex;align-items:stretch;justify-content:stretch;padding:0}
-  .panel{width:100%;height:100%;position:relative;overflow:hidden;background:
-    radial-gradient(circle at 50% 45%, rgba(65,182,222,.10), transparent 35%),
-    linear-gradient(180deg, rgba(8,18,28,1), rgba(3,9,14,1));
-    box-shadow:inset 0 0 40px rgba(95,210,255,.04)}
-  .top{display:flex;justify-content:space-between;align-items:center;padding:15px 18px 4px;font-size:12px;letter-spacing:.18em;color:var(--muted)}
-  .online{display:flex;align-items:center;gap:7px}
-  .dot{width:7px;height:7px;border-radius:50%;background:var(--glow);box-shadow:0 0 10px var(--glow)}
-  .centre{position:absolute;left:50%;top:49%;transform:translate(-50%,-50%);text-align:center}
-  .core{position:relative;width:122px;height:122px;margin:auto;display:flex;align-items:center;justify-content:center}
-  .ring,.ring2,.ring3{position:absolute;border-radius:50%;border:1px solid rgba(141,232,255,.4)}
-  .ring{inset:0;animation:spin 12s linear infinite}
-  .ring:before,.ring:after{content:"";position:absolute;background:var(--glow);box-shadow:0 0 9px var(--glow);border-radius:50%}
-  .ring:before{width:5px;height:5px;left:9px;top:25px} .ring:after{width:4px;height:4px;right:13px;bottom:22px}
-  .ring2{inset:14px;border-style:dashed;opacity:.55;animation:spinReverse 18s linear infinite}
-  .ring3{inset:31px;border-width:2px;opacity:.65;animation:pulse 2.8s ease-in-out infinite}
-  .core-dot{width:24px;height:24px;border-radius:50%;border:1px solid rgba(141,232,255,.9);
-    box-shadow:0 0 20px rgba(141,232,255,.55), inset 0 0 12px rgba(141,232,255,.25)}
-  h1{font-size:15px;letter-spacing:.32em;margin:10px 0 7px;padding-left:.32em;font-weight:600}
-  .status{font-size:11px;letter-spacing:.2em;color:var(--glow);min-height:16px}
-  .message{margin-top:8px;font-size:11px;color:var(--muted);min-height:16px}
-  .bottom{position:absolute;left:14px;right:14px;bottom:12px;display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
-  .metric{border-top:1px solid rgba(141,232,255,.15);padding-top:7px;text-align:center}
-  .metric b{display:block;font-size:12px;font-weight:500}
-  .metric span{font-size:8px;letter-spacing:.13em;color:var(--muted)}
+
+  html,body{
+    margin:0;
+    width:100%;
+    height:100%;
+    background:var(--bg);
+    font-family:Inter,Arial,sans-serif;
+    color:var(--text);
+    overflow:hidden;
+  }
+
+  body{
+    display:flex;
+    align-items:stretch;
+    justify-content:stretch;
+    padding:0;
+  }
+
+  /* LOGIN */
+
+  .auth-gate{
+    position:fixed;
+    inset:0;
+    z-index:50;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:24px;
+    background:
+      radial-gradient(circle at 50% 40%,rgba(65,182,222,.12),transparent 34%),
+      linear-gradient(180deg,#08121c,#03090e);
+  }
+
+  .auth-card{
+    width:min(360px,100%);
+    padding:32px 28px;
+    border:1px solid rgba(141,232,255,.18);
+    border-radius:14px;
+    background:rgba(6,16,24,.88);
+    box-shadow:
+      0 0 50px rgba(95,210,255,.05),
+      inset 0 0 30px rgba(95,210,255,.025);
+    text-align:center;
+  }
+
+  .auth-core{
+    position:relative;
+    width:72px;
+    height:72px;
+    margin:0 auto 24px;
+    border-radius:50%;
+    border:1px solid rgba(141,232,255,.65);
+    box-shadow:
+      0 0 22px rgba(141,232,255,.22),
+      inset 0 0 14px rgba(141,232,255,.12);
+  }
+
+  .auth-core:before,
+  .auth-core:after{
+    content:"";
+    position:absolute;
+    border-radius:50%;
+    border:1px dashed rgba(141,232,255,.32);
+  }
+
+  .auth-core:before{inset:9px}
+  .auth-core:after{inset:23px}
+
+  .auth-title{
+    font-size:16px;
+    letter-spacing:.32em;
+    padding-left:.32em;
+    margin-bottom:7px;
+  }
+
+  .auth-subtitle{
+    color:var(--muted);
+    font-size:10px;
+    letter-spacing:.18em;
+    margin-bottom:25px;
+  }
+
+  .auth-card input{
+    width:100%;
+    margin-bottom:11px;
+    padding:12px 13px;
+    border-radius:8px;
+    border:1px solid rgba(141,232,255,.18);
+    outline:none;
+    background:rgba(3,10,16,.92);
+    color:var(--text);
+    font-size:14px;
+  }
+
+  .auth-card input:focus{
+    border-color:rgba(141,232,255,.6);
+    box-shadow:0 0 12px rgba(141,232,255,.08);
+  }
+
+  .auth-card button{
+    width:100%;
+    padding:12px;
+    border-radius:8px;
+    border:1px solid rgba(141,232,255,.45);
+    background:rgba(10,32,45,.72);
+    color:var(--text);
+    font-size:11px;
+    letter-spacing:.16em;
+    cursor:pointer;
+  }
+
+  .auth-card button:hover{
+    background:rgba(17,48,64,.82);
+  }
+
+  .auth-error{
+    min-height:18px;
+    margin-top:13px;
+    color:#ff9c9c;
+    font-size:10px;
+    letter-spacing:.05em;
+  }
+
+  /* JARVIS */
+
+  .panel{
+    display:none;
+    width:100%;
+    height:100%;
+    position:relative;
+    overflow:hidden;
+    background:
+      radial-gradient(circle at 50% 45%,rgba(65,182,222,.10),transparent 35%),
+      linear-gradient(180deg,rgba(8,18,28,1),rgba(3,9,14,1));
+    box-shadow:inset 0 0 40px rgba(95,210,255,.04);
+  }
+
+  .top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:15px 18px 4px;
+    font-size:12px;
+    letter-spacing:.18em;
+    color:var(--muted);
+  }
+
+  .online{
+    display:flex;
+    align-items:center;
+    gap:7px;
+  }
+
+  .dot{
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:var(--glow);
+    box-shadow:0 0 10px var(--glow);
+  }
+
+  .logout{
+    margin-left:14px;
+    border:0;
+    background:none;
+    color:var(--muted);
+    font-size:9px;
+    letter-spacing:.12em;
+    cursor:pointer;
+    opacity:.65;
+  }
+
+  .logout:hover{
+    color:var(--text);
+    opacity:1;
+  }
+
+  .centre{
+    position:absolute;
+    left:50%;
+    top:49%;
+    transform:translate(-50%,-50%);
+    text-align:center;
+  }
+
+  .core{
+    position:relative;
+    width:122px;
+    height:122px;
+    margin:auto;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+  .ring,.ring2,.ring3{
+    position:absolute;
+    border-radius:50%;
+    border:1px solid rgba(141,232,255,.4);
+  }
+
+  .ring{
+    inset:0;
+    animation:spin 12s linear infinite;
+  }
+
+  .ring:before,.ring:after{
+    content:"";
+    position:absolute;
+    background:var(--glow);
+    box-shadow:0 0 9px var(--glow);
+    border-radius:50%;
+  }
+
+  .ring:before{
+    width:5px;
+    height:5px;
+    left:9px;
+    top:25px;
+  }
+
+  .ring:after{
+    width:4px;
+    height:4px;
+    right:13px;
+    bottom:22px;
+  }
+
+  .ring2{
+    inset:14px;
+    border-style:dashed;
+    opacity:.55;
+    animation:spinReverse 18s linear infinite;
+  }
+
+  .ring3{
+    inset:31px;
+    border-width:2px;
+    opacity:.65;
+    animation:pulse 2.8s ease-in-out infinite;
+  }
+
+  .core-dot{
+    width:24px;
+    height:24px;
+    border-radius:50%;
+    border:1px solid rgba(141,232,255,.9);
+    box-shadow:
+      0 0 20px rgba(141,232,255,.55),
+      inset 0 0 12px rgba(141,232,255,.25);
+  }
+
+  h1{
+    font-size:15px;
+    letter-spacing:.32em;
+    margin:10px 0 7px;
+    padding-left:.32em;
+    font-weight:600;
+  }
+
+  .status{
+    font-size:11px;
+    letter-spacing:.2em;
+    color:var(--glow);
+    min-height:16px;
+  }
+
+  .message{
+    margin-top:8px;
+    font-size:11px;
+    color:var(--muted);
+    min-height:16px;
+  }
+
+  .bottom{
+    position:absolute;
+    left:14px;
+    right:14px;
+    bottom:12px;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:7px;
+  }
+
+  .metric{
+    border-top:1px solid rgba(141,232,255,.15);
+    padding-top:7px;
+    text-align:center;
+  }
+
+  .metric b{
+    display:block;
+    font-size:12px;
+    font-weight:500;
+  }
+
+  .metric span{
+    font-size:8px;
+    letter-spacing:.13em;
+    color:var(--muted);
+  }
+
   .stale{opacity:.55}
-  @keyframes spin{to{transform:rotate(360deg)}}
-  @keyframes spinReverse{to{transform:rotate(-360deg)}}
-  @keyframes pulse{50%{transform:scale(1.08);opacity:1}}
+
+  @keyframes spin{
+    to{transform:rotate(360deg)}
+  }
+
+  @keyframes spinReverse{
+    to{transform:rotate(-360deg)}
+  }
+
+  @keyframes pulse{
+    50%{transform:scale(1.08);opacity:1}
+  }
 </style>
 </head>
+
 <body>
+
+<div class="auth-gate" id="authGate">
+  <form class="auth-card" id="loginForm">
+    <div class="auth-core"></div>
+
+    <div class="auth-title">J.A.R.V.I.S.</div>
+    <div class="auth-subtitle">AUTHORISED ACCESS ONLY</div>
+
+    <input
+      id="email"
+      type="email"
+      placeholder="Email address"
+      autocomplete="username"
+      required
+    >
+
+    <input
+      id="password"
+      type="password"
+      placeholder="Password"
+      autocomplete="current-password"
+      required
+    >
+
+    <button id="loginButton" type="submit">
+      AUTHENTICATE
+    </button>
+
+    <div class="auth-error" id="authError"></div>
+  </form>
+</div>
+
 <div class="panel" id="panel">
+
   <div class="top">
     <div>J.A.R.V.I.S.</div>
-    <div class="online"><span class="dot" id="dot"></span><span id="linkState">ONLINE</span></div>
+
+    <div class="online">
+      <span class="dot" id="dot"></span>
+      <span id="linkState">ONLINE</span>
+
+      <button class="logout" id="logoutButton">
+        LOG OUT
+      </button>
+    </div>
   </div>
+
   <div class="centre">
     <div class="core">
-      <div class="ring"></div><div class="ring2"></div><div class="ring3"></div><div class="core-dot"></div>
+      <div class="ring"></div>
+      <div class="ring2"></div>
+      <div class="ring3"></div>
+      <div class="core-dot"></div>
     </div>
+
     <h1>JARVIS</h1>
-    <div class="status" id="status">SYSTEM INTEGRITY 100%</div>
-    <div class="message" id="message">Standing by, sir.</div>
+
+    <div class="status" id="status">
+      SYSTEM INTEGRITY 100%
+    </div>
+
+    <div class="message" id="message">
+      Standing by, sir.
+    </div>
   </div>
+
   <div class="bottom">
-    <div class="metric"><b id="temp">--.-°C</b><span>HOME</span></div>
-    <div class="metric"><b id="solar">-- kW</b><span>SOLAR</span></div>
-    <div class="metric"><b id="bmw">--%</b><span>BMW</span></div>
-    <div class="metric"><b id="grid">-- kW</b><span>GRID</span></div>
+    <div class="metric">
+      <b id="temp">--.-°C</b>
+      <span>HOME</span>
+    </div>
+
+    <div class="metric">
+      <b id="solar">-- kW</b>
+      <span>SOLAR</span>
+    </div>
+
+    <div class="metric">
+      <b id="bmw">--%</b>
+      <span>BMW</span>
+    </div>
+
+    <div class="metric">
+      <b id="grid">-- kW</b>
+      <span>GRID</span>
+    </div>
   </div>
+
 </div>
-<script>
-const SUPABASE_URL = "https://hibrzsnwkbngaaujdvxl.supabase.co";
-const SUPABASE_KEY = "sb_publishable_yJBOE5AnX7-N8EkV98LNnA_LJ0KEz-P";
-const endpoint = `${SUPABASE_URL}/rest/v1/jarvis_status?id=eq.1&select=id,temperature,solar,bmw,grid,updated_at`;
+
+<script type="module">
+
+import { createClient } from
+  "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+
+const SUPABASE_URL =
+  "https://hibrzsnwkbngaaujdvxl.supabase.co";
+
+const SUPABASE_KEY =
+  "sb_publishable_yJBOE5AnX7-N8EkV98LNnA_LJ0KEz-P";
+
+const supabase = createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
 
 const el = id => document.getElementById(id);
 
+let refreshTimer = null;
+
 function fmtKw(value){
-  if(value === null || value === undefined || Number.isNaN(Number(value))) return "-- kW";
-  return `${(Number(value)/1000).toFixed(2)} kW`;
+  if(
+    value === null ||
+    value === undefined ||
+    Number.isNaN(Number(value))
+  ){
+    return "-- kW";
+  }
+
+  return `${(Number(value) / 1000).toFixed(2)} kW`;
+}
+
+function showLogin(){
+  el("authGate").style.display = "flex";
+  el("panel").style.display = "none";
+
+  if(refreshTimer){
+    clearInterval(refreshTimer);
+    refreshTimer = null;
+  }
+}
+
+function showDashboard(){
+  el("authGate").style.display = "none";
+  el("panel").style.display = "block";
+
+  loadData();
+
+  if(!refreshTimer){
+    refreshTimer = setInterval(loadData, 5000);
+  }
 }
 
 async function loadData(){
   try {
-    const r = await fetch(endpoint, {
-      headers: {
-        "apikey": SUPABASE_KEY,
-        "Authorization": `Bearer ${SUPABASE_KEY}`
-      },
-      cache: "no-store"
-    });
-    if(!r.ok) throw new Error(`HTTP ${r.status}`);
-    const rows = await r.json();
-    if(!rows.length) throw new Error("No data");
-    const d = rows[0];
 
-    el("temp").textContent = d.temperature == null ? "--.-°C" : `${Number(d.temperature).toFixed(1)}°C`;
-    el("solar").textContent = fmtKw(d.solar);
-    el("bmw").textContent = d.bmw == null ? "--%" : `${Math.round(Number(d.bmw))}%`;
-    el("grid").textContent = fmtKw(d.grid);
+    const { data, error } = await supabase
+      .from("jarvis_status")
+      .select(
+        "id,temperature,solar,bmw,grid,updated_at"
+      )
+      .eq("id",1)
+      .single();
 
-    const updated = d.updated_at ? new Date(d.updated_at) : null;
-    const ageSec = updated ? (Date.now() - updated.getTime()) / 1000 : 999999;
-    if(ageSec > 180){
-      el("status").textContent = "DATA LINK STALE";
-      el("message").textContent = "Home data has not been updated recently, sir.";
-      document.querySelector(".bottom").classList.add("stale");
-    } else {
-      el("status").textContent = "SYSTEM INTEGRITY 100%";
-      el("message").textContent = "Standing by, sir.";
-      document.querySelector(".bottom").classList.remove("stale");
+    if(error){
+      throw error;
     }
-    el("linkState").textContent = "ONLINE";
-  } catch(e) {
-    el("linkState").textContent = "LINK DEGRADED";
-    el("status").textContent = "DATA LINK DEGRADED";
-    el("message").textContent = "I appear to have misplaced Homey, sir.";
+
+    el("temp").textContent =
+      data.temperature == null
+        ? "--.-°C"
+        : `${Number(data.temperature).toFixed(1)}°C`;
+
+    el("solar").textContent =
+      fmtKw(data.solar);
+
+    el("bmw").textContent =
+      data.bmw == null
+        ? "--%"
+        : `${Math.round(Number(data.bmw))}%`;
+
+    el("grid").textContent =
+      fmtKw(data.grid);
+
+    const updated =
+      data.updated_at
+        ? new Date(data.updated_at)
+        : null;
+
+    const ageSec =
+      updated
+        ? (Date.now() - updated.getTime()) / 1000
+        : 999999;
+
+    if(ageSec > 180){
+
+      el("status").textContent =
+        "DATA LINK STALE";
+
+      el("message").textContent =
+        "Home data has not been updated recently, sir.";
+
+      document
+        .querySelector(".bottom")
+        .classList.add("stale");
+
+    } else {
+
+      el("status").textContent =
+        "SYSTEM INTEGRITY 100%";
+
+      el("message").textContent =
+        "Standing by, sir.";
+
+      document
+        .querySelector(".bottom")
+        .classList.remove("stale");
+    }
+
+    el("linkState").textContent =
+      "ONLINE";
+
+  } catch(error){
+
+    console.error(error);
+
+    el("linkState").textContent =
+      "LINK DEGRADED";
+
+    el("status").textContent =
+      "DATA LINK DEGRADED";
+
+    el("message").textContent =
+      "I appear to have misplaced Homey, sir.";
   }
 }
 
-loadData();
-setInterval(loadData, 5000);
+el("loginForm").addEventListener(
+  "submit",
+  async event => {
+
+    event.preventDefault();
+
+    const email =
+      el("email").value.trim();
+
+    const password =
+      el("password").value;
+
+    const button =
+      el("loginButton");
+
+    el("authError").textContent = "";
+
+    button.disabled = true;
+    button.textContent = "AUTHENTICATING...";
+
+    const { error } =
+      await supabase.auth.signInWithPassword({
+        email,
+        password
+      });
+
+    button.disabled = false;
+    button.textContent = "AUTHENTICATE";
+
+    if(error){
+
+      el("authError").textContent =
+        "ACCESS DENIED";
+
+      return;
+    }
+
+    el("password").value = "";
+
+    showDashboard();
+  }
+);
+
+el("logoutButton").addEventListener(
+  "click",
+  async () => {
+
+    await supabase.auth.signOut({
+      scope:"local"
+    });
+
+    showLogin();
+  }
+);
+
+const {
+  data:{ session }
+} = await supabase.auth.getSession();
+
+if(session){
+  showDashboard();
+} else {
+  showLogin();
+}
+
+supabase.auth.onAuthStateChange(
+  (event,session) => {
+
+    if(event === "SIGNED_OUT"){
+      showLogin();
+    }
+
+    if(event === "SIGNED_IN" && session){
+      showDashboard();
+    }
+  }
+);
+
 </script>
+
 </body>
 </html>
