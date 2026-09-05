@@ -1209,7 +1209,7 @@ async function startVoice(){
     } else {
 
       el("message").textContent =
-        "Realtime connection could not be established.";
+  error?.message || "Realtime connection could not be established.";
     }
 
 
