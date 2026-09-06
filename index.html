@@ -17,14 +17,11 @@
 :root{
   --bg:#02070c;
   --bg2:#07111a;
-
   --text:#eaf8ff;
   --muted:#78919d;
-
   --cyan:#8de8ff;
   --cyan2:#5ec9ee;
   --cyan3:#b8f4ff;
-
   --danger:#ff8f8f;
 }
 
@@ -35,14 +32,10 @@
 html,
 body{
   margin:0;
-
   width:100%;
   height:100%;
-
   overflow:hidden;
-
   background:#02070c;
-
   color:var(--text);
 
   font-family:
@@ -61,15 +54,11 @@ body{
 ========================================================= */
 
 .auth-gate{
-
   position:fixed;
-
   inset:0;
-
   z-index:100;
 
   display:flex;
-
   align-items:center;
   justify-content:center;
 
@@ -88,16 +77,9 @@ body{
     );
 }
 
-
 .auth-card{
-
-  width:min(
-    360px,
-    100%
-  );
-
-  padding:
-    32px 28px;
+  width:min(360px,100%);
+  padding:32px 28px;
 
   text-align:center;
 
@@ -111,22 +93,17 @@ body{
     rgba(5,15,23,.92);
 
   box-shadow:
-    0 0 60px
-      rgba(95,210,255,.05),
-    inset 0 0 35px
-      rgba(95,210,255,.025);
+    0 0 60px rgba(95,210,255,.05),
+    inset 0 0 35px rgba(95,210,255,.025);
 }
 
-
 .auth-core{
-
   position:relative;
 
   width:76px;
   height:76px;
 
-  margin:
-    0 auto 24px;
+  margin:0 auto 24px;
 
   border-radius:50%;
 
@@ -139,10 +116,8 @@ body{
     rgba(141,232,255,.20);
 }
 
-
 .auth-core:before,
 .auth-core:after{
-
   content:"";
 
   position:absolute;
@@ -154,31 +129,25 @@ body{
     rgba(141,232,255,.25);
 }
 
-
 .auth-core:before{
   inset:10px;
 }
-
 
 .auth-core:after{
   inset:25px;
 }
 
-
 .auth-title{
-
   margin-bottom:7px;
+
+  padding-left:.32em;
 
   font-size:16px;
 
   letter-spacing:.32em;
-
-  padding-left:.32em;
 }
 
-
 .auth-subtitle{
-
   margin-bottom:25px;
 
   color:var(--muted);
@@ -188,15 +157,12 @@ body{
   letter-spacing:.18em;
 }
 
-
 .auth-card input{
-
   width:100%;
 
   margin-bottom:11px;
 
-  padding:
-    12px 13px;
+  padding:12px 13px;
 
   border-radius:8px;
 
@@ -214,9 +180,7 @@ body{
   font-size:14px;
 }
 
-
 .auth-card input:focus{
-
   border-color:
     rgba(141,232,255,.60);
 
@@ -225,9 +189,7 @@ body{
     rgba(141,232,255,.08);
 }
 
-
 .auth-card button{
-
   width:100%;
 
   padding:12px;
@@ -250,9 +212,7 @@ body{
   cursor:pointer;
 }
 
-
 .auth-error{
-
   min-height:18px;
 
   margin-top:13px;
@@ -268,7 +228,6 @@ body{
 ========================================================= */
 
 .panel{
-
   display:none;
 
   position:relative;
@@ -278,7 +237,7 @@ body{
 
   overflow:hidden;
 
-  perspective:1000px;
+  perspective:1100px;
 
   background:
     radial-gradient(
@@ -298,11 +257,10 @@ body{
 
 
 /* =========================================================
-   BACKGROUND DEPTH
+   BACKGROUND
 ========================================================= */
 
 .scene-glow{
-
   position:absolute;
 
   left:50%;
@@ -327,7 +285,7 @@ body{
   filter:
     blur(44px);
 
-  opacity:.15;
+  opacity:.13;
 
   pointer-events:none;
 
@@ -337,46 +295,12 @@ body{
 }
 
 
-.floor-shadow{
-
-  position:absolute;
-
-  left:50%;
-  top:56%;
-
-  width:250px;
-  height:70px;
-
-  transform:
-    translate(-50%,-50%);
-
-  border-radius:50%;
-
-  background:
-    radial-gradient(
-      ellipse,
-      rgba(0,0,0,.72),
-      rgba(0,0,0,.25) 43%,
-      transparent 72%
-    );
-
-  filter:
-    blur(19px);
-
-  opacity:.80;
-
-  pointer-events:none;
-}
-
-
 /* =========================================================
-   TOP BAR
+   TOP
 ========================================================= */
 
 .top{
-
   position:relative;
-
   z-index:20;
 
   display:flex;
@@ -394,9 +318,7 @@ body{
   letter-spacing:.18em;
 }
 
-
 .online{
-
   display:flex;
 
   align-items:center;
@@ -404,9 +326,7 @@ body{
   gap:7px;
 }
 
-
 .dot{
-
   width:7px;
   height:7px;
 
@@ -419,9 +339,7 @@ body{
     var(--cyan);
 }
 
-
 .logout{
-
   margin-left:10px;
 
   border:0;
@@ -439,11 +357,8 @@ body{
   opacity:.60;
 }
 
-
 .logout:hover{
-
   opacity:1;
-
   color:var(--text);
 }
 
@@ -453,7 +368,6 @@ body{
 ========================================================= */
 
 .centre{
-
   position:absolute;
 
   left:50%;
@@ -462,25 +376,20 @@ body{
   transform:
     translate(-50%,-50%);
 
-  width:min(
-    96%,
-    620px
-  );
+  width:min(96%,620px);
 
   text-align:center;
 }
 
 
 /* =========================================================
-   3D STAGE
+   STAGE
 ========================================================= */
 
 .core-stage{
-
   position:relative;
 
   width:100%;
-
   height:310px;
 
   display:flex;
@@ -498,11 +407,10 @@ body{
 ========================================================= */
 
 .core{
-
   position:relative;
 
-  width:230px;
-  height:230px;
+  width:235px;
+  height:235px;
 
   z-index:10;
 
@@ -519,20 +427,21 @@ body{
     rotateY(-4deg);
 
   transition:
-    transform .18s ease,
+    transform .15s linear,
     filter .18s ease;
 }
 
 
 /* =========================================================
-   BACK SPHERE
+   REAR SPHERE
 ========================================================= */
 
 .sphere{
-
   position:absolute;
 
   inset:35px;
+
+  z-index:5;
 
   border-radius:50%;
 
@@ -540,23 +449,56 @@ body{
     translateZ(-12px);
 
   background:
-
     radial-gradient(
-      circle at 36% 28%,
-      rgba(220,250,255,.14),
-      rgba(141,232,255,.04) 22%,
-      rgba(26,68,88,.035) 48%,
-      rgba(0,0,0,.26) 72%,
-      transparent 76%
+      circle at 35% 27%,
+      rgba(220,250,255,.16),
+      rgba(141,232,255,.05) 21%,
+      rgba(30,77,100,.035) 47%,
+      rgba(0,0,0,.30) 71%,
+      transparent 77%
     );
 
   box-shadow:
-    inset -16px -18px 28px
-      rgba(0,0,0,.34),
-    inset 10px 9px 18px
+    inset -18px -20px 30px
+      rgba(0,0,0,.38),
+
+    inset 11px 10px 22px
+      rgba(141,232,255,.04),
+
+    0 0 18px
       rgba(141,232,255,.035);
 
   pointer-events:none;
+}
+
+
+/* =========================================================
+   DEPTH SHADE
+========================================================= */
+
+.depth-shade{
+  position:absolute;
+
+  inset:37px;
+
+  z-index:12;
+
+  border-radius:50%;
+
+  pointer-events:none;
+
+  background:
+    linear-gradient(
+      110deg,
+      rgba(255,255,255,.018),
+      transparent 29%,
+      transparent 58%,
+      rgba(0,0,0,.16)
+    );
+
+  box-shadow:
+    inset -20px -8px 28px
+    rgba(0,0,0,.17);
 }
 
 
@@ -565,7 +507,82 @@ body{
 ========================================================= */
 
 .orbit{
+  position:absolute;
 
+  left:50%;
+  top:50%;
+
+  border-radius:50%;
+
+  pointer-events:none;
+
+  transform-style:
+    preserve-3d;
+
+  mask-image:
+    linear-gradient(
+      to bottom,
+      rgba(0,0,0,.35),
+      #000 27%,
+      #000 69%,
+      rgba(0,0,0,.28)
+    );
+
+  -webkit-mask-image:
+    linear-gradient(
+      to bottom,
+      rgba(0,0,0,.35),
+      #000 27%,
+      #000 69%,
+      rgba(0,0,0,.28)
+    );
+}
+
+.orbit-a{
+  width:238px;
+  height:238px;
+
+  border:
+    1px solid
+    rgba(141,232,255,.22);
+
+  animation:
+    orbitA
+    21s linear infinite;
+}
+
+.orbit-b{
+  width:217px;
+  height:217px;
+
+  border:
+    1px dashed
+    rgba(141,232,255,.17);
+
+  animation:
+    orbitB
+    27s linear infinite;
+}
+
+.orbit-c{
+  width:198px;
+  height:198px;
+
+  border:
+    1px solid
+    rgba(141,232,255,.10);
+
+  animation:
+    orbitC
+    33s linear infinite;
+}
+
+
+/* =========================================================
+   SEGMENT ARCS
+========================================================= */
+
+.segment-arc{
   position:absolute;
 
   left:50%;
@@ -579,147 +596,91 @@ body{
     preserve-3d;
 }
 
-
-.orbit-a{
-
-  width:232px;
-  height:232px;
+.segment-a{
+  width:265px;
+  height:265px;
 
   border:
-    1px solid
-    rgba(141,232,255,.22);
+    2px solid transparent;
 
-  animation:
-    orbitA
-    21s linear infinite;
-}
+  border-top-color:
+    rgba(141,232,255,.19);
 
-
-.orbit-b{
-
-  width:214px;
-  height:214px;
-
-  border:
-    1px dashed
-    rgba(141,232,255,.17);
-
-  animation:
-    orbitB
-    26s linear infinite;
-}
-
-
-.orbit-c{
-
-  width:198px;
-  height:198px;
-
-  border:
-    1px solid
-    rgba(141,232,255,.10);
-
-  animation:
-    orbitC
-    31s linear infinite;
-}
-
-
-/* =========================================================
-   HOLOGRAPHIC FLOOR RINGS
-========================================================= */
-
-.floor-ring,
-.floor-ring2,
-.floor-ring3{
-
-  position:absolute;
-
-  left:50%;
-
-  border-radius:50%;
-
-  pointer-events:none;
-
-  transform-style:
-    preserve-3d;
-}
-
-
-.floor-ring{
-
-  width:330px;
-  height:105px;
-
-  bottom:-4px;
+  border-right-color:
+    rgba(141,232,255,.04);
 
   transform:
-    translateX(-50%)
-    perspective(700px)
-    rotateX(77deg);
+    translate(-50%,-50%)
+    rotateZ(27deg)
+    rotateX(13deg);
+
+  opacity:.44;
+
+  animation:
+    segmentA
+    15s linear infinite;
+}
+
+.segment-b{
+  width:250px;
+  height:250px;
 
   border:
-    1px solid
-    rgba(141,232,255,.09);
+    1px solid transparent;
 
-  box-shadow:
-    0 0 16px
+  border-bottom-color:
+    rgba(141,232,255,.16);
+
+  border-left-color:
+    rgba(141,232,255,.04);
+
+  transform:
+    translate(-50%,-50%)
+    rotateZ(-38deg)
+    rotateY(16deg);
+
+  opacity:.34;
+
+  animation:
+    segmentB
+    20s linear infinite;
+}
+
+.segment-c{
+  width:184px;
+  height:184px;
+
+  border:
+    2px solid transparent;
+
+  border-top-color:
+    rgba(184,244,255,.16);
+
+  border-left-color:
     rgba(141,232,255,.035);
 
-  opacity:.40;
-}
-
-
-.floor-ring2{
-
-  width:250px;
-  height:76px;
-
-  bottom:10px;
-
   transform:
-    translateX(-50%)
-    perspective(700px)
-    rotateX(77deg);
+    translate(-50%,-50%)
+    rotateZ(78deg);
 
-  border:
-    1px dashed
-    rgba(141,232,255,.085);
+  opacity:.36;
 
-  opacity:.30;
-}
-
-
-.floor-ring3{
-
-  width:155px;
-  height:43px;
-
-  bottom:27px;
-
-  transform:
-    translateX(-50%)
-    perspective(700px)
-    rotateX(77deg);
-
-  border:
-    1px solid
-    rgba(141,232,255,.07);
-
-  opacity:.24;
+  animation:
+    segmentC
+    12s linear infinite;
 }
 
 
 /* =========================================================
-   MAIN HUD RINGS
+   MAIN RINGS
 ========================================================= */
 
 .main-ring,
 .inner-ring,
 .scan-ring,
 .arc-ring,
-.thinking-ring{
-
+.thinking-ring,
+.scanner-sweep{
   position:absolute;
 
   border-radius:50%;
@@ -727,10 +688,8 @@ body{
   pointer-events:none;
 }
 
-
 .main-ring{
-
-  inset:31px;
+  inset:32px;
 
   transform:
     translateZ(15px);
@@ -744,10 +703,8 @@ body{
     19s linear infinite;
 }
 
-
 .main-ring:before,
 .main-ring:after{
-
   content:"";
 
   position:absolute;
@@ -762,9 +719,7 @@ body{
     rgba(141,232,255,.75);
 }
 
-
 .main-ring:before{
-
   width:5px;
   height:5px;
 
@@ -772,9 +727,7 @@ body{
   top:28px;
 }
 
-
 .main-ring:after{
-
   width:3px;
   height:3px;
 
@@ -782,10 +735,8 @@ body{
   bottom:31px;
 }
 
-
 .inner-ring{
-
-  inset:50px;
+  inset:51px;
 
   transform:
     translateZ(28px);
@@ -801,32 +752,28 @@ body{
     25s linear infinite;
 }
 
-
 .scan-ring{
-
-  inset:17px;
+  inset:18px;
 
   border:
     1px solid
     transparent;
 
   border-top-color:
-    rgba(141,232,255,.18);
+    rgba(141,232,255,.16);
 
   border-right-color:
-    rgba(141,232,255,.035);
+    rgba(141,232,255,.03);
 
-  opacity:.20;
+  opacity:.18;
 
   animation:
     rotateClockwise
     32s linear infinite;
 }
 
-
 .arc-ring{
-
-  inset:70px;
+  inset:71px;
 
   transform:
     translateZ(40px);
@@ -850,25 +797,22 @@ body{
 
 
 /* =========================================================
-   THINKING RING
+   THINKING
 ========================================================= */
 
 .thinking-ring{
-
-  inset:2px;
+  inset:3px;
 
   opacity:0;
 
   background:
-
     repeating-conic-gradient(
       from 0deg,
-      rgba(141,232,255,.42) 0deg 2deg,
+      rgba(141,232,255,.40) 0deg 2deg,
       transparent 2deg 13deg
     );
 
   mask:
-
     radial-gradient(
       circle,
       transparent 65%,
@@ -877,7 +821,6 @@ body{
     );
 
   -webkit-mask:
-
     radial-gradient(
       circle,
       transparent 65%,
@@ -891,18 +834,54 @@ body{
 
 
 /* =========================================================
-   RADIAL AUDIO CANVAS
+   SCANNER SWEEP
+========================================================= */
+
+.scanner-sweep{
+  inset:-3px;
+
+  opacity:0;
+
+  background:
+    conic-gradient(
+      from 0deg,
+      transparent 0deg,
+      transparent 320deg,
+      rgba(141,232,255,.04) 332deg,
+      rgba(141,232,255,.45) 348deg,
+      transparent 360deg
+    );
+
+  mask:
+    radial-gradient(
+      circle,
+      transparent 68%,
+      #000 69% 70%,
+      transparent 71%
+    );
+
+  -webkit-mask:
+    radial-gradient(
+      circle,
+      transparent 68%,
+      #000 69% 70%,
+      transparent 71%
+    );
+}
+
+
+/* =========================================================
+   AUDIO SPECTRUM
 ========================================================= */
 
 .audio-spectrum{
-
   position:absolute;
 
   left:50%;
   top:50%;
 
-  width:310px;
-  height:310px;
+  width:315px;
+  height:315px;
 
   transform:
     translate(-50%,-50%)
@@ -912,10 +891,10 @@ body{
 
   opacity:0;
 
-  z-index:16;
+  z-index:17;
 
   transition:
-    opacity .15s ease;
+    opacity .12s ease;
 }
 
 
@@ -924,7 +903,6 @@ body{
 ========================================================= */
 
 .voice-wave{
-
   position:absolute;
 
   border-radius:50%;
@@ -937,40 +915,35 @@ body{
     box-shadow .07s linear;
 }
 
-
 .wave1{
-
-  inset:25px;
+  inset:27px;
 
   border:
     1px solid
-    rgba(141,232,255,.09);
+    rgba(141,232,255,.08);
 
-  opacity:.035;
+  opacity:.03;
 }
 
-
 .wave2{
-
-  inset:7px;
+  inset:8px;
 
   border:
     1px solid
-    rgba(141,232,255,.055);
+    rgba(141,232,255,.05);
 
-  opacity:.02;
+  opacity:.018;
 }
 
 
 /* =========================================================
-   CORE LENS
+   GLASS CORE
 ========================================================= */
 
 .core-halo{
-
   position:absolute;
 
-  inset:66px;
+  inset:67px;
 
   border-radius:50%;
 
@@ -984,6 +957,7 @@ body{
   box-shadow:
     0 0 11px
       rgba(141,232,255,.075),
+
     inset 0 0 14px
       rgba(141,232,255,.055);
 
@@ -992,9 +966,7 @@ body{
     box-shadow .08s;
 }
 
-
 .inner-lens{
-
   position:absolute;
 
   inset:80px;
@@ -1004,31 +976,84 @@ body{
   transform:
     translateZ(52px);
 
+  overflow:hidden;
+
   background:
     radial-gradient(
-      circle at 35% 27%,
-      rgba(220,250,255,.18),
-      rgba(141,232,255,.075) 27%,
-      rgba(41,101,130,.035) 56%,
-      transparent 74%
+      circle at 34% 25%,
+      rgba(229,252,255,.22),
+      rgba(141,232,255,.09) 25%,
+      rgba(40,104,135,.035) 54%,
+      rgba(0,0,0,.10) 71%
     );
 
   box-shadow:
-    inset -7px -8px 12px
-      rgba(0,0,0,.26),
-    inset 4px 4px 9px
-      rgba(255,255,255,.035);
+    inset -8px -10px 13px
+      rgba(0,0,0,.28),
+
+    inset 5px 4px 10px
+      rgba(255,255,255,.045);
 }
 
+.inner-lens:before{
+  content:"";
+
+  position:absolute;
+
+  width:44%;
+  height:22%;
+
+  left:16%;
+  top:12%;
+
+  border-radius:50%;
+
+  transform:
+    rotate(-22deg);
+
+  background:
+    radial-gradient(
+      ellipse,
+      rgba(225,252,255,.18),
+      rgba(225,252,255,.04) 45%,
+      transparent 70%
+    );
+
+  filter:
+    blur(2px);
+}
+
+.inner-lens:after{
+  content:"";
+
+  position:absolute;
+
+  left:12%;
+  right:12%;
+  bottom:8%;
+
+  height:22%;
+
+  border-radius:50%;
+
+  background:
+    radial-gradient(
+      ellipse,
+      rgba(0,0,0,.18),
+      transparent 70%
+    );
+
+  filter:
+    blur(3px);
+}
 
 .core-dot{
-
   position:relative;
 
   z-index:30;
 
-  width:33px;
-  height:33px;
+  width:34px;
+  height:34px;
 
   border-radius:50%;
 
@@ -1040,21 +1065,22 @@ body{
     rgba(141,232,255,.95);
 
   background:
-
     radial-gradient(
-      circle at 34% 27%,
-      rgba(235,253,255,.25),
-      rgba(141,232,255,.10) 32%,
-      rgba(141,232,255,.018) 69%
+      circle at 33% 25%,
+      rgba(238,253,255,.30),
+      rgba(141,232,255,.11) 31%,
+      rgba(141,232,255,.018) 67%
     );
 
   box-shadow:
     0 0 18px
       rgba(141,232,255,.40),
-    inset -5px -6px 9px
-      rgba(0,0,0,.22),
+
+    inset -6px -7px 10px
+      rgba(0,0,0,.24),
+
     inset 4px 3px 8px
-      rgba(255,255,255,.07);
+      rgba(255,255,255,.08);
 
   transition:
     transform .07s,
@@ -1067,31 +1093,34 @@ body{
 ========================================================= */
 
 .panel.standby .scene-glow{
-
-  opacity:.12;
+  opacity:.10;
 }
-
 
 .panel.standby .orbit-a{
-
-  opacity:.25;
+  opacity:.22;
 }
-
 
 .panel.standby .orbit-b{
-
-  opacity:.18;
+  opacity:.15;
 }
-
 
 .panel.standby .orbit-c{
-
-  opacity:.12;
+  opacity:.10;
 }
 
+.panel.standby .segment-a{
+  opacity:.28;
+}
+
+.panel.standby .segment-b{
+  opacity:.20;
+}
+
+.panel.standby .segment-c{
+  opacity:.22;
+}
 
 .panel.standby .core-dot{
-
   animation:
     standbyBreath
     4.2s ease-in-out infinite;
@@ -1103,50 +1132,45 @@ body{
 ========================================================= */
 
 .panel.listening .scene-glow{
-
-  opacity:.20;
+  opacity:.17;
 
   transform:
     translate(-50%,-50%)
     scale(1.02);
 }
 
-
 .panel.listening .orbit-a{
-
-  opacity:.43;
+  opacity:.39;
 }
 
-
 .panel.listening .orbit-b{
+  opacity:.28;
+}
 
+.panel.listening .orbit-c{
+  opacity:.19;
+}
+
+.panel.listening .segment-a{
+  opacity:.42;
+}
+
+.panel.listening .segment-b{
   opacity:.31;
 }
 
-
-.panel.listening .orbit-c{
-
-  opacity:.20;
+.panel.listening .segment-c{
+  opacity:.34;
 }
 
-
 .panel.listening .main-ring{
-
-  opacity:.70;
+  opacity:.67;
 
   animation-duration:
     13s;
 }
 
-
-.panel.listening .inner-ring{
-
-  opacity:.46;
-}
-
-
 .panel.listening .core-halo{
-
   animation:
     listeningBreath
     1.5s ease-in-out infinite;
@@ -1158,7 +1182,6 @@ body{
 ========================================================= */
 
 .panel.analysing{
-
   background:
     radial-gradient(
       ellipse at 50% 44%,
@@ -1172,88 +1195,97 @@ body{
     );
 }
 
-
 .panel.analysing .scene-glow{
-
-  opacity:.12;
+  opacity:.10;
 }
 
-
 .panel.analysing .thinking-ring{
-
-  opacity:.58;
+  opacity:.55;
 
   animation:
     rotateClockwise
     2s linear infinite;
 }
 
+.panel.analysing .scanner-sweep{
+  opacity:.76;
+
+  animation:
+    scannerSweep
+    1.25s linear infinite;
+}
 
 .panel.analysing .main-ring{
-
-  opacity:.62;
+  opacity:.58;
 
   animation-duration:
     2.1s;
 }
 
-
 .panel.analysing .inner-ring{
-
-  opacity:.70;
+  opacity:.68;
 
   animation-duration:
     3s;
 }
 
-
 .panel.analysing .scan-ring{
-
-  opacity:.74;
+  opacity:.69;
 
   animation-duration:
     1.25s;
 }
 
-
 .panel.analysing .orbit-a{
-
-  opacity:.48;
+  opacity:.46;
 
   animation-duration:
     5s;
 }
 
-
 .panel.analysing .orbit-b{
-
-  opacity:.35;
+  opacity:.34;
 
   animation-duration:
     6.5s;
 }
 
-
 .panel.analysing .orbit-c{
-
-  opacity:.26;
+  opacity:.25;
 
   animation-duration:
     8s;
 }
 
+.panel.analysing .segment-a{
+  opacity:.65;
+
+  animation-duration:
+    4s;
+}
+
+.panel.analysing .segment-b{
+  opacity:.49;
+
+  animation-duration:
+    5s;
+}
+
+.panel.analysing .segment-c{
+  opacity:.54;
+
+  animation-duration:
+    3s;
+}
 
 .panel.analysing .core{
-
   transform:
     rotateX(10deg)
     rotateY(7deg)
     scale(.985);
 }
 
-
 .panel.analysing .core-dot{
-
   animation:
     thinkingPulse
     .8s ease-in-out infinite;
@@ -1265,72 +1297,69 @@ body{
 ========================================================= */
 
 .panel.speaking .scene-glow{
-
-  opacity:.22;
+  opacity:.17;
 
   transform:
     translate(-50%,-50%)
-    scale(1.04);
+    scale(1.03);
 }
 
-
 .panel.speaking .audio-spectrum{
-
   opacity:1;
 }
 
-
 .panel.speaking .orbit-a{
-
-  opacity:.40;
+  opacity:.36;
 }
-
 
 .panel.speaking .orbit-b{
-
-  opacity:.30;
+  opacity:.25;
 }
-
 
 .panel.speaking .orbit-c{
-
-  opacity:.20;
+  opacity:.17;
 }
 
+.panel.speaking .segment-a{
+  opacity:.39;
+}
+
+.panel.speaking .segment-b{
+  opacity:.28;
+}
+
+.panel.speaking .segment-c{
+  opacity:.31;
+}
 
 .panel.speaking .main-ring{
-
-  opacity:.70;
+  opacity:.65;
 
   animation-duration:
     10s;
 }
 
-
 .panel.speaking .inner-ring{
-
-  opacity:.48;
+  opacity:.43;
 
   animation-duration:
     13s;
 }
 
-
 .panel.speaking .arc-ring{
-
-  opacity:.68;
+  opacity:.62;
 }
 
-
 .panel.speaking .core-dot{
-
   box-shadow:
-    0 0 27px
-      rgba(141,232,255,.68),
-    inset -5px -6px 9px
+    0 0 26px
+      rgba(141,232,255,.66),
+
+    inset -6px -7px 10px
       rgba(0,0,0,.20),
+
     inset 4px 3px 9px
-      rgba(255,255,255,.08);
+      rgba(255,255,255,.09);
 }
 
 
@@ -1339,7 +1368,6 @@ body{
 ========================================================= */
 
 h1{
-
   margin:
     7px 0 7px;
 
@@ -1352,9 +1380,7 @@ h1{
   font-weight:600;
 }
 
-
 .status{
-
   min-height:16px;
 
   color:var(--cyan);
@@ -1364,9 +1390,7 @@ h1{
   letter-spacing:.20em;
 }
 
-
 .message{
-
   min-height:16px;
 
   margin-top:8px;
@@ -1378,11 +1402,10 @@ h1{
 
 
 /* =========================================================
-   VOICE BUTTON
+   BUTTON
 ========================================================= */
 
 .voice-button{
-
   margin-top:18px;
 
   padding:
@@ -1408,9 +1431,7 @@ h1{
   transition:.2s;
 }
 
-
 .voice-button.active{
-
   border-color:
     rgba(141,232,255,.62);
 
@@ -1419,10 +1440,33 @@ h1{
     rgba(141,232,255,.10);
 }
 
-
 .voice-button:disabled{
-
   opacity:.40;
+}
+
+
+/* =========================================================
+   VERSION
+========================================================= */
+
+.version{
+  position:absolute;
+
+  left:14px;
+  bottom:52px;
+
+  z-index:20;
+
+  color:
+    rgba(141,232,255,.28);
+
+  font-size:8px;
+
+  letter-spacing:.14em;
+
+  pointer-events:none;
+
+  user-select:none;
 }
 
 
@@ -1431,7 +1475,6 @@ h1{
 ========================================================= */
 
 .bottom{
-
   position:absolute;
 
   left:14px;
@@ -1446,9 +1489,7 @@ h1{
   gap:7px;
 }
 
-
 .metric{
-
   padding-top:7px;
 
   text-align:center;
@@ -1458,9 +1499,7 @@ h1{
     rgba(141,232,255,.13);
 }
 
-
 .metric b{
-
   display:block;
 
   font-size:12px;
@@ -1468,9 +1507,7 @@ h1{
   font-weight:500;
 }
 
-
 .metric span{
-
   color:var(--muted);
 
   font-size:8px;
@@ -1478,9 +1515,7 @@ h1{
   letter-spacing:.13em;
 }
 
-
 .stale{
-
   opacity:.50;
 }
 
@@ -1490,22 +1525,18 @@ h1{
 ========================================================= */
 
 @keyframes rotateClockwise{
-
   to{
     transform:
       rotate(360deg);
   }
 }
 
-
 @keyframes rotateCounter{
-
   to{
     transform:
       rotate(-360deg);
   }
 }
-
 
 @keyframes orbitA{
 
@@ -1524,7 +1555,6 @@ h1{
   }
 }
 
-
 @keyframes orbitB{
 
   from{
@@ -1541,7 +1571,6 @@ h1{
       rotateZ(-360deg);
   }
 }
-
 
 @keyframes orbitC{
 
@@ -1562,11 +1591,71 @@ h1{
   }
 }
 
+@keyframes segmentA{
+
+  from{
+    transform:
+      translate(-50%,-50%)
+      rotateX(13deg)
+      rotateZ(27deg);
+  }
+
+  to{
+    transform:
+      translate(-50%,-50%)
+      rotateX(13deg)
+      rotateZ(387deg);
+  }
+}
+
+@keyframes segmentB{
+
+  from{
+    transform:
+      translate(-50%,-50%)
+      rotateY(16deg)
+      rotateZ(-38deg);
+  }
+
+  to{
+    transform:
+      translate(-50%,-50%)
+      rotateY(16deg)
+      rotateZ(-398deg);
+  }
+}
+
+@keyframes segmentC{
+
+  from{
+    transform:
+      translate(-50%,-50%)
+      rotateZ(78deg);
+  }
+
+  to{
+    transform:
+      translate(-50%,-50%)
+      rotateZ(438deg);
+  }
+}
+
+@keyframes scannerSweep{
+
+  from{
+    transform:
+      rotate(0deg);
+  }
+
+  to{
+    transform:
+      rotate(360deg);
+  }
+}
 
 @keyframes standbyBreath{
 
   50%{
-
     transform:
       translateZ(70px)
       scale(1.035);
@@ -1575,11 +1664,9 @@ h1{
   }
 }
 
-
 @keyframes listeningBreath{
 
   50%{
-
     transform:
       translateZ(44px)
       scale(1.10);
@@ -1590,11 +1677,9 @@ h1{
   }
 }
 
-
 @keyframes thinkingPulse{
 
   50%{
-
     transform:
       translateZ(70px)
       scale(.90);
@@ -1605,30 +1690,27 @@ h1{
 
 
 /* =========================================================
-   SMALL SCREENS
+   SMALL SCREEN
 ========================================================= */
 
-@media(
-  max-height:520px
-){
+@media(max-height:520px){
 
   .core-stage{
-
     height:255px;
   }
 
-
   .core{
-
-    width:195px;
-    height:195px;
+    width:200px;
+    height:200px;
   }
 
-
   .audio-spectrum{
+    width:270px;
+    height:270px;
+  }
 
-    width:265px;
-    height:265px;
+  .version{
+    bottom:48px;
   }
 }
 
@@ -1707,13 +1789,7 @@ h1{
   id="panel"
 >
 
-  <div
-    class="scene-glow"
-  ></div>
-
-  <div
-    class="floor-shadow"
-  ></div>
+  <div class="scene-glow"></div>
 
 
   <div class="top">
@@ -1756,34 +1832,39 @@ h1{
 
         <div class="sphere"></div>
 
+        <div class="depth-shade"></div>
+
 
         <div
           class="orbit orbit-a"
         ></div>
 
-
         <div
           class="orbit orbit-b"
         ></div>
-
 
         <div
           class="orbit orbit-c"
         ></div>
 
 
-        <div class="floor-ring"></div>
+        <div
+          class="segment-arc segment-a"
+        ></div>
 
-        <div class="floor-ring2"></div>
+        <div
+          class="segment-arc segment-b"
+        ></div>
 
-        <div class="floor-ring3"></div>
+        <div
+          class="segment-arc segment-c"
+        ></div>
 
 
         <div
           class="voice-wave wave2"
           id="wave2"
         ></div>
-
 
         <div
           class="voice-wave wave1"
@@ -1800,6 +1881,8 @@ h1{
 
 
         <div class="thinking-ring"></div>
+
+        <div class="scanner-sweep"></div>
 
         <div class="scan-ring"></div>
 
@@ -1860,6 +1943,11 @@ h1{
     </button>
 
 
+  </div>
+
+
+  <div class="version">
+    JARVIS v2.7
   </div>
 
 
@@ -1995,19 +2083,9 @@ let baseMessage =
   "Standing by, sir.";
 
 
-
-/*
-  Realtime model state
-*/
-
 let modelResponding =
   false;
 
-
-/*
-  Holds SPEAKING briefly through tiny
-  pauses between words and sentences.
-*/
 
 let lastAudibleTime =
   0;
@@ -2076,44 +2154,38 @@ async function setupAudioVisuals(
     "suspended"
   ){
 
-    await audioContext
-      .resume();
+    await audioContext.resume();
   }
 
 
   remoteAnalyser =
-    audioContext
-      .createAnalyser();
+    audioContext.createAnalyser();
 
 
   remoteAnalyser.fftSize =
     512;
 
 
-  remoteAnalyser
-    .smoothingTimeConstant =
-      .72;
+  remoteAnalyser.smoothingTimeConstant =
+    .72;
 
 
   audioTimeData =
     new Uint8Array(
-      remoteAnalyser
-        .fftSize
+      remoteAnalyser.fftSize
     );
 
 
   audioFreqData =
     new Uint8Array(
-      remoteAnalyser
-        .frequencyBinCount
+      remoteAnalyser.frequencyBinCount
     );
 
 
   remoteSource =
-    audioContext
-      .createMediaStreamSource(
-        stream
-      );
+    audioContext.createMediaStreamSource(
+      stream
+    );
 
 
   remoteSource.connect(
@@ -2127,7 +2199,7 @@ async function setupAudioVisuals(
 
 
 /* =========================================================
-   RADIAL EQUALIZER
+   RADIAL AUDIO
 ========================================================= */
 
 function drawRadialSpectrum(
@@ -2142,10 +2214,9 @@ function drawRadialSpectrum(
 
 
   const ctx =
-    canvas
-      .getContext(
-        "2d"
-      );
+    canvas.getContext(
+      "2d"
+    );
 
 
   const w =
@@ -2181,13 +2252,6 @@ function drawRadialSpectrum(
     h / 2;
 
 
-  /*
-    More bars than before.
-
-    Enough to look detailed,
-    not enough to become a fuzzy hedgehog.
-  */
-
   const bars =
     72;
 
@@ -2195,14 +2259,6 @@ function drawRadialSpectrum(
   const baseRadius =
     205;
 
-
-  /*
-    Speech frequencies are mostly in the
-    lower part of the FFT.
-
-    Sampling only that region gives the
-    bars much nicer movement.
-  */
 
   const usefulBins =
     Math.min(
@@ -2230,14 +2286,6 @@ function drawRadialSpectrum(
       Math.PI /
       2;
 
-
-    /*
-      Mirror the frequencies.
-
-      This gives the radial display
-      a more designed/symmetrical appearance
-      while still reacting to actual speech.
-    */
 
     const mirrorRatio =
       ratio <= .5
@@ -2267,10 +2315,6 @@ function drawRadialSpectrum(
       255;
 
 
-    /*
-      Local audio signal + overall voice level.
-    */
-
     let strength =
       frequencyStrength *
       .82
@@ -2285,17 +2329,6 @@ function drawRadialSpectrum(
         strength
       );
 
-
-    /*
-      Fake perspective.
-
-      Bottom bars are subtly larger and
-      brighter than top bars.
-
-      That makes the equalizer feel like
-      it occupies the same 3D space
-      as the holographic rings.
-    */
 
     const vertical =
       (
@@ -2375,24 +2408,20 @@ function drawRadialSpectrum(
       depth;
 
 
-    /*
-      Outer glow pass
-    */
+
+    /* glow */
 
     ctx.beginPath();
-
 
     ctx.moveTo(
       x1,
       y1
     );
 
-
     ctx.lineTo(
       x2,
       y2
     );
-
 
     ctx.strokeStyle =
       `rgba(
@@ -2405,45 +2434,35 @@ function drawRadialSpectrum(
         }
       )`;
 
-
     ctx.lineWidth =
       5.5;
-
 
     ctx.lineCap =
       "round";
 
-
     ctx.shadowColor =
       "rgba(141,232,255,.42)";
 
-
     ctx.shadowBlur =
       13;
-
 
     ctx.stroke();
 
 
 
-    /*
-      Crisp bright line
-    */
+    /* sharp bar */
 
     ctx.beginPath();
-
 
     ctx.moveTo(
       x1,
       y1
     );
 
-
     ctx.lineTo(
       x2,
       y2
     );
-
 
     ctx.strokeStyle =
       `rgba(
@@ -2453,34 +2472,26 @@ function drawRadialSpectrum(
         ${alpha}
       )`;
 
-
     ctx.lineWidth =
       1.8 +
       strength *
       .7;
 
-
     ctx.lineCap =
       "round";
 
-
     ctx.shadowColor =
       "rgba(141,232,255,.62)";
-
 
     ctx.shadowBlur =
       strength *
       7;
 
-
     ctx.stroke();
 
 
 
-    /*
-      Tiny bright dot at the outer tip
-      on stronger audio peaks.
-    */
+    /* tip spark */
 
     if(
       strength >
@@ -2488,7 +2499,6 @@ function drawRadialSpectrum(
     ){
 
       ctx.beginPath();
-
 
       ctx.arc(
         x2,
@@ -2501,7 +2511,6 @@ function drawRadialSpectrum(
         2
       );
 
-
       ctx.fillStyle =
         `rgba(
           190,
@@ -2513,10 +2522,8 @@ function drawRadialSpectrum(
           }
         )`;
 
-
       ctx.shadowBlur =
         7;
-
 
       ctx.fill();
     }
@@ -2545,21 +2552,15 @@ function animateAudio(){
   }
 
 
-  remoteAnalyser
-    .getByteTimeDomainData(
-      audioTimeData
-    );
+  remoteAnalyser.getByteTimeDomainData(
+    audioTimeData
+  );
 
 
-  remoteAnalyser
-    .getByteFrequencyData(
-      audioFreqData
-    );
+  remoteAnalyser.getByteFrequencyData(
+    audioFreqData
+  );
 
-
-  /*
-    Calculate actual output volume.
-  */
 
   let sum =
     0;
@@ -2623,19 +2624,9 @@ function animateAudio(){
 
 
 
-  /* =======================================================
-     AUDIO-DRIVEN SPEAKING STATE
-  ======================================================= */
-
-  /*
-    This fixes the important problem:
-
-    the visual state is now based partly
-    on ACTUAL audible JARVIS audio.
-
-    So a new sentence doesn't randomly
-    turn the equalizer back into idle rings.
-  */
+  /* -----------------------------------------
+     REAL AUDIO CONTROLS SPEAKING
+  ----------------------------------------- */
 
   if(
     v >
@@ -2662,11 +2653,6 @@ function animateAudio(){
       performance.now() -
       lastAudibleTime;
 
-
-    /*
-      Keep SPEAKING alive over natural
-      pauses between words/sentences.
-    */
 
     if(
       voicePhase ===
@@ -2695,18 +2681,16 @@ function animateAudio(){
 
 
 
-  /* =======================================================
-     VERY SUBTLE RING RESPONSE
-  ======================================================= */
+  /* subtle circles */
 
   animateWave(
     "wave1",
     1 +
       v *
-      .12,
-    .035 +
+      .11,
+    .03 +
       v *
-      .09
+      .08
   );
 
 
@@ -2714,17 +2698,15 @@ function animateAudio(){
     "wave2",
     1 +
       v *
-      .18,
-    .02 +
+      .16,
+    .018 +
       v *
-      .055
+      .045
   );
 
 
 
-  /* =======================================================
-     CORE RESPONSE
-  ======================================================= */
+  /* core lens */
 
   el(
     "coreDot"
@@ -2749,23 +2731,28 @@ function animateAudio(){
       scale(${
         1 +
         v *
-        .09
+        .085
       })
     `;
 
 
 
   /*
-    Tiny floating motion.
-
-    Enough to give depth.
-    Not enough to make JARVIS seasick.
+    Slight 3D motion with actual voice level.
   */
 
   if(
     voicePhase ===
     "speaking"
   ){
+
+    const sway =
+      Math.sin(
+        performance.now() /
+        430
+      ) *
+      .45;
+
 
     el(
       "core"
@@ -2775,13 +2762,14 @@ function animateAudio(){
         rotateX(${
           4 +
           v *
-          2
+          2.2
         }deg)
 
         rotateY(${
           -4 -
           v *
-          2
+          2.1 +
+          sway
         }deg)
 
         translateY(${
@@ -2792,7 +2780,7 @@ function animateAudio(){
         scale(${
           1.01 +
           v *
-          .015
+          .014
         })
       `;
   }
@@ -2826,6 +2814,7 @@ function animateWave(
   if(
     !node
   ){
+
     return;
   }
 
@@ -3516,14 +3505,6 @@ function handleRealtimeEvent(
   }
 
 
-  /*
-    Realtime tells us audio is being generated.
-
-    The actual audio analyser then keeps
-    SPEAKING active until the sound itself
-    has genuinely stopped.
-  */
-
   if(
     type ===
     "response.output_audio.delta"
@@ -3559,16 +3540,6 @@ function handleRealtimeEvent(
     modelResponding =
       false;
 
-
-    /*
-      Do NOT immediately force LISTENING here.
-
-      There may still be buffered audio
-      playing through the speaker.
-
-      The analyser decides when speech
-      has actually finished.
-    */
 
     return;
   }
@@ -3656,10 +3627,6 @@ async function startVoice(){
 
 
 
-    /* -----------------------------------------------------
-       TEMPORARY REALTIME KEY
-    ----------------------------------------------------- */
-
     const {
       data:tokenData,
       error:tokenError
@@ -3697,10 +3664,6 @@ async function startVoice(){
 
 
 
-    /* -----------------------------------------------------
-       WEBRTC
-    ----------------------------------------------------- */
-
     const pc =
       new RTCPeerConnection();
 
@@ -3709,10 +3672,6 @@ async function startVoice(){
       pc;
 
 
-
-    /* -----------------------------------------------------
-       SPEAKER OUTPUT
-    ----------------------------------------------------- */
 
     const audio =
       document.createElement(
@@ -3770,10 +3729,6 @@ async function startVoice(){
 
 
 
-    /* -----------------------------------------------------
-       MICROPHONE
-    ----------------------------------------------------- */
-
     const stream =
       await navigator
         .mediaDevices
@@ -3781,14 +3736,11 @@ async function startVoice(){
 
           audio:{
 
-            echoCancellation:
-              true,
+            echoCancellation:true,
 
-            noiseSuppression:
-              true,
+            noiseSuppression:true,
 
-            autoGainControl:
-              true
+            autoGainControl:true
 
           }
 
@@ -3820,10 +3772,6 @@ async function startVoice(){
     );
 
 
-
-    /* -----------------------------------------------------
-       REALTIME EVENTS
-    ----------------------------------------------------- */
 
     const dc =
       pc.createDataChannel(
@@ -3888,19 +3836,14 @@ async function startVoice(){
 
 
 
-    /* -----------------------------------------------------
-       SDP
-    ----------------------------------------------------- */
-
     const offer =
-      await pc
-        .createOffer();
+      await pc.createOffer();
 
 
-    await pc
-      .setLocalDescription(
-        offer
-      );
+    await pc.setLocalDescription(
+      offer
+    );
+
 
 
     const response =
@@ -3938,17 +3881,15 @@ async function startVoice(){
     }
 
 
-    await pc
-      .setRemoteDescription({
+    await pc.setRemoteDescription({
 
-        type:
-          "answer",
+      type:
+        "answer",
 
-        sdp:
-          await response
-            .text()
+      sdp:
+        await response.text()
 
-      });
+    });
 
 
 
@@ -4070,8 +4011,7 @@ function stopVoice(
 
     for(
       const track
-      of localStream
-        .getTracks()
+      of localStream.getTracks()
     ){
 
       track.stop();
@@ -4142,11 +4082,9 @@ function stopVoice(
     "ACTIVATE VOICE";
 
 
-  button
-    .classList
-    .remove(
-      "active"
-    );
+  button.classList.remove(
+    "active"
+  );
 
 
   setVisualState(
@@ -4246,8 +4184,11 @@ el(
       await supabase
         .auth
         .signInWithPassword({
+
           email,
+
           password
+
         });
 
 
@@ -4288,7 +4229,7 @@ el(
 
 
 /* =========================================================
-   LOG OUT
+   LOGOUT
 ========================================================= */
 
 el(
@@ -4320,7 +4261,7 @@ el(
 
 
 /* =========================================================
-   INITIAL SESSION
+   SESSION
 ========================================================= */
 
 const {
@@ -4330,9 +4271,7 @@ const {
   }
 
 } =
-  await supabase
-    .auth
-    .getSession();
+  await supabase.auth.getSession();
 
 
 if(
