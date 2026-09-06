@@ -16,11 +16,15 @@
 
 :root{
   --bg:#02070c;
-  --bg2:#071018;
+  --bg2:#07111a;
+
   --text:#eaf8ff;
   --muted:#78919d;
-  --glow:#8de8ff;
-  --glow2:#5ec9ee;
+
+  --cyan:#8de8ff;
+  --cyan2:#5ec9ee;
+  --cyan3:#b8f4ff;
+
   --danger:#ff8f8f;
 }
 
@@ -31,16 +35,13 @@
 html,
 body{
   margin:0;
+
   width:100%;
   height:100%;
+
   overflow:hidden;
 
-  background:
-    linear-gradient(
-      180deg,
-      #071018,
-      #02070c
-    );
+  background:#02070c;
 
   color:var(--text);
 
@@ -62,6 +63,7 @@ body{
 .auth-gate{
 
   position:fixed;
+
   inset:0;
 
   z-index:100;
@@ -89,9 +91,13 @@ body{
 
 .auth-card{
 
-  width:min(360px,100%);
+  width:min(
+    360px,
+    100%
+  );
 
-  padding:32px 28px;
+  padding:
+    32px 28px;
 
   text-align:center;
 
@@ -114,13 +120,13 @@ body{
 
 .auth-core{
 
+  position:relative;
+
   width:76px;
   height:76px;
 
   margin:
     0 auto 24px;
-
-  position:relative;
 
   border-radius:50%;
 
@@ -189,7 +195,8 @@ body{
 
   margin-bottom:11px;
 
-  padding:12px 13px;
+  padding:
+    12px 13px;
 
   border-radius:8px;
 
@@ -257,27 +264,27 @@ body{
 
 
 /* =========================================================
-   MAIN PANEL
+   PANEL
 ========================================================= */
 
 .panel{
 
   display:none;
 
+  position:relative;
+
   width:100%;
   height:100%;
 
-  position:relative;
-
   overflow:hidden;
 
-  perspective:900px;
+  perspective:1000px;
 
   background:
     radial-gradient(
-      ellipse at 50% 43%,
-      rgba(63,160,198,.09),
-      transparent 28%
+      ellipse at 50% 44%,
+      rgba(58,154,194,.075),
+      transparent 27%
     ),
     linear-gradient(
       180deg,
@@ -301,8 +308,8 @@ body{
   left:50%;
   top:47%;
 
-  width:440px;
-  height:440px;
+  width:420px;
+  height:420px;
 
   transform:
     translate(-50%,-50%);
@@ -312,31 +319,33 @@ body{
   background:
     radial-gradient(
       circle,
-      rgba(141,232,255,.055),
-      rgba(141,232,255,.018) 38%,
-      transparent 69%
+      rgba(141,232,255,.05),
+      rgba(141,232,255,.017) 38%,
+      transparent 68%
     );
 
   filter:
     blur(44px);
 
-  opacity:.18;
+  opacity:.15;
+
+  pointer-events:none;
 
   transition:
-    opacity .25s,
-    transform .25s;
+    opacity .3s,
+    transform .3s;
 }
 
 
-.depth-shadow{
+.floor-shadow{
 
   position:absolute;
 
   left:50%;
-  top:57%;
+  top:56%;
 
-  width:230px;
-  height:58px;
+  width:250px;
+  height:70px;
 
   transform:
     translate(-50%,-50%);
@@ -346,15 +355,15 @@ body{
   background:
     radial-gradient(
       ellipse,
-      rgba(0,0,0,.65),
-      rgba(0,0,0,.18) 45%,
+      rgba(0,0,0,.72),
+      rgba(0,0,0,.25) 43%,
       transparent 72%
     );
 
   filter:
-    blur(16px);
+    blur(19px);
 
-  opacity:.75;
+  opacity:.80;
 
   pointer-events:none;
 }
@@ -403,11 +412,11 @@ body{
 
   border-radius:50%;
 
-  background:var(--glow);
+  background:var(--cyan);
 
   box-shadow:
     0 0 10px
-    var(--glow);
+    var(--cyan);
 }
 
 
@@ -454,8 +463,8 @@ body{
     translate(-50%,-50%);
 
   width:min(
-    98%,
-    720px
+    96%,
+    620px
   );
 
   text-align:center;
@@ -463,21 +472,21 @@ body{
 
 
 /* =========================================================
-   CORE AREA
+   3D STAGE
 ========================================================= */
 
 .core-stage{
 
+  position:relative;
+
   width:100%;
 
-  height:320px;
-
-  position:relative;
+  height:310px;
 
   display:flex;
 
-  align-items:center;
   justify-content:center;
+  align-items:center;
 
   transform-style:
     preserve-3d;
@@ -485,39 +494,7 @@ body{
 
 
 /* =========================================================
-   HORIZONTAL AUDIO WAVE
-========================================================= */
-
-.waveform-line{
-
-  position:absolute;
-
-  left:50%;
-  top:50%;
-
-  width:min(
-    94vw,
-    670px
-  );
-
-  height:150px;
-
-  transform:
-    translate(-50%,-50%);
-
-  opacity:0;
-
-  pointer-events:none;
-
-  z-index:3;
-
-  transition:
-    opacity .15s ease;
-}
-
-
-/* =========================================================
-   3D CORE
+   CORE
 ========================================================= */
 
 .core{
@@ -531,59 +508,61 @@ body{
 
   display:flex;
 
-  align-items:center;
   justify-content:center;
+  align-items:center;
 
   transform-style:
     preserve-3d;
 
   transform:
-    rotateX(4deg)
-    rotateY(-3deg);
+    rotateX(5deg)
+    rotateY(-4deg);
 
   transition:
     transform .18s ease,
-    filter .20s ease;
+    filter .18s ease;
 }
 
 
-/* ---------------------------------------------------------
-   SPHERICAL BODY
---------------------------------------------------------- */
+/* =========================================================
+   BACK SPHERE
+========================================================= */
 
-.sphere-shell{
+.sphere{
 
   position:absolute;
 
-  inset:31px;
+  inset:35px;
 
   border-radius:50%;
 
+  transform:
+    translateZ(-12px);
+
   background:
+
     radial-gradient(
-      circle at 38% 28%,
-      rgba(210,248,255,.11),
-      rgba(115,215,245,.045) 20%,
-      rgba(28,77,104,.04) 48%,
-      rgba(0,0,0,.24) 72%,
-      transparent 75%
+      circle at 36% 28%,
+      rgba(220,250,255,.14),
+      rgba(141,232,255,.04) 22%,
+      rgba(26,68,88,.035) 48%,
+      rgba(0,0,0,.26) 72%,
+      transparent 76%
     );
 
   box-shadow:
-    inset -14px -18px 30px
-      rgba(0,0,0,.32),
-    inset 10px 8px 20px
-      rgba(141,232,255,.035),
-    0 0 18px
-      rgba(141,232,255,.045);
+    inset -16px -18px 28px
+      rgba(0,0,0,.34),
+    inset 10px 9px 18px
+      rgba(141,232,255,.035);
 
   pointer-events:none;
 }
 
 
-/* ---------------------------------------------------------
-   3D ORBIT RINGS
---------------------------------------------------------- */
+/* =========================================================
+   ORBITAL RINGS
+========================================================= */
 
 .orbit{
 
@@ -603,68 +582,56 @@ body{
 
 .orbit-a{
 
-  width:224px;
-  height:224px;
+  width:232px;
+  height:232px;
 
   border:
     1px solid
-    rgba(141,232,255,.30);
-
-  transform:
-    translate(-50%,-50%)
-    rotateX(64deg);
+    rgba(141,232,255,.22);
 
   animation:
     orbitA
-    19s linear infinite;
+    21s linear infinite;
 }
 
 
 .orbit-b{
 
-  width:204px;
-  height:204px;
+  width:214px;
+  height:214px;
 
   border:
     1px dashed
-    rgba(141,232,255,.20);
-
-  transform:
-    translate(-50%,-50%)
-    rotateY(67deg);
+    rgba(141,232,255,.17);
 
   animation:
     orbitB
-    24s linear infinite;
+    26s linear infinite;
 }
 
 
 .orbit-c{
 
-  width:196px;
-  height:196px;
+  width:198px;
+  height:198px;
 
   border:
     1px solid
-    rgba(141,232,255,.14);
-
-  transform:
-    translate(-50%,-50%)
-    rotateX(38deg)
-    rotateY(48deg);
+    rgba(141,232,255,.10);
 
   animation:
     orbitC
-    30s linear infinite;
+    31s linear infinite;
 }
 
 
-/* ---------------------------------------------------------
-   HORIZONTAL HOLOGRAM DISCS
---------------------------------------------------------- */
+/* =========================================================
+   HOLOGRAPHIC FLOOR RINGS
+========================================================= */
 
 .floor-ring,
-.floor-ring2{
+.floor-ring2,
+.floor-ring3{
 
   position:absolute;
 
@@ -681,51 +648,71 @@ body{
 
 .floor-ring{
 
-  width:310px;
-  height:100px;
+  width:330px;
+  height:105px;
 
-  bottom:0;
+  bottom:-4px;
 
   transform:
     translateX(-50%)
-    perspective(650px)
-    rotateX(76deg);
+    perspective(700px)
+    rotateX(77deg);
 
   border:
     1px solid
-    rgba(141,232,255,.10);
+    rgba(141,232,255,.09);
 
   box-shadow:
     0 0 16px
-    rgba(141,232,255,.05);
+    rgba(141,232,255,.035);
 
-  opacity:.42;
+  opacity:.40;
 }
 
 
 .floor-ring2{
 
-  width:218px;
-  height:65px;
+  width:250px;
+  height:76px;
 
-  bottom:17px;
+  bottom:10px;
 
   transform:
     translateX(-50%)
-    perspective(650px)
-    rotateX(76deg);
+    perspective(700px)
+    rotateX(77deg);
 
   border:
     1px dashed
-    rgba(141,232,255,.10);
+    rgba(141,232,255,.085);
 
-  opacity:.28;
+  opacity:.30;
 }
 
 
-/* ---------------------------------------------------------
-   FRONT / BACK RINGS
---------------------------------------------------------- */
+.floor-ring3{
+
+  width:155px;
+  height:43px;
+
+  bottom:27px;
+
+  transform:
+    translateX(-50%)
+    perspective(700px)
+    rotateX(77deg);
+
+  border:
+    1px solid
+    rgba(141,232,255,.07);
+
+  opacity:.24;
+}
+
+
+/* =========================================================
+   MAIN HUD RINGS
+========================================================= */
 
 .main-ring,
 .inner-ring,
@@ -743,18 +730,18 @@ body{
 
 .main-ring{
 
-  inset:32px;
+  inset:31px;
+
+  transform:
+    translateZ(15px);
 
   border:
     1px solid
-    rgba(141,232,255,.36);
+    rgba(141,232,255,.33);
 
   animation:
     rotateClockwise
     19s linear infinite;
-
-  transform:
-    translateZ(15px);
 }
 
 
@@ -768,11 +755,11 @@ body{
   border-radius:50%;
 
   background:
-    var(--glow);
+    var(--cyan);
 
   box-shadow:
     0 0 8px
-    rgba(141,232,255,.72);
+    rgba(141,232,255,.75);
 }
 
 
@@ -781,7 +768,7 @@ body{
   width:5px;
   height:5px;
 
-  left:15px;
+  left:16px;
   top:28px;
 }
 
@@ -791,27 +778,27 @@ body{
   width:3px;
   height:3px;
 
-  right:22px;
-  bottom:28px;
+  right:19px;
+  bottom:31px;
 }
 
 
 .inner-ring{
 
-  inset:51px;
+  inset:50px;
+
+  transform:
+    translateZ(28px);
 
   border:
     1px dashed
-    rgba(141,232,255,.23);
+    rgba(141,232,255,.22);
 
-  opacity:.56;
+  opacity:.50;
 
   animation:
     rotateCounter
     25s linear infinite;
-
-  transform:
-    translateZ(25px);
 }
 
 
@@ -839,7 +826,10 @@ body{
 
 .arc-ring{
 
-  inset:71px;
+  inset:70px;
+
+  transform:
+    translateZ(40px);
 
   border:
     2px solid
@@ -849,49 +839,49 @@ body{
     rgba(141,232,255,.27);
 
   border-left-color:
-    rgba(141,232,255,.08);
+    rgba(141,232,255,.075);
 
-  opacity:.58;
+  opacity:.55;
 
   animation:
     rotateCounter
-    9s linear infinite;
-
-  transform:
-    translateZ(35px);
+    10s linear infinite;
 }
 
 
-/* ---------------------------------------------------------
-   THINKING SEGMENTS
---------------------------------------------------------- */
+/* =========================================================
+   THINKING RING
+========================================================= */
 
 .thinking-ring{
 
-  inset:4px;
+  inset:2px;
 
   opacity:0;
 
   background:
+
     repeating-conic-gradient(
       from 0deg,
       rgba(141,232,255,.42) 0deg 2deg,
-      transparent 2deg 12deg
+      transparent 2deg 13deg
     );
 
   mask:
+
     radial-gradient(
       circle,
-      transparent 64%,
-      #000 65% 68%,
+      transparent 65%,
+      #000 66% 68%,
       transparent 69%
     );
 
   -webkit-mask:
+
     radial-gradient(
       circle,
-      transparent 64%,
-      #000 65% 68%,
+      transparent 65%,
+      #000 66% 68%,
       transparent 69%
     );
 
@@ -900,9 +890,38 @@ body{
 }
 
 
-/* ---------------------------------------------------------
-   SUBTLE SPEECH RINGS
---------------------------------------------------------- */
+/* =========================================================
+   RADIAL AUDIO CANVAS
+========================================================= */
+
+.audio-spectrum{
+
+  position:absolute;
+
+  left:50%;
+  top:50%;
+
+  width:310px;
+  height:310px;
+
+  transform:
+    translate(-50%,-50%)
+    translateZ(50px);
+
+  pointer-events:none;
+
+  opacity:0;
+
+  z-index:16;
+
+  transition:
+    opacity .15s ease;
+}
+
+
+/* =========================================================
+   SUBTLE AUDIO RINGS
+========================================================= */
 
 .voice-wave{
 
@@ -913,60 +932,60 @@ body{
   pointer-events:none;
 
   transition:
-    transform .08s linear,
-    opacity .08s linear,
-    box-shadow .08s linear;
+    transform .07s linear,
+    opacity .07s linear,
+    box-shadow .07s linear;
 }
 
 
 .wave1{
 
-  inset:32px;
+  inset:25px;
 
   border:
     1px solid
-    rgba(141,232,255,.11);
+    rgba(141,232,255,.09);
 
-  opacity:.05;
+  opacity:.035;
 }
 
 
 .wave2{
 
-  inset:10px;
+  inset:7px;
 
   border:
     1px solid
-    rgba(141,232,255,.07);
+    rgba(141,232,255,.055);
 
-  opacity:.025;
+  opacity:.02;
 }
 
 
-/* ---------------------------------------------------------
-   LENS / CORE
---------------------------------------------------------- */
+/* =========================================================
+   CORE LENS
+========================================================= */
 
 .core-halo{
 
   position:absolute;
 
-  inset:67px;
+  inset:66px;
 
   border-radius:50%;
 
+  transform:
+    translateZ(44px);
+
   border:
     1px solid
-    rgba(141,232,255,.22);
+    rgba(141,232,255,.20);
 
   box-shadow:
-    0 0 13px
-      rgba(141,232,255,.08),
+    0 0 11px
+      rgba(141,232,255,.075),
     inset 0 0 14px
-      rgba(141,232,255,.06);
-
-  transform:
-    translateZ(42px);
+      rgba(141,232,255,.055);
 
   transition:
     transform .08s,
@@ -978,25 +997,27 @@ body{
 
   position:absolute;
 
-  inset:82px;
+  inset:80px;
 
   border-radius:50%;
 
   transform:
-    translateZ(48px);
+    translateZ(52px);
 
   background:
     radial-gradient(
-      circle at 40% 35%,
-      rgba(209,249,255,.17),
-      rgba(141,232,255,.07) 25%,
-      rgba(39,104,135,.04) 55%,
-      transparent 75%
+      circle at 35% 27%,
+      rgba(220,250,255,.18),
+      rgba(141,232,255,.075) 27%,
+      rgba(41,101,130,.035) 56%,
+      transparent 74%
     );
 
   box-shadow:
-    inset -6px -7px 12px
-      rgba(0,0,0,.25);
+    inset -7px -8px 12px
+      rgba(0,0,0,.26),
+    inset 4px 4px 9px
+      rgba(255,255,255,.035);
 }
 
 
@@ -1006,71 +1027,66 @@ body{
 
   z-index:30;
 
-  width:32px;
-  height:32px;
+  width:33px;
+  height:33px;
 
   border-radius:50%;
 
   transform:
-    translateZ(65px);
+    translateZ(70px);
 
   border:
     1px solid
-    rgba(141,232,255,.96);
+    rgba(141,232,255,.95);
 
   background:
+
     radial-gradient(
-      circle at 38% 32%,
-      rgba(230,252,255,.22),
-      rgba(141,232,255,.10) 30%,
-      rgba(141,232,255,.025) 68%
+      circle at 34% 27%,
+      rgba(235,253,255,.25),
+      rgba(141,232,255,.10) 32%,
+      rgba(141,232,255,.018) 69%
     );
 
   box-shadow:
     0 0 18px
-      rgba(141,232,255,.42),
+      rgba(141,232,255,.40),
     inset -5px -6px 9px
       rgba(0,0,0,.22),
-    inset 3px 3px 8px
-      rgba(255,255,255,.06);
+    inset 4px 3px 8px
+      rgba(255,255,255,.07);
 
   transition:
-    transform .08s,
-    box-shadow .08s;
+    transform .07s,
+    box-shadow .07s;
 }
 
 
 /* =========================================================
-   STATES
+   STANDBY
 ========================================================= */
 
-
-/* STANDBY */
-
 .panel.standby .scene-glow{
-  opacity:.13;
-}
 
-
-.panel.standby .core{
-  transform:
-    rotateX(4deg)
-    rotateY(-3deg);
+  opacity:.12;
 }
 
 
 .panel.standby .orbit-a{
-  opacity:.28;
+
+  opacity:.25;
 }
 
 
 .panel.standby .orbit-b{
-  opacity:.20;
+
+  opacity:.18;
 }
 
 
 .panel.standby .orbit-c{
-  opacity:.14;
+
+  opacity:.12;
 }
 
 
@@ -1078,38 +1094,54 @@ body{
 
   animation:
     standbyBreath
-    4s ease-in-out infinite;
+    4.2s ease-in-out infinite;
 }
 
 
-/* LISTENING */
+/* =========================================================
+   LISTENING
+========================================================= */
 
 .panel.listening .scene-glow{
-  opacity:.21;
-}
 
-
-.panel.listening .core{
+  opacity:.20;
 
   transform:
-    rotateX(2deg)
-    rotateY(-2deg)
-    scale(1.015);
+    translate(-50%,-50%)
+    scale(1.02);
 }
 
 
 .panel.listening .orbit-a{
-  opacity:.48;
+
+  opacity:.43;
 }
 
 
 .panel.listening .orbit-b{
-  opacity:.36;
+
+  opacity:.31;
 }
 
 
 .panel.listening .orbit-c{
-  opacity:.26;
+
+  opacity:.20;
+}
+
+
+.panel.listening .main-ring{
+
+  opacity:.70;
+
+  animation-duration:
+    13s;
+}
+
+
+.panel.listening .inner-ring{
+
+  opacity:.46;
 }
 
 
@@ -1117,18 +1149,20 @@ body{
 
   animation:
     listeningBreath
-    1.4s ease-in-out infinite;
+    1.5s ease-in-out infinite;
 }
 
 
-/* ANALYSING */
+/* =========================================================
+   ANALYSING
+========================================================= */
 
 .panel.analysing{
 
   background:
     radial-gradient(
-      ellipse at 50% 43%,
-      rgba(57,142,178,.065),
+      ellipse at 50% 44%,
+      rgba(53,133,167,.065),
       transparent 25%
     ),
     linear-gradient(
@@ -1140,7 +1174,8 @@ body{
 
 
 .panel.analysing .scene-glow{
-  opacity:.13;
+
+  opacity:.12;
 }
 
 
@@ -1150,61 +1185,61 @@ body{
 
   animation:
     rotateClockwise
-    2.0s linear infinite;
+    2s linear infinite;
 }
 
 
 .panel.analysing .main-ring{
 
+  opacity:.62;
+
   animation-duration:
     2.1s;
-
-  opacity:.58;
 }
 
 
 .panel.analysing .inner-ring{
 
+  opacity:.70;
+
   animation-duration:
     3s;
-
-  opacity:.68;
 }
 
 
 .panel.analysing .scan-ring{
 
+  opacity:.74;
+
   animation-duration:
     1.25s;
-
-  opacity:.75;
 }
 
 
 .panel.analysing .orbit-a{
 
-  animation-duration:
-    5.5s;
+  opacity:.48;
 
-  opacity:.50;
+  animation-duration:
+    5s;
 }
 
 
 .panel.analysing .orbit-b{
 
-  animation-duration:
-    7s;
+  opacity:.35;
 
-  opacity:.36;
+  animation-duration:
+    6.5s;
 }
 
 
 .panel.analysing .orbit-c{
 
+  opacity:.26;
+
   animation-duration:
     8s;
-
-  opacity:.28;
 }
 
 
@@ -1212,7 +1247,7 @@ body{
 
   transform:
     rotateX(10deg)
-    rotateY(8deg)
+    rotateY(7deg)
     scale(.985);
 }
 
@@ -1225,71 +1260,76 @@ body{
 }
 
 
-/* SPEAKING */
+/* =========================================================
+   SPEAKING
+========================================================= */
 
 .panel.speaking .scene-glow{
-  opacity:.24;
-}
 
-
-.panel.speaking .waveform-line{
-  opacity:.98;
-}
-
-
-.panel.speaking .core{
+  opacity:.22;
 
   transform:
-    rotateX(3deg)
-    rotateY(-4deg)
-    scale(1.015);
+    translate(-50%,-50%)
+    scale(1.04);
+}
 
-  filter:
-    drop-shadow(
-      0 0 9px
-      rgba(141,232,255,.09)
-    );
+
+.panel.speaking .audio-spectrum{
+
+  opacity:1;
 }
 
 
 .panel.speaking .orbit-a{
-  opacity:.42;
+
+  opacity:.40;
 }
 
 
 .panel.speaking .orbit-b{
-  opacity:.31;
+
+  opacity:.30;
 }
 
 
 .panel.speaking .orbit-c{
-  opacity:.22;
+
+  opacity:.20;
 }
 
 
 .panel.speaking .main-ring{
-  opacity:.72;
+
+  opacity:.70;
+
+  animation-duration:
+    10s;
 }
 
 
 .panel.speaking .inner-ring{
+
   opacity:.48;
+
+  animation-duration:
+    13s;
 }
 
 
-.panel.speaking .voice-wave{
-  opacity:.10;
+.panel.speaking .arc-ring{
+
+  opacity:.68;
 }
 
 
 .panel.speaking .core-dot{
 
   box-shadow:
-    0 0 26px
-      rgba(141,232,255,.70),
+    0 0 27px
+      rgba(141,232,255,.68),
     inset -5px -6px 9px
       rgba(0,0,0,.20),
-    inset 3px 3px 8px
+    inset 4px 3px 9px
       rgba(255,255,255,.08);
 }
 
@@ -1317,7 +1357,7 @@ h1{
 
   min-height:16px;
 
-  color:var(--glow);
+  color:var(--cyan);
 
   font-size:11px;
 
@@ -1338,7 +1378,7 @@ h1{
 
 
 /* =========================================================
-   BUTTON
+   VOICE BUTTON
 ========================================================= */
 
 .voice-button{
@@ -1357,7 +1397,7 @@ h1{
   background:
     rgba(8,25,36,.60);
 
-  color:var(--glow);
+  color:var(--cyan);
 
   font-size:9px;
 
@@ -1381,12 +1421,13 @@ h1{
 
 
 .voice-button:disabled{
+
   opacity:.40;
 }
 
 
 /* =========================================================
-   DATA
+   METRICS
 ========================================================= */
 
 .bottom{
@@ -1439,6 +1480,7 @@ h1{
 
 
 .stale{
+
   opacity:.50;
 }
 
@@ -1470,14 +1512,14 @@ h1{
   from{
     transform:
       translate(-50%,-50%)
-      rotateX(64deg)
+      rotateX(68deg)
       rotateZ(0deg);
   }
 
   to{
     transform:
       translate(-50%,-50%)
-      rotateX(64deg)
+      rotateX(68deg)
       rotateZ(360deg);
   }
 }
@@ -1488,14 +1530,14 @@ h1{
   from{
     transform:
       translate(-50%,-50%)
-      rotateY(67deg)
+      rotateY(70deg)
       rotateZ(0deg);
   }
 
   to{
     transform:
       translate(-50%,-50%)
-      rotateY(67deg)
+      rotateY(70deg)
       rotateZ(-360deg);
   }
 }
@@ -1506,16 +1548,16 @@ h1{
   from{
     transform:
       translate(-50%,-50%)
-      rotateX(38deg)
-      rotateY(48deg)
+      rotateX(42deg)
+      rotateY(50deg)
       rotateZ(0deg);
   }
 
   to{
     transform:
       translate(-50%,-50%)
-      rotateX(38deg)
-      rotateY(48deg)
+      rotateX(42deg)
+      rotateY(50deg)
       rotateZ(360deg);
   }
 }
@@ -1524,11 +1566,12 @@ h1{
 @keyframes standbyBreath{
 
   50%{
-    transform:
-      translateZ(65px)
-      scale(1.04);
 
-    opacity:.88;
+    transform:
+      translateZ(70px)
+      scale(1.035);
+
+    opacity:.90;
   }
 }
 
@@ -1536,13 +1579,14 @@ h1{
 @keyframes listeningBreath{
 
   50%{
+
     transform:
-      translateZ(42px)
+      translateZ(44px)
       scale(1.10);
 
     box-shadow:
       0 0 20px
-      rgba(141,232,255,.16);
+      rgba(141,232,255,.15);
   }
 }
 
@@ -1550,11 +1594,12 @@ h1{
 @keyframes thinkingPulse{
 
   50%{
+
     transform:
-      translateZ(65px)
+      translateZ(70px)
       scale(.90);
 
-    opacity:.65;
+    opacity:.64;
   }
 }
 
@@ -1568,16 +1613,22 @@ h1{
 ){
 
   .core-stage{
-    height:250px;
+
+    height:255px;
   }
+
 
   .core{
-    width:190px;
-    height:190px;
+
+    width:195px;
+    height:195px;
   }
 
-  .waveform-line{
-    height:100px;
+
+  .audio-spectrum{
+
+    width:265px;
+    height:265px;
   }
 }
 
@@ -1589,7 +1640,9 @@ h1{
 <body>
 
 
-<!-- LOGIN -->
+<!-- ======================================================
+     LOGIN
+====================================================== -->
 
 <div
   class="auth-gate"
@@ -1645,7 +1698,9 @@ h1{
 
 
 
-<!-- MAIN -->
+<!-- ======================================================
+     MAIN
+====================================================== -->
 
 <div
   class="panel standby"
@@ -1654,11 +1709,10 @@ h1{
 
   <div
     class="scene-glow"
-    id="sceneGlow"
   ></div>
 
   <div
-    class="depth-shadow"
+    class="floor-shadow"
   ></div>
 
 
@@ -1694,21 +1748,13 @@ h1{
     <div class="core-stage">
 
 
-      <canvas
-        class="waveform-line"
-        id="waveformLine"
-        width="1400"
-        height="300"
-      ></canvas>
-
-
       <div
         class="core"
         id="core"
       >
 
 
-        <div class="sphere-shell"></div>
+        <div class="sphere"></div>
 
 
         <div
@@ -1726,14 +1772,11 @@ h1{
         ></div>
 
 
-        <div
-          class="floor-ring"
-        ></div>
+        <div class="floor-ring"></div>
 
+        <div class="floor-ring2"></div>
 
-        <div
-          class="floor-ring2"
-        ></div>
+        <div class="floor-ring3"></div>
 
 
         <div
@@ -1746,6 +1789,14 @@ h1{
           class="voice-wave wave1"
           id="wave1"
         ></div>
+
+
+        <canvas
+          class="audio-spectrum"
+          id="audioSpectrum"
+          width="700"
+          height="700"
+        ></canvas>
 
 
         <div class="thinking-ring"></div>
@@ -1814,25 +1865,58 @@ h1{
 
   <div class="bottom">
 
-    <div class="metric">
-      <b id="temp">--.-°C</b>
-      <span>HOME</span>
-    </div>
 
     <div class="metric">
-      <b id="solar">-- kW</b>
-      <span>SOLAR</span>
+
+      <b id="temp">
+        --.-°C
+      </b>
+
+      <span>
+        HOME
+      </span>
+
     </div>
 
-    <div class="metric">
-      <b id="bmw">--%</b>
-      <span>BMW</span>
-    </div>
 
     <div class="metric">
-      <b id="grid">-- kW</b>
-      <span>GRID</span>
+
+      <b id="solar">
+        -- kW
+      </b>
+
+      <span>
+        SOLAR
+      </span>
+
     </div>
+
+
+    <div class="metric">
+
+      <b id="bmw">
+        --%
+      </b>
+
+      <span>
+        BMW
+      </span>
+
+    </div>
+
+
+    <div class="metric">
+
+      <b id="grid">
+        -- kW
+      </b>
+
+      <span>
+        GRID
+      </span>
+
+    </div>
+
 
   </div>
 
@@ -1842,6 +1926,10 @@ h1{
 
 <script type="module">
 
+
+/* =========================================================
+   SUPABASE
+========================================================= */
 
 import {
   createClient
@@ -1870,6 +1958,10 @@ const el =
     document.getElementById(id);
 
 
+
+/* =========================================================
+   STATE
+========================================================= */
 
 let refreshTimer =
   null;
@@ -1904,8 +1996,26 @@ let baseMessage =
 
 
 
+/*
+  Realtime model state
+*/
+
+let modelResponding =
+  false;
+
+
+/*
+  Holds SPEAKING briefly through tiny
+  pauses between words and sentences.
+*/
+
+let lastAudibleTime =
+  0;
+
+
+
 /* =========================================================
-   AUDIO
+   AUDIO ANALYSIS
 ========================================================= */
 
 let audioContext =
@@ -1921,6 +2031,10 @@ let remoteSource =
 
 
 let audioTimeData =
+  null;
+
+
+let audioFreqData =
   null;
 
 
@@ -1948,6 +2062,7 @@ async function setupAudioVisuals(
   if(
     !AudioContextClass
   ){
+
     return;
   }
 
@@ -1972,18 +2087,25 @@ async function setupAudioVisuals(
 
 
   remoteAnalyser.fftSize =
-    1024;
+    512;
 
 
   remoteAnalyser
     .smoothingTimeConstant =
-      .68;
+      .72;
 
 
   audioTimeData =
     new Uint8Array(
       remoteAnalyser
         .fftSize
+    );
+
+
+  audioFreqData =
+    new Uint8Array(
+      remoteAnalyser
+        .frequencyBinCount
     );
 
 
@@ -2005,17 +2127,17 @@ async function setupAudioVisuals(
 
 
 /* =========================================================
-   MAIN WAVEFORM
+   RADIAL EQUALIZER
 ========================================================= */
 
-function drawWaveform(
-  data,
+function drawRadialSpectrum(
+  frequencies,
   level
 ){
 
   const canvas =
     el(
-      "waveformLine"
+      "audioSpectrum"
     );
 
 
@@ -2034,10 +2156,6 @@ function drawWaveform(
     canvas.height;
 
 
-  const mid =
-    h / 2;
-
-
   ctx.clearRect(
     0,
     0,
@@ -2050,277 +2168,359 @@ function drawWaveform(
     voicePhase !==
     "speaking"
   ){
+
     return;
   }
 
 
-  const left =
-    w *
-    .08;
+  const cx =
+    w / 2;
 
 
-  const right =
-    w *
-    .92;
-
-
-  const usable =
-    right -
-    left;
-
-
-  const amp =
-    18 +
-    level *
-    90;
+  const cy =
+    h / 2;
 
 
   /*
-    background zero line
+    More bars than before.
+
+    Enough to look detailed,
+    not enough to become a fuzzy hedgehog.
   */
 
-  ctx.beginPath();
+  const bars =
+    72;
 
 
-  ctx.moveTo(
-    left,
-    mid
-  );
-
-
-  ctx.lineTo(
-    right,
-    mid
-  );
-
-
-  ctx.strokeStyle =
-    "rgba(141,232,255,.055)";
-
-
-  ctx.lineWidth =
-    2;
-
-
-  ctx.stroke();
-
+  const baseRadius =
+    205;
 
 
   /*
-    soft outer waveform
+    Speech frequencies are mostly in the
+    lower part of the FFT.
+
+    Sampling only that region gives the
+    bars much nicer movement.
   */
 
-  ctx.beginPath();
+  const usefulBins =
+    Math.min(
+      105,
+      frequencies.length
+    );
 
 
   for(
     let i = 0;
-    i < data.length;
+    i < bars;
     i++
   ){
 
-    const x =
-      left +
-      (
-        i /
+    const ratio =
+      i /
+      bars;
+
+
+    const angle =
+      ratio *
+      Math.PI *
+      2
+      -
+      Math.PI /
+      2;
+
+
+    /*
+      Mirror the frequencies.
+
+      This gives the radial display
+      a more designed/symmetrical appearance
+      while still reacting to actual speech.
+    */
+
+    const mirrorRatio =
+      ratio <= .5
+        ?
+        ratio * 2
+        :
         (
-          data.length -
+          1 -
+          ratio
+        ) * 2;
+
+
+    const freqIndex =
+      Math.floor(
+        mirrorRatio *
+        (
+          usefulBins -
           1
         )
-      ) *
-      usable;
-
-
-    const n =
-      (
-        data[i] -
-        128
-      ) /
-      128;
-
-
-    const centreDistance =
-      Math.abs(
-        (
-          x -
-          w / 2
-        ) /
-        (
-          usable / 2
-        )
       );
 
 
-    const envelope =
-      .35 +
+    const frequencyStrength =
+      frequencies[
+        freqIndex
+      ] /
+      255;
+
+
+    /*
+      Local audio signal + overall voice level.
+    */
+
+    let strength =
+      frequencyStrength *
+      .82
+      +
+      level *
+      .28;
+
+
+    strength =
+      Math.min(
+        1,
+        strength
+      );
+
+
+    /*
+      Fake perspective.
+
+      Bottom bars are subtly larger and
+      brighter than top bars.
+
+      That makes the equalizer feel like
+      it occupies the same 3D space
+      as the holographic rings.
+    */
+
+    const vertical =
       (
-        1 -
-        centreDistance
+        Math.sin(
+          angle
+        ) +
+        1
+      ) /
+      2;
+
+
+    const depth =
+      .66 +
+      vertical *
+      .34;
+
+
+    const length =
+      (
+        7 +
+        strength *
+        48
       ) *
-      .65;
+      depth;
 
 
-    const y =
-      mid +
-      n *
-      amp *
-      envelope;
+    const radius =
+      baseRadius +
+      vertical *
+      5;
 
+
+    const x1 =
+      cx +
+      Math.cos(
+        angle
+      ) *
+      radius;
+
+
+    const y1 =
+      cy +
+      Math.sin(
+        angle
+      ) *
+      radius;
+
+
+    const x2 =
+      cx +
+      Math.cos(
+        angle
+      ) *
+      (
+        radius +
+        length
+      );
+
+
+    const y2 =
+      cy +
+      Math.sin(
+        angle
+      ) *
+      (
+        radius +
+        length
+      );
+
+
+    const alpha =
+      (
+        .18 +
+        strength *
+        .66
+      ) *
+      depth;
+
+
+    /*
+      Outer glow pass
+    */
+
+    ctx.beginPath();
+
+
+    ctx.moveTo(
+      x1,
+      y1
+    );
+
+
+    ctx.lineTo(
+      x2,
+      y2
+    );
+
+
+    ctx.strokeStyle =
+      `rgba(
+        94,
+        201,
+        238,
+        ${
+          alpha *
+          .28
+        }
+      )`;
+
+
+    ctx.lineWidth =
+      5.5;
+
+
+    ctx.lineCap =
+      "round";
+
+
+    ctx.shadowColor =
+      "rgba(141,232,255,.42)";
+
+
+    ctx.shadowBlur =
+      13;
+
+
+    ctx.stroke();
+
+
+
+    /*
+      Crisp bright line
+    */
+
+    ctx.beginPath();
+
+
+    ctx.moveTo(
+      x1,
+      y1
+    );
+
+
+    ctx.lineTo(
+      x2,
+      y2
+    );
+
+
+    ctx.strokeStyle =
+      `rgba(
+        160,
+        240,
+        255,
+        ${alpha}
+      )`;
+
+
+    ctx.lineWidth =
+      1.8 +
+      strength *
+      .7;
+
+
+    ctx.lineCap =
+      "round";
+
+
+    ctx.shadowColor =
+      "rgba(141,232,255,.62)";
+
+
+    ctx.shadowBlur =
+      strength *
+      7;
+
+
+    ctx.stroke();
+
+
+
+    /*
+      Tiny bright dot at the outer tip
+      on stronger audio peaks.
+    */
 
     if(
-      i === 0
+      strength >
+      .42
     ){
 
-      ctx.moveTo(
-        x,
-        y
+      ctx.beginPath();
+
+
+      ctx.arc(
+        x2,
+        y2,
+        .8 +
+        strength *
+        .8,
+        0,
+        Math.PI *
+        2
       );
 
-    } else {
 
-      ctx.lineTo(
-        x,
-        y
-      );
+      ctx.fillStyle =
+        `rgba(
+          190,
+          246,
+          255,
+          ${
+            alpha *
+            .85
+          }
+        )`;
+
+
+      ctx.shadowBlur =
+        7;
+
+
+      ctx.fill();
     }
   }
-
-
-  ctx.strokeStyle =
-    `rgba(
-      141,
-      232,
-      255,
-      ${
-        .24 +
-        level *
-        .26
-      }
-    )`;
-
-
-  ctx.lineWidth =
-    7;
-
-
-  ctx.shadowColor =
-    "rgba(141,232,255,.30)";
-
-
-  ctx.shadowBlur =
-    26;
-
-
-  ctx.stroke();
-
-
-
-  /*
-    sharp waveform
-  */
-
-  ctx.beginPath();
-
-
-  for(
-    let i = 0;
-    i < data.length;
-    i++
-  ){
-
-    const x =
-      left +
-      (
-        i /
-        (
-          data.length -
-          1
-        )
-      ) *
-      usable;
-
-
-    const n =
-      (
-        data[i] -
-        128
-      ) /
-      128;
-
-
-    const centreDistance =
-      Math.abs(
-        (
-          x -
-          w / 2
-        ) /
-        (
-          usable / 2
-        )
-      );
-
-
-    const envelope =
-      .35 +
-      (
-        1 -
-        centreDistance
-      ) *
-      .65;
-
-
-    const y =
-      mid +
-      n *
-      amp *
-      envelope;
-
-
-    if(
-      i === 0
-    ){
-
-      ctx.moveTo(
-        x,
-        y
-      );
-
-    } else {
-
-      ctx.lineTo(
-        x,
-        y
-      );
-    }
-  }
-
-
-  ctx.strokeStyle =
-    `rgba(
-      170,
-      241,
-      255,
-      ${
-        .63 +
-        level *
-        .30
-      }
-    )`;
-
-
-  ctx.lineWidth =
-    2.4;
-
-
-  ctx.shadowColor =
-    "rgba(141,232,255,.75)";
-
-
-  ctx.shadowBlur =
-    13;
-
-
-  ctx.stroke();
 
 
   ctx.shadowBlur =
@@ -2337,8 +2537,10 @@ function animateAudio(){
 
   if(
     !remoteAnalyser ||
-    !audioTimeData
+    !audioTimeData ||
+    !audioFreqData
   ){
+
     return;
   }
 
@@ -2348,6 +2550,16 @@ function animateAudio(){
       audioTimeData
     );
 
+
+  remoteAnalyser
+    .getByteFrequencyData(
+      audioFreqData
+    );
+
+
+  /*
+    Calculate actual output volume.
+  */
 
   let sum =
     0;
@@ -2400,28 +2612,101 @@ function animateAudio(){
 
   smoothLevel =
     smoothLevel *
-      .68
+      .67
     +
     level *
-      .32;
+      .33;
 
 
   const v =
     smoothLevel;
 
 
+
+  /* =======================================================
+     AUDIO-DRIVEN SPEAKING STATE
+  ======================================================= */
+
   /*
-    very subtle ring response
+    This fixes the important problem:
+
+    the visual state is now based partly
+    on ACTUAL audible JARVIS audio.
+
+    So a new sentence doesn't randomly
+    turn the equalizer back into idle rings.
   */
+
+  if(
+    v >
+    .035
+  ){
+
+    lastAudibleTime =
+      performance.now();
+
+
+    if(
+      voicePhase !==
+      "speaking"
+    ){
+
+      setVoicePhase(
+        "speaking"
+      );
+    }
+
+  } else {
+
+    const silenceTime =
+      performance.now() -
+      lastAudibleTime;
+
+
+    /*
+      Keep SPEAKING alive over natural
+      pauses between words/sentences.
+    */
+
+    if(
+      voicePhase ===
+      "speaking"
+      &&
+      silenceTime >
+      520
+    ){
+
+      if(
+        modelResponding
+      ){
+
+        setVoicePhase(
+          "analysing"
+        );
+
+      } else {
+
+        setVoicePhase(
+          "listening"
+        );
+      }
+    }
+  }
+
+
+
+  /* =======================================================
+     VERY SUBTLE RING RESPONSE
+  ======================================================= */
 
   animateWave(
     "wave1",
     1 +
       v *
       .12,
-    .04 +
+    .035 +
       v *
-      .10
+      .09
   );
 
 
@@ -2432,20 +2717,25 @@ function animateAudio(){
       .18,
     .02 +
       v *
-      .07
+      .055
   );
 
+
+
+  /* =======================================================
+     CORE RESPONSE
+  ======================================================= */
 
   el(
     "coreDot"
   )
   .style.transform =
     `
-      translateZ(65px)
+      translateZ(70px)
       scale(${
         1 +
         v *
-        .10
+        .12
       })
     `;
 
@@ -2455,17 +2745,21 @@ function animateAudio(){
   )
   .style.transform =
     `
-      translateZ(42px)
+      translateZ(44px)
       scale(${
         1 +
         v *
-        .10
+        .09
       })
     `;
 
 
+
   /*
-    tiny 3D movement
+    Tiny floating motion.
+
+    Enough to give depth.
+    Not enough to make JARVIS seasick.
   */
 
   if(
@@ -2479,30 +2773,34 @@ function animateAudio(){
     .style.transform =
       `
         rotateX(${
-          3 +
+          4 +
           v *
           2
         }deg)
+
         rotateY(${
           -4 -
           v *
           2
         }deg)
+
         translateY(${
           -v *
           2
         }px)
+
         scale(${
-          1.015 +
+          1.01 +
           v *
-          .01
+          .015
         })
       `;
   }
 
 
-  drawWaveform(
-    audioTimeData,
+
+  drawRadialSpectrum(
+    audioFreqData,
     v
   );
 
@@ -2523,6 +2821,13 @@ function animateWave(
 
   const node =
     el(id);
+
+
+  if(
+    !node
+  ){
+    return;
+  }
 
 
   node.style.transform =
@@ -2559,43 +2864,73 @@ function resetAudioVisuals(){
     0;
 
 
-  const waveform =
+  lastAudibleTime =
+    0;
+
+
+  const canvas =
     el(
-      "waveformLine"
+      "audioSpectrum"
     );
 
 
-  waveform
-    .getContext(
-      "2d"
+  if(
+    canvas
+  ){
+
+    canvas
+      .getContext(
+        "2d"
+      )
+      .clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+      );
+  }
+
+
+  if(
+    el(
+      "wave1"
     )
-    .clearRect(
-      0,
-      0,
-      waveform.width,
-      waveform.height
-    );
+  ){
+
+    el(
+      "wave1"
+    )
+    .style.transform =
+      "scale(1)";
+  }
 
 
-  el(
-    "wave1"
-  )
-  .style.transform =
-    "scale(1)";
+  if(
+    el(
+      "wave2"
+    )
+  ){
+
+    el(
+      "wave2"
+    )
+    .style.transform =
+      "scale(1)";
+  }
 
 
-  el(
-    "wave2"
-  )
-  .style.transform =
-    "scale(1)";
+  if(
+    el(
+      "core"
+    )
+  ){
 
-
-  el(
-    "core"
-  )
-  .style.transform =
-    "";
+    el(
+      "core"
+    )
+    .style.transform =
+      "";
+  }
 
 
   remoteAnalyser =
@@ -2610,14 +2945,17 @@ function resetAudioVisuals(){
     null;
 
 
+  audioFreqData =
+    null;
+
+
   if(
     audioContext
   ){
 
     try{
 
-      audioContext
-        .close();
+      audioContext.close();
 
     } catch{}
 
@@ -2666,6 +3004,7 @@ function restoreBaseStatus(){
     voicePhase !==
     "disconnected"
   ){
+
     return;
   }
 
@@ -3132,6 +3471,10 @@ function handleRealtimeEvent(
     "input_audio_buffer.speech_started"
   ){
 
+    modelResponding =
+      false;
+
+
     setVoicePhase(
       "listening"
     );
@@ -3160,6 +3503,10 @@ function handleRealtimeEvent(
     "response.created"
   ){
 
+    modelResponding =
+      true;
+
+
     setVoicePhase(
       "analysing"
     );
@@ -3170,9 +3517,11 @@ function handleRealtimeEvent(
 
 
   /*
-    IMPORTANT:
-    speaking remains active whenever
-    OpenAI sends output audio.
+    Realtime tells us audio is being generated.
+
+    The actual audio analyser then keeps
+    SPEAKING active until the sound itself
+    has genuinely stopped.
   */
 
   if(
@@ -3207,10 +3556,19 @@ function handleRealtimeEvent(
     "response.completed"
   ){
 
-    setVoicePhase(
-      "listening"
-    );
+    modelResponding =
+      false;
 
+
+    /*
+      Do NOT immediately force LISTENING here.
+
+      There may still be buffered audio
+      playing through the speaker.
+
+      The analyser decides when speech
+      has actually finished.
+    */
 
     return;
   }
@@ -3220,6 +3578,10 @@ function handleRealtimeEvent(
     type ===
     "error"
   ){
+
+    modelResponding =
+      false;
+
 
     console.error(
       event
@@ -3254,6 +3616,7 @@ async function startVoice(){
   if(
     peerConnection
   ){
+
     return;
   }
 
@@ -3279,6 +3642,23 @@ async function startVoice(){
 
   try{
 
+
+    if(
+      !navigator
+        .mediaDevices
+        ?.getUserMedia
+    ){
+
+      throw new Error(
+        "Microphone access is unavailable in this browser."
+      );
+    }
+
+
+
+    /* -----------------------------------------------------
+       TEMPORARY REALTIME KEY
+    ----------------------------------------------------- */
 
     const {
       data:tokenData,
@@ -3317,6 +3697,10 @@ async function startVoice(){
 
 
 
+    /* -----------------------------------------------------
+       WEBRTC
+    ----------------------------------------------------- */
+
     const pc =
       new RTCPeerConnection();
 
@@ -3326,9 +3710,9 @@ async function startVoice(){
 
 
 
-    /*
-      speaker
-    */
+    /* -----------------------------------------------------
+       SPEAKER OUTPUT
+    ----------------------------------------------------- */
 
     const audio =
       document.createElement(
@@ -3378,6 +3762,7 @@ async function startVoice(){
           .catch(
             error =>
               console.warn(
+                "Audio playback:",
                 error
               )
           );
@@ -3385,19 +3770,28 @@ async function startVoice(){
 
 
 
-    /*
-      microphone
-    */
+    /* -----------------------------------------------------
+       MICROPHONE
+    ----------------------------------------------------- */
 
     const stream =
       await navigator
         .mediaDevices
         .getUserMedia({
+
           audio:{
-            echoCancellation:true,
-            noiseSuppression:true,
-            autoGainControl:true
+
+            echoCancellation:
+              true,
+
+            noiseSuppression:
+              true,
+
+            autoGainControl:
+              true
+
           }
+
         });
 
 
@@ -3405,17 +3799,31 @@ async function startVoice(){
       stream;
 
 
-    pc.addTrack(
+    const track =
       stream
-        .getAudioTracks()[0],
+        .getAudioTracks()[0];
+
+
+    if(
+      !track
+    ){
+
+      throw new Error(
+        "No microphone audio track available."
+      );
+    }
+
+
+    pc.addTrack(
+      track,
       stream
     );
 
 
 
-    /*
-      realtime event channel
-    */
+    /* -----------------------------------------------------
+       REALTIME EVENTS
+    ----------------------------------------------------- */
 
     const dc =
       pc.createDataChannel(
@@ -3459,10 +3867,14 @@ async function startVoice(){
 
         try{
 
-          handleRealtimeEvent(
+          const message =
             JSON.parse(
               event.data
-            )
+            );
+
+
+          handleRealtimeEvent(
+            message
           );
 
         } catch(error){
@@ -3476,6 +3888,10 @@ async function startVoice(){
 
 
 
+    /* -----------------------------------------------------
+       SDP
+    ----------------------------------------------------- */
+
     const offer =
       await pc
         .createOffer();
@@ -3485,7 +3901,6 @@ async function startVoice(){
       .setLocalDescription(
         offer
       );
-
 
 
     const response =
@@ -3518,11 +3933,9 @@ async function startVoice(){
     ){
 
       throw new Error(
-        await response
-          .text()
+        await response.text()
       );
     }
-
 
 
     await pc
@@ -3536,6 +3949,34 @@ async function startVoice(){
             .text()
 
       });
+
+
+
+    pc.addEventListener(
+      "connectionstatechange",
+      () => {
+
+        if(
+          peerConnection !==
+          pc
+        ){
+
+          return;
+        }
+
+
+        if(
+          pc.connectionState ===
+          "failed"
+          ||
+          pc.connectionState ===
+          "closed"
+        ){
+
+          stopVoice();
+        }
+      }
+    );
 
 
   } catch(error){
@@ -3557,13 +3998,27 @@ async function startVoice(){
       "VOICE LINK FAILED";
 
 
-    el(
-      "message"
-    )
-    .textContent =
-      error?.message
-      ||
-      "Realtime connection failed.";
+    if(
+      error?.name ===
+      "NotAllowedError"
+    ){
+
+      el(
+        "message"
+      )
+      .textContent =
+        "Microphone permission was denied.";
+
+    } else {
+
+      el(
+        "message"
+      )
+      .textContent =
+        error?.message
+        ||
+        "Realtime connection failed.";
+    }
 
 
     button.disabled =
@@ -3601,7 +4056,12 @@ function stopVoice(
     null;
 
 
+  modelResponding =
+    false;
+
+
   resetAudioVisuals();
+
 
 
   if(
@@ -3623,6 +4083,7 @@ function stopVoice(
   }
 
 
+
   if(
     remoteAudio
   ){
@@ -3632,8 +4093,11 @@ function stopVoice(
       remoteAudio.pause();
 
 
-      remoteAudio
-        .remove();
+      remoteAudio.srcObject =
+        null;
+
+
+      remoteAudio.remove();
 
     } catch{}
 
@@ -3643,14 +4107,21 @@ function stopVoice(
   }
 
 
+
   try{
+
     dc?.close();
-  }catch{}
+
+  } catch{}
+
 
 
   try{
+
     pc?.close();
-  }catch{}
+
+  } catch{}
+
 
 
   voicePhase =
@@ -3694,7 +4165,7 @@ function stopVoice(
 
 
 /* =========================================================
-   BUTTONS
+   BUTTON
 ========================================================= */
 
 el(
@@ -3718,6 +4189,10 @@ el(
 );
 
 
+
+/* =========================================================
+   LOGIN
+========================================================= */
 
 el(
   "loginForm"
@@ -3748,6 +4223,13 @@ el(
       el(
         "loginButton"
       );
+
+
+    el(
+      "authError"
+    )
+    .textContent =
+      "";
 
 
     button.disabled =
@@ -3805,6 +4287,10 @@ el(
 
 
 
+/* =========================================================
+   LOG OUT
+========================================================= */
+
 el(
   "logoutButton"
 )
@@ -3820,8 +4306,10 @@ el(
     await supabase
       .auth
       .signOut({
+
         scope:
           "local"
+
       });
 
 
@@ -3832,13 +4320,15 @@ el(
 
 
 /* =========================================================
-   SESSION
+   INITIAL SESSION
 ========================================================= */
 
 const {
+
   data:{
     session
   }
+
 } =
   await supabase
     .auth
@@ -3890,4 +4380,5 @@ supabase
 </script>
 
 </body>
+
 </html>
